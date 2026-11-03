@@ -4,6 +4,10 @@ A small FPGA fireworks engine for the **Vicharak Shrike-Fi**. The FPGA calculate
 particle motion and renders a 64 × 64 image in eight colours. The ESP32 carries
 commands and frames; the desktop app provides controls and displays the result.
 
+**Current checkpoint: firmware v0.2.0 with Pistil.** The matching image is flashed
+and checked on Shrike-Fi: moving yellow/white and green/white bursts, Clear and a
+short 7.04 FPS stream passed. See the [board results](reports/2026-11-04/pistil/RESULTS.md).
+
 ![PyroCore desktop software preview](docs/images/desktop.png)
 
 *Pistil in the desktop software preview. Its approximate animation is separate
@@ -15,14 +19,16 @@ Use the [step-by-step setup guide](docs/SETUP.md). It covers installing the desk
 app, loading the included FPGA image through the ESP32, and connecting your board.
 You do **not** need the FPGA compiler to use the included image on matching hardware.
 
-Already installed? From the repository root:
+Already installed? Update the clone with `git pull --ff-only`, close the old app,
+then reopen it from the repository root:
 
 ```sh
 .venv/bin/python desktop/app.py
 ```
 
 On Windows, use `.venv\Scripts\python.exe` instead of `.venv/bin/python`.
-For a preview without a board, add `--demo`.
+For a preview without a board, add `--demo`. If upgrading from the three-pattern
+version, also upload the complete v0.2.0 package using [Setup step 3](docs/SETUP.md#3-upload-the-application-and-fpga-image).
 
 ## What it does
 

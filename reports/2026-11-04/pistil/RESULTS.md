@@ -50,7 +50,8 @@ vendor typical setup result, with external BRAM interface signoff still limited.
 - Seventeen host checks, the offscreen GUI smoke, FPGA synthesis/routing and the
   Arduino application/LittleFS package build passed.
 
-The image/source hashes and firmware package hashes are in `build-manifest.json`.
+The image/source hashes and firmware package hashes are in the
+[build manifest](build-manifest.json).
 The included 46,408-byte MCU image SHA256 is:
 
 ```text
@@ -58,7 +59,8 @@ The included 46,408-byte MCU image SHA256 is:
 ```
 
 Upgrade both firmware and its FPGA image with the complete helper command in
-SETUP.md; the preceding v0.1.0 firmware rejects pattern 3. Frame protocol v1 is
+[SETUP.md](../../../docs/SETUP.md#3-upload-the-application-and-fpga-image); the
+preceding v0.1.0 firmware rejects pattern 3. Frame protocol v1 is
 unchanged. Physical acceptance results are below.
 
 ## Physical board acceptance
@@ -68,7 +70,7 @@ package was flashed at 115200 baud; all five written sections passed esptool has
 verification and the board reset into firmware v0.2.0. No OTP programming was used.
 The original local flash backup remains preserved.
 
-`hardware-physical.json` records:
+[The physical report](hardware-physical.json) records:
 
 - Ring launch/motion and Clear passed on the new image.
 - A short 7 FPS target stream received 22 frames at **7.035 FPS**.

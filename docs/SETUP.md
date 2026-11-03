@@ -85,6 +85,11 @@ The ordinary Arduino IDE Upload button installs the sketch but does **not** inst
 `fpga_bitstream.bin` into LittleFS. Use the helper above for the complete package.
 To compile without touching the board, omit `--port`.
 
+For an existing installation, run `git pull --ff-only` in the repository, close
+the old app, then run the complete upload command above. Reopen the desktop app
+afterward. Updating only the Python files or only the ESP32 sketch leaves part
+of the old three-pattern implementation in place.
+
 The helper preserves your normal Arduino CLI configuration and detects its data
 directory. Use `--arduino-cli PATH` for a CLI outside PATH, `--arduino-config FILE`
 for a separate CLI configuration, or `--esp32-tools PATH` / `--libraries PATH` for
@@ -97,14 +102,19 @@ explicit tool/library locations. `--baud` changes upload speed; its default is 1
 ```
 
 1. Select the native USB port and click **Connect**. The app prefers an Espressif port.
-2. Wait for **LIVE FPGA** and received frames. Image transfer alone does not verify communication.
-3. Choose a material and pattern, then click **Launch firework** or **Start random show**.
-4. Use **Clear scene** to clear the image. Select **5 FPS** if you prefer the slower stream.
+2. Confirm the bridge reports **v0.2.0**, then wait for **LIVE FPGA** and received frames.
+   Image transfer alone does not verify communication.
+3. Choose **Sodium · yellow** and **Pistil**, then click **Launch firework**. Look for
+   a yellow outer group and a smaller white glittering core as the burst expands.
+4. Try other materials/patterns or **Start random show**. Use **Clear scene** to
+   clear the image. Select **5 FPS** if you prefer the slower stream.
 
 Willow gets a longer Random Show interval so its falling arc can develop.
 **Pistil** adds a white glittering core inside the selected-colour shell. Choose
 a non-white material, such as Sodium or Strontium, to see both colours clearly.
-An upgrade from the three-pattern version needs both the new firmware and FPGA
+The eight-particle hardware burst is sparse and its points can overlap early on;
+the white core deliberately flickers. Aluminium makes both groups white. An
+upgrade from the three-pattern version needs both the new firmware and FPGA
 image: use the complete upload command in step 3.
 **Idle (no sparks)** with a nonzero stream FPS is normal: complete black frames
 are still being received. Stale or disconnected streams show zero FPS and retain
@@ -123,6 +133,9 @@ It is not needed on other systems.
 | FPGA image unavailable | Upload the complete helper package, including LittleFS. |
 | Image transferred but no valid frames | Check the matching board/image and native USB connection; use the status/error text. |
 | Black image with healthy FPS | Press Launch; particles expire and Clear deliberately produces black frames. |
+| No Pistil option | Update the repository and restart the desktop app. |
+| Pattern 3 rejected or Pistil behaves like an older pattern | Upload the matching v0.2.0 application and FPGA image together using step 3. |
+| Pistil has no colour contrast | Choose a non-white material; Aluminium makes shell and core white. |
 | Controls below the window | Scroll the sidebar or enlarge the window. |
 | Dependency installation fails | Check Python is 3.9–3.13 and install into `.venv`. |
 

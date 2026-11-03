@@ -1,4 +1,7 @@
-# PyroCore protocol v1
+# PyroCore wire protocol v1
+
+Current firmware: **v0.2.0**. The wire format remains v1; the firmware version
+identifies the added Pistil selection. Firmware v0.1.0 accepts only patterns 0–2.
 
 ## Selections
 
@@ -22,7 +25,7 @@ CDC with a 115200 baud selection; the separate FPGA UART is the throughput limit
 {"cmd":"hello"}
 {"cmd":"status"}
 {"cmd":"set","material":1,"pattern":2}
-{"cmd":"launch","material":1,"pattern":2}
+{"cmd":"launch","material":3,"pattern":3}
 {"cmd":"clear"}
 {"cmd":"stream","enabled":true,"fps":7}
 {"cmd":"frame"}
@@ -31,7 +34,16 @@ CDC with a 115200 baud selection; the separate FPGA UART is the throughput limit
 `set` changes the selection; `launch` applies the selection and starts a burst.
 Omitted material/pattern values retain the current selection. `frame` requests one
 complete frame. Firmware starts at 5 FPS; the desktop selects 7 FPS by default,
-with 5 FPS available. Commands report `ack` or `error` objects.
+with 5 FPS available. The launch example above selects Sodium Pistil.
+
+`set`, `launch`, `clear` and `stream` return `ack` or `error`. Hello/status return
+their named status objects; a manual frame request returns a frame or an error.
+A launch/clear acknowledgement confirms command forwarding, not completion of
+rendering. A frame already in flight can still show the preceding scene.
+
+For manual capture, send `{"cmd":"stream","enabled":false}`, let any in-flight
+frame or timeout finish, then send `{"cmd":"frame"}`. A new request during a
+transfer returns `A frame request is already in progress`.
 
 Hello/status report version, `fpga_loaded`, `fpga_verified`, stream/selection state,
 frame count, CRC errors, header errors and timeouts. `fpga_loaded` means image
@@ -67,6 +79,9 @@ Commands are two bytes: `[opcode, opcode XOR 0xFF]`.
 
 Opcode values above are hexadecimal. Malformed pairs do not execute; a lone first
 byte expires after 100 ms. The complement is a lightweight command check.
+
+To select Sodium, select Pistil and launch, send these hexadecimal byte pairs
+in order: `13 EC`, `23 DC`, `01 FE`. Request a subsequent frame with `F0 0F`.
 
 A frame is exactly **1545 bytes**:
 

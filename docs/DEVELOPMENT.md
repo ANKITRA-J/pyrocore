@@ -94,8 +94,13 @@ python3 tools/run_rtl.py --runtime PATH_TO_VERILATOR_INCLUDE
 Pass the resulting packet through the exact native firmware parser and desktop decoder:
 
 ```sh
-.venv/bin/python tools/check_host.py --packet build/sim/frame_packet.bin
+.venv/bin/python tools/check_host.py --packet build/sim/pistil_frame_packet.bin
 ```
+
+The full UART testbench writes `pistil_frame_packet.bin` for the mixed-colour
+Pistil frame and `frame_packet.bin` for the earlier green Ring frame. Either can
+be supplied to `check_host.py`; the Pistil packet checks both shell and core
+colours through the firmware parser and desktop decoder.
 
 For a board running PyroCore, close other serial clients first:
 
@@ -107,6 +112,11 @@ For a board running PyroCore, close other serial clients first:
 Without `--port`, the first command lists ports only. The second changes the scene
 to check launch, motion, Clear, streaming and error counters, restores selection/
 stream settings, and writes `build/hardware/latest.json`. It never uploads.
+This general board checker launches green Ring; it does not select Pistil. For a
+Pistil acceptance run, use the connected desktop to launch Sodium/Pistil, confirm
+moving yellow and white groups, repeat with Barium for green/white, then Clear.
+The [recorded physical run](../reports/2026-11-04/pistil/RESULTS.md#physical-board-acceptance)
+includes frame data, inner/outer span checks, measured streaming and error counters.
 Simulation, successful compilation, uploading and physical functional acceptance
 are separate results. Do not claim one from another.
 

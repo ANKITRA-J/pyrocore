@@ -1,7 +1,8 @@
 # PyroCore handoff
 
-Updated 4 November 2026. **Pattern 3, Pistil, is implemented, flashed and physically verified.** The
-owner's GUI and falling Willow changes remain intact. Firmware is now v0.2.0.
+Updated 4 November 2026. **Pattern 3, Pistil, is implemented, flashed and
+physically verified.** The owner's GUI and falling Willow changes remain intact.
+Firmware is v0.2.0; the wire protocol remains v1.
 Start with [SETUP.md](SETUP.md) for deployment and [DEVELOPMENT.md](DEVELOPMENT.md)
 for source changes. Preserve credits/notices and follow [AGENTS.md](../AGENTS.md).
 
@@ -69,7 +70,8 @@ before future uploads; preserve the existing working image and backups.
 
 The 115200-baud link permits at most 7.46 complete frames/s before delays. The
 7 FPS target and 5 FPS fallback are unchanged; the short physical run measured
-7.035 FPS. Longer reliability remains unmeasured.
-Full external BRAM timing signoff and long-duration reliability remain limitations.
+7.035 FPS. Full external BRAM timing signoff and long-duration reliability remain
+limitations. No feature implementation or initial board bring-up remains pending
+for this checkpoint; future effects or transport changes are separate work.
 Do not flash without the user's instruction. Keep implementation changes, generated
 project source, included image and matching reports together in useful commits.
