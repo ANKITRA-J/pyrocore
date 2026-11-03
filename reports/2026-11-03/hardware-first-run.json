@@ -1,0 +1,30 @@
+{
+  "started_utc": "2026-11-03T16:38:06.771678+00:00",
+  "port": "/dev/cu.usbmodem1101",
+  "uploaded_by_this_tool": false,
+  "status": "failed",
+  "hello": {
+    "type": "hello",
+    "version": "0.1.0",
+    "board": "Shrike-Fi",
+    "fpga_loaded": true,
+    "fpga_verified": false,
+    "loader_message": "Image transferred; waiting for a valid FPGA frame",
+    "bitstream_bytes": 46408,
+    "streaming": true,
+    "fps_target": 5,
+    "material": 0,
+    "pattern": 0,
+    "frames": 0,
+    "crc_errors": 0,
+    "header_errors": 0,
+    "timeouts": 0
+  },
+  "first_frame": {
+    "seq": 1480,
+    "lit_pixels": 0,
+    "colours": [],
+    "lit_positions": []
+  },
+  "error": "Expected two advancing green-particle frames after Launch"
+}

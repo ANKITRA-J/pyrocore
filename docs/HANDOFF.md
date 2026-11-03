@@ -2,180 +2,123 @@
 
 Updated 3 November 2026. Repository: https://github.com/ANKITRA-J/pyrocore
 
-## Restored-session checkpoint — 3 November 2026
+## Current checkpoint
 
-The restored working tree and GitHub were both at `f5f153e`, with no uncommitted
-changes. The repository's cross-IDE instructions were followed: read README,
-HANDOFF and PROTOCOL first; preserve useful commits and update this handoff.
+**The first physical-board version works.** The user confirmed that the desktop
+app works and receives live FPGA frames. Launch, moving particles, Clear and all
+18 material/pattern combinations passed over the real Shrike-Fi USB connection.
+The short streaming run measured 4.97 FPS at the 5 FPS setting, with no new CRC,
+header or timeout errors.
 
-The user has connected the Shrike-Fi native USB device. The first physical run is
-in progress, starting with a local backup of its existing flash. No hardware pass
-has been claimed and no unchanged FPGA/firmware build was repeated in this session.
+A desktop layout/FPS-display refinement and evaluation of the existing 7 FPS setting
+are now underway following the user's feedback. A small FPGA-drawn trail is being
+considered within the remaining logic budget. Keep the confirmed board baseline
+while evaluating those improvements.
 
-Added `tools/board_check.py` for one short real-board check of validated frames,
-Launch, particle motion, Clear and measured streaming. It does not upload firmware;
-with no `--port` it lists ports without opening them. A run writes its result to
-`build/hardware/latest.json`, including failures; do not call a host-emulated run
-physical-board acceptance.
+Read README.md, this file and PROTOCOL.md first. Follow AGENTS.md; work only in
+this standalone repository and preserve useful commits. CREDITS.md records source
+attribution. Do not restart earlier feasibility work.
 
-The new runner passed one host pseudo-terminal exercise of its command/response
-flow and settings restoration. That exercise was host emulation, not board output.
+## Important fix from real hardware
 
-Credits are now centralized in [CREDITS.md](CREDITS.md). The bundled shrike-gen
-source retains its upstream MIT notice. Original project code was not assigned
-a new license, and Git authorship was not changed.
+The first uploaded image sent valid but all-black frames. Both peripheral BRAM
+banks had been left powered down by a fixed default SPI header. Register bits320
+and321 must be0, not1. The project now enables both banks; the packager derives
+its SPI header from project nvmData and rejects disabled banks.
 
-## Start here
+Only MCU-image byte1300 changed, from0x03to0x00. The routed FPGA core remained
+byte-for-byte unchanged; the particle renderer was not the cause. The current
+image SHA256 is:
 
-The first integrated prototype is implemented, compiled and checked in simulation.
-**The next task is physical-board bring-up.** No PyroCore image or firmware has
-been uploaded to a board yet. Work inside this standalone repository; its parent
-folder is a different project.
+```text
+a8f619efe1baf4e632af7d95634aaf334e9388cb767377e731c4cfe08da2e111
+```
 
-Read PROTOCOL.md before changing either endpoint of a link. Read README.md for
-setup commands. PROJECT_PLAN.md records scope and future improvements. This file
-is the current status and takes precedence over older planning notes.
+Do not use the earlier image ending`...cdbce2d` as the working checkpoint.
+Details and evidence are in`reports/2026-11-03/BRINGUP.md`,
+`hardware-check.json`,`hardware-presets.json`and`bram-header-fix.json`.
+The initial failed run is retained separately for traceability.
 
 ## Implemented
 
-- Eight FPGA particles with signed fixed-point positions, gravity, lifetime and
-  screen clipping, using a sequential renderer and rotating state banks.
-- Radial, ring and willow patterns; six material colours; FPGA white flicker.
-- Two 64×64×3-bit dedicated BRAM framebuffers, with safe front/back ownership.
-- Launch, clear and selection commands; packed full-frame UART streaming with
-  sequence, version, length and CRC8 checks.
-- ESP32-S3 FPGA loader, bounded USB JSON commands, native frame validation,
-  base64 forwarding, streaming control and diagnostic counters.
-- PySide6 desktop connection, material/pattern selection, Launch, Clear,
-  Random Show, palette, received FPS, staleness indication and software preview.
+- Eight fixed-point FPGA particles with gravity, lifetime and clipping.
+- Radial/ring/willow patterns, six material colours and white glitter.
+- Two 64×64×3-bit dedicated BRAM framebuffers with safe front/back ownership.
+- UART selection/launch/clear commands and packed, CRC-checked full frames.
+- ESP32 loader and USB bridge; no ESP32 particle calculations.
+- Desktop connection, launch, clear, random show, palette and live frames.
+- Clearly labelled offline software preview, not presented as hardware performance.
 
-Normal desktop mode displays FPGA frames. The explicit`--demo`mode is a software
-preview and is visibly labelled. Its smoother animation is not FPGA performance.
+## Measured baseline
 
-## Verified actual-engine results
-
-| Check | Result |
+| Item | Result |
 |---|---|
-| Renesas synthesis and routing | Passed; MCU bitstream generated |
-| Logic blocks |132/140 (94.3%); nine use shift-register resources |
-| Dedicated BRAM | Six slices:0–2 and 4–6; two unused slices |
-| Raw placer LUT/FF report |469 six-input LUT resources;333 CLB FFs;134 IOB FFs |
+| Logic blocks |132/140; nine use particle shift-register resources |
+| Dedicated BRAM |6/8 slices,0–2 and4–6 |
 | Core / oscillator |3.125MHz /50MHz |
-| Typical-corner setup | WNS+15.599ns; TNS0 |
-| Renderer simulation | Full clears, exact motion/gravity, launch/clear queues and completion ordering passed |
-| Complete UART simulation | Two 1545-byte frames; header, CRC and all 4096 pixels match immutable RAM snapshots |
-| Buffer safety | No writes or swaps of the frame being transmitted |
-| Command checks | Malformed launch rejected; valid material/pattern/launch accepted |
-| Firmware parser | CRC vector, valid/corrupt frames, length rejection, resynchronization and actual RTL packet passed |
-| Desktop decoder | Seven protocol checks passed; actual RTL packet decoded into eight green pixels |
-| Firmware compilation |359234bytes flash;26664bytes globals; LittleFS packaged |
-| Desktop UI | Preview, controls, no-port startup and frame fixture exercised offscreen |
-| Physical board | Not uploaded; not tested |
+| Typical setup timing | WNS+15.599ns, TNS0 |
+| Raw placer resources |469 six-input LUT resources;333 CLB FFs;134 IOB FFs |
+| Physical launch/motion/clear | Passed |
+| Physical material/pattern combinations |18/18 passed |
+| Short 5 FPS streaming run |4.97 received FPS, no new communication errors |
 
-The raw placer units are not Workshop LUT5 counts. Do not reuse the earlier
-memory-only test's87LUT5/14CLB figures for this engine. Logic space is tight;
-future features should share arithmetic or replace logic before increasing scope.
+Raw placer LUT units are not Workshop LUT5 counts. Keep the existing clock and
+six-slice memory mapping. Long-duration reliability and full BRAM interface timing
+signoff are separate from this initial functional acceptance.
 
-Current memory: framebuffers occupy 3072 bytes of 4096 bytes dedicated BRAM.
-Particle banks also use distributed shift-register resources, not the two unused
-BRAM slices. Current full-frame link target is 5 FPS, not 20–30 FPS.
+## Local state
 
-## Ready artifacts
+The connected board is running the corrected PyroCore image and firmware.
+Native USB port was`/dev/cu.usbmodem1101`; rediscover it if reconnected.
+Close serial clients before an upload or command-line board check.
 
-- `firmware/pyrocore/data/fpga_bitstream.bin`: actual compiled PyroCore MCU SPI image,
-  not the earlier memory exerciser. Its SHA256/source hashes are in the manifest.
-- `reports/2026-11-03/build-manifest.json`: image/firmware hashes and validation state.
-- `reports/2026-11-03/`: resource/timing summaries, simulation logs and a captured
-  RTL-produced UART frame for cross-layer checks.
-- `docs/images/desktop-preview.png`: explicitly labelled software preview.
+The user closed the first desktop window so layout/FPS improvements can be
+applied without competing for the port. Native Python-window automation was not
+approved; the user operated Connect/Disconnect and confirmed the app worked.
 
-Milestone source commit:`d9fdcae`. Subsequent commits add the verified image,
-reports, reproducible cross-layer check and this final handoff; use`git log`for
-those exact checkpoint hashes.
+A complete 8 MB backup of the board's previous flash is saved locally under
+`build/backups/2026-11-03/`. It is ignored by Git and was not uploaded. Preserve it.
+A temporary address-pattern diagnostic was started then abandoned once the power
+setting was identified; its renderer was restored and its image was never uploaded.
 
-## Local setup completed
+## Commands
 
-A project-local `.venv` has been created and its pinned desktop dependencies
-installed. Its own offscreen preview rendered successfully. On a fresh clone,
-use the setup commands below; on this Mac the environment is already ready.
-`Launch PyroCore.command` starts normal desktop mode; pass `--demo` from a terminal
-for the labelled software preview.
-
-## Build and run
-
-From the repository root:
+The project-local`.venv`and pinned desktop dependencies are already installed.
+On a fresh clone, create it and install`desktop/requirements.txt`.
 
 ```sh
-python3 -m venv .venv
-.venv/bin/python -m pip install -r desktop/requirements.txt
+.venv/bin/python desktop/app.py
 .venv/bin/python desktop/app.py --demo
-```
-
-Build firmware from the included FPGA checkpoint:
-
-```sh
 python3 tools/build_firmware.py --bitstream firmware/pyrocore/data/fpga_bitstream.bin
-```
-
-Rebuild the actual FPGA if RTL changes:
-
-```sh
 python3 tools/build_fpga.py all --cpus 4
-python3 tools/build_firmware.py --bitstream build/fpga/FPGA_bitstream_MCU.bin
+.venv/bin/python tools/board_check.py --port YOUR_NATIVE_USB_PORT
 ```
 
-Renesas Go Configure, ESP32 Arduino core3.3.12 and ArduinoJson6.21.5 are needed for
-those builds. Desktop needs Python3.9–3.13; firmware helper Python3.9+.
-Tool locations can be overridden in the helpers. See FIRMWARE.md and DESKTOP.md.
+The first two commands are normal mode and an explicitly labelled software preview.
+Build commands do not upload. An explicit`--port`on the firmware helper performs
+an upload; preserve the user's running state and close serial clients first.
+`board_check.py`does not flash; it changes the scene for checks and restores the
+material/pattern/streaming settings. Reports go under`build/hardware/`.
 
-Focused checks when relevant changes are made:
+For relevant code changes only:
 
 ```sh
+python3 -m unittest discover -s tests -v
 python3 tools/run_rtl.py --runtime /path/to/verilator-5.034/include
 python3 tools/check_host.py --packet build/sim/frame_packet.bin
 ```
 
-A complete Verilator5 installation can run without`--runtime`. The minimal vendor
-bundle needs matching runtime sources. These commands compile/run locally only.
-Routine checks do not need a separate user discussion.
+Three configuration-header regression cases were added after the hardware fault.
+No unchanged core route or firmware application rebuild was needed for the one-byte
+power correction; only the filesystem image was repackaged and uploaded.
 
-## Next concrete action
+## Next work
 
-1. Connect Shrike-Fi through its native USB port and identify the port.
-2. When the user requests the upload, package/upload the included PyroCore image
-   and firmware using the helper's explicit`--port`option. This replaces the MCU
-   application and filesystem; choose the actual board port.
-3. Launch the desktop without`--demo`, connect, and require valid received frames.
-   `fpga_loaded`means SPI image transfer;`fpga_verified`requires a valid UART frame.
-4. Exercise Launch, each material/pattern, Clear and Random Show. Record the actual
-   sustained FPS and any CRC/timeouts before changing clock or baud settings.
-5. If a problem appears, investigate that measured failure and preserve this
-   compiled baseline. Do not restart the whole project or repeat unrelated work.
+Finish the desktop clipping/spacing fix, label stream FPS separately from scene
+activity, and make stale/paused FPS behavior explicit. Measure7FPS before making
+it a default. If a previous-position pixel trail fits, validate its new route and
+actual board behavior while retaining the working baseline.
 
-After PyroCore is running on the connected board, the short command-line run is:
-
-```sh
-.venv/bin/python tools/board_check.py --port YOUR_NATIVE_USB_PORT
-```
-
-Close the desktop or other serial programs first so they do not compete for the
-port. The checker changes the scene to exercise Launch/Clear, restores material,
-pattern and streaming settings, and records the result. It does not flash the MCU,
-filesystem or FPGA. Keep the saved physical result with the next handoff/commit.
-
-## Remaining engineering limits
-
-- No physical RAM/transport acceptance has been performed.
-- BRAM-facing delays use vendor default`-1`constraints. Positive core setup slack
-  does not sign off all external-to-fabric BRAM interface paths.
-- IOB packing warnings remain on BRAM address/data/enable paths; review during
-  real interface timing work. Recorded timing is typical1.1V/25°C only.
-- The reported14.202MHz achievable core estimate is not measured memory speed.
-  Retain3.125MHz initially.
-- Two buffers stall rendering once the back buffer is ready and the front remains
-  in transfer. Physics advances per rendered frame and may slow with transport.
-- 115200-baud UART limits1545-byte frames to7.46FPS before additional delays.
-  Smooth20–30FPS requires a later measured faster link; simply setting921600baud
-  at3.125MHz is not a verified solution.
-- Initial version has eight particles and point sparks; richer trails/density
-  remain improvements subject to the132/140CLB budget.
+Then improve visual density and eventually the transfer link.115200baud limits
+1545-byte packets to7.46FPS before delays;20–30FPS needs a faster measured link.
+The132/140CLB budget is tight, so share logic instead of simply adding particles.

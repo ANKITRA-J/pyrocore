@@ -4,10 +4,11 @@ FPGA-generated pixel fireworks on the Vicharak Shrike-Fi. The FPGA owns particle
 motion and every image pixel; ESP32 carries commands/frames and the laptop displays
 the FPGA's completed64×64image through a configurable eight-entry palette.
 
-**Development checkpoint:** the first integrated build is implemented and passes
-FPGA compilation/routing, firmware compilation, and complete UART-frame simulation
-through the firmware and desktop decoders. No PyroCore firmware has been uploaded
-to a physical board yet.
+**Hardware checkpoint:** PyroCore is now running on a physical Shrike-Fi. Launch,
+particle motion, Clear and all18material/pattern combinations passed, with4.97FPS
+measured at the5FPS setting and no new CRC errors/timeouts. The first board run
+also found and fixed the peripheral BRAM power settings; the included FPGA image
+contains that correction. See[physical results](reports/2026-11-03/BRINGUP.md).
 Read **[docs/HANDOFF.md](docs/HANDOFF.md)** for the latest verified state and next task.
 
 ## Included
@@ -20,7 +21,7 @@ Read **[docs/HANDOFF.md](docs/HANDOFF.md)** for the latest verified state and ne
 - A clearly labelled **software preview** for looking at the UI without connecting hardware.
 - Reproducible build commands and implementation notes for continuation in another IDE.
 
-The initial hardware transport targets about5FPS. Smooth20–30FPS needs a later
+The initial hardware transport runs at about5FPS. Smooth20–30FPS needs a later
 measured faster-link change. The preview animation does not measure FPGA performance.
 
 ![PyroCore desktop software preview](docs/images/desktop-preview.png)

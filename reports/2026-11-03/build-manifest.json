@@ -2,8 +2,8 @@
   "target": "SLG47910V Rev BB",
   "format": "MCU SPI",
   "bytes": 46408,
-  "sha256": "cb66753d5973a2a5468b69451bbccf0b6c9a7b1af9848b7f08559bcc1cdbce2d",
-  "physical_board_tested": false,
+  "sha256": "a8f619efe1baf4e632af7d95634aaf334e9388cb767377e731c4cfe08da2e111",
+  "physical_board_tested": true,
   "sources": {
     "fpga/rtl/pyrocore_top.v": "78dafd8dfb3d2c98263e7f7b2abc252eccdffd2efb4ee7e3705c664fdbaeac4f",
     "fpga/rtl/pyrocore_core.v": "d41198e0bf8c29d3a003a96ca69f6468700925022c2d4c994a247858d5e3a754",
@@ -42,7 +42,7 @@
       },
       "littlefs.bin": {
         "bytes": 1572864,
-        "sha256": "32b72488be55d1b4ac3879435665637db672137e9e2415cff8de83f75f9eb905"
+        "sha256": "a00de4c8d0357cd130e550f296d0e980962d44ff1f8ea486d9885d104c7da4e2"
       }
     }
   },
@@ -52,6 +52,18 @@
     "uart_frame_simulation": "two full frames passed; all4096 pixels/CRC/ownership verified",
     "desktop_protocol": "7 checks passed",
     "native_firmware_parser": "passed including RTL packet",
-    "physical_board": "not uploaded; not tested"
-  }
+    "physical_board": "passed: launch, motion, clear and18 material/pattern combinations;4.97FPS;no new CRC/header/timeout errors",
+    "header_regression": "3 checks passed: preserve project config, reject powered-down BRAM, reject wrong config length"
+  },
+  "previous_image_sha256": "cb66753d5973a2a5468b69451bbccf0b6c9a7b1af9848b7f08559bcc1cdbce2d",
+  "configuration": {
+    "north_bram_power_down": 0,
+    "south_bram_power_down": 0,
+    "header_from_project": true,
+    "changed_image_byte_offsets": [
+      1300
+    ],
+    "routed_core_payload_unchanged": true
+  },
+  "hardware_report": "hardware-check.json"
 }

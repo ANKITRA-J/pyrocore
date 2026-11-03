@@ -11,6 +11,8 @@ hardware tests. Keep routine checks proportionate and keep making useful code.
 Target Shrike-Fi / SLG47910V Rev BB. Use the installed Renesas toolchain;
 dedicated BRAM has explicit I/O Planner ports. Preserve the six-slice 3bpp layout
 and 3.125MHz LaC1 route unless a measured implementation requires a change.
+Keep chip configuration bits320/321 clear: both framebuffer BRAM banks must be
+powered on. Package the SPI header from the project nvmData, never a blink default.
 
 Firmware builds do not upload unless an explicit --port option is supplied.
 Do not flash a board unless the user explicitly asks for that step. Do not program OTP.

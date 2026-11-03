@@ -1,0 +1,10 @@
+{
+  "changed_byte_offsets": [
+    1300
+  ],
+  "before": 3,
+  "after": 0,
+  "core_payload_unchanged": true,
+  "old_sha256": "cb66753d5973a2a5468b69451bbccf0b6c9a7b1af9848b7f08559bcc1cdbce2d",
+  "new_sha256": "a8f619efe1baf4e632af7d95634aaf334e9388cb767377e731c4cfe08da2e111"
+}

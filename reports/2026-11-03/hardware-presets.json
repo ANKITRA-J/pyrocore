@@ -1,0 +1,378 @@
+{
+  "status": "passed",
+  "combinations": [
+    {
+      "material": 0,
+      "pattern": 0,
+      "expected_colour": 1,
+      "seq": 2904,
+      "lit_pixels": 8,
+      "colours": [
+        1
+      ],
+      "lit_positions": [
+        1376,
+        1565,
+        1570,
+        1753,
+        1766,
+        1885,
+        1890,
+        2144
+      ]
+    },
+    {
+      "material": 0,
+      "pattern": 1,
+      "expected_colour": 1,
+      "seq": 2908,
+      "lit_pixels": 8,
+      "colours": [
+        1
+      ],
+      "lit_positions": [
+        1504,
+        1565,
+        1570,
+        1756,
+        1764,
+        1885,
+        1890,
+        2016
+      ]
+    },
+    {
+      "material": 0,
+      "pattern": 2,
+      "expected_colour": 1,
+      "seq": 2912,
+      "lit_pixels": 8,
+      "colours": [
+        1
+      ],
+      "lit_positions": [
+        1438,
+        1439,
+        1441,
+        1442,
+        1501,
+        1502,
+        1504,
+        1505
+      ]
+    },
+    {
+      "material": 1,
+      "pattern": 0,
+      "expected_colour": 2,
+      "seq": 2916,
+      "lit_pixels": 8,
+      "colours": [
+        2
+      ],
+      "lit_positions": [
+        1504,
+        1630,
+        1633,
+        1756,
+        1764,
+        1822,
+        1825,
+        2016
+      ]
+    },
+    {
+      "material": 1,
+      "pattern": 1,
+      "expected_colour": 2,
+      "seq": 2920,
+      "lit_pixels": 8,
+      "colours": [
+        2
+      ],
+      "lit_positions": [
+        1504,
+        1565,
+        1570,
+        1756,
+        1764,
+        1885,
+        1890,
+        2016
+      ]
+    },
+    {
+      "material": 1,
+      "pattern": 2,
+      "expected_colour": 2,
+      "seq": 2924,
+      "lit_pixels": 8,
+      "colours": [
+        2
+      ],
+      "lit_positions": [
+        1438,
+        1439,
+        1441,
+        1442,
+        1501,
+        1502,
+        1504,
+        1505
+      ]
+    },
+    {
+      "material": 2,
+      "pattern": 0,
+      "expected_colour": 3,
+      "seq": 2928,
+      "lit_pixels": 8,
+      "colours": [
+        3
+      ],
+      "lit_positions": [
+        1504,
+        1630,
+        1633,
+        1755,
+        1764,
+        1822,
+        1825,
+        2016
+      ]
+    },
+    {
+      "material": 2,
+      "pattern": 1,
+      "expected_colour": 3,
+      "seq": 2932,
+      "lit_pixels": 8,
+      "colours": [
+        3
+      ],
+      "lit_positions": [
+        1504,
+        1565,
+        1570,
+        1756,
+        1764,
+        1885,
+        1890,
+        2016
+      ]
+    },
+    {
+      "material": 2,
+      "pattern": 2,
+      "expected_colour": 3,
+      "seq": 2935,
+      "lit_pixels": 8,
+      "colours": [
+        3
+      ],
+      "lit_positions": [
+        1438,
+        1439,
+        1441,
+        1442,
+        1501,
+        1502,
+        1504,
+        1505
+      ]
+    },
+    {
+      "material": 3,
+      "pattern": 0,
+      "expected_colour": 4,
+      "seq": 2939,
+      "lit_pixels": 8,
+      "colours": [
+        4
+      ],
+      "lit_positions": [
+        1504,
+        1630,
+        1633,
+        1755,
+        1764,
+        1822,
+        1825,
+        2016
+      ]
+    },
+    {
+      "material": 3,
+      "pattern": 1,
+      "expected_colour": 4,
+      "seq": 2943,
+      "lit_pixels": 8,
+      "colours": [
+        4
+      ],
+      "lit_positions": [
+        1504,
+        1565,
+        1570,
+        1756,
+        1764,
+        1885,
+        1890,
+        2016
+      ]
+    },
+    {
+      "material": 3,
+      "pattern": 2,
+      "expected_colour": 4,
+      "seq": 2946,
+      "lit_pixels": 8,
+      "colours": [
+        4
+      ],
+      "lit_positions": [
+        1438,
+        1439,
+        1441,
+        1442,
+        1501,
+        1502,
+        1504,
+        1505
+      ]
+    },
+    {
+      "material": 4,
+      "pattern": 0,
+      "expected_colour": 6,
+      "seq": 2949,
+      "lit_pixels": 7,
+      "colours": [
+        6
+      ],
+      "lit_positions": [
+        1504,
+        1630,
+        1633,
+        1755,
+        1764,
+        1822,
+        1825
+      ]
+    },
+    {
+      "material": 4,
+      "pattern": 1,
+      "expected_colour": 6,
+      "seq": 2952,
+      "lit_pixels": 7,
+      "colours": [
+        6
+      ],
+      "lit_positions": [
+        1565,
+        1570,
+        1756,
+        1764,
+        1885,
+        1890,
+        2016
+      ]
+    },
+    {
+      "material": 4,
+      "pattern": 2,
+      "expected_colour": 6,
+      "seq": 2955,
+      "lit_pixels": 6,
+      "colours": [
+        6
+      ],
+      "lit_positions": [
+        1438,
+        1441,
+        1442,
+        1501,
+        1502,
+        1504
+      ]
+    },
+    {
+      "material": 5,
+      "pattern": 0,
+      "expected_colour": 7,
+      "seq": 2959,
+      "lit_pixels": 8,
+      "colours": [
+        7
+      ],
+      "lit_positions": [
+        1376,
+        1565,
+        1570,
+        1753,
+        1766,
+        1885,
+        1890,
+        2144
+      ]
+    },
+    {
+      "material": 5,
+      "pattern": 1,
+      "expected_colour": 7,
+      "seq": 2963,
+      "lit_pixels": 8,
+      "colours": [
+        7
+      ],
+      "lit_positions": [
+        1504,
+        1565,
+        1570,
+        1756,
+        1764,
+        1885,
+        1890,
+        2016
+      ]
+    },
+    {
+      "material": 5,
+      "pattern": 2,
+      "expected_colour": 7,
+      "seq": 2967,
+      "lit_pixels": 8,
+      "colours": [
+        7
+      ],
+      "lit_positions": [
+        1438,
+        1439,
+        1441,
+        1442,
+        1501,
+        1502,
+        1504,
+        1505
+      ]
+    }
+  ],
+  "final_status": {
+    "type": "status",
+    "version": "0.1.0",
+    "board": "Shrike-Fi",
+    "fpga_loaded": true,
+    "fpga_verified": true,
+    "loader_message": "Image transferred; waiting for a valid FPGA frame",
+    "bitstream_bytes": 46408,
+    "streaming": false,
+    "fps_target": 5,
+    "material": 5,
+    "pattern": 2,
+    "frames": 48,
+    "crc_errors": 0,
+    "header_errors": 0,
+    "timeouts": 0
+  }
+}

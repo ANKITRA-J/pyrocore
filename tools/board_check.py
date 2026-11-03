@@ -69,7 +69,7 @@ def summary(frame):
             'lit_positions': [i for i, p in enumerate(pixels) if p][:16]}
 
 
-def check(port, duration, report):
+def check(port, duration, report, fps=5):
     link = Connection(port)
     # Native USB connection may coincide with startup. Require a PyroCore status
     # object before sending any scene commands to the board.
@@ -131,7 +131,7 @@ def check(port, duration, report):
             raise BoardError('Clear did not produce an all-black complete frame')
         report['clear_frame'] = clear_frame
 
-        link.send('stream', enabled=True, fps=5)
+        link.send('stream', enabled=True, fps=fps)
         link.receive({'ack'})
         arrivals, sequences = [], []
         deadline = time.monotonic() + duration
@@ -141,7 +141,7 @@ def check(port, duration, report):
             sequences.append(frame['seq'])
         if len(arrivals) < 2 or len(set(sequences)) < 2:
             raise BoardError('Streaming did not deliver advancing complete frames')
-        report['streaming'] = {'frames': len(arrivals),
+        report['streaming'] = {'frames': len(arrivals), 'target_fps': fps,
             'measured_fps': round((len(arrivals)-1)/(arrivals[-1]-arrivals[0]), 3),
             'first_seq': sequences[0], 'last_seq': sequences[-1]}
         link.send('status')
@@ -168,6 +168,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--port', help='Native USB CDC port; omit to list available ports')
     parser.add_argument('--duration', type=float, default=3, help='Streaming measurement in seconds (1–30)')
+    parser.add_argument('--fps', type=int, choices=range(1,8), default=5, help='Requested stream rate (1–7)')
     parser.add_argument('--output', type=Path, default=ROOT/'build/hardware/latest.json')
     args = parser.parse_args()
     try:
@@ -187,7 +188,7 @@ def main():
     result = 0
     try:
         with serial.Serial(args.port, 115200, timeout=0.1, write_timeout=1) as port:
-            check(port, args.duration, report)
+            check(port, args.duration, report, args.fps)
         report['status'] = 'passed'
         print(f"PASS: Launch, moving green particles, Clear and {report['streaming']['measured_fps']:.2f} FPS streaming")
     except (BoardError, serial.SerialException, OSError) as exc:
