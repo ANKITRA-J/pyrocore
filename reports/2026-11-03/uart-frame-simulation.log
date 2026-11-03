@@ -1,0 +1,7 @@
+PASS: UART frame seq=3, CRC and4096 pixels match immutable RAM snapshot, lit=8
+PASS: UART frame seq=5, CRC and4096 pixels match immutable RAM snapshot, lit=8
+PASS: malformed command rejected, material/pattern/launch commands accepted, two complete UART frames
+- /Users/aayush/Documents/shrikengima/pyrocore/fpga/sim/pyrocore_core_tb.v:147: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.034
+- Verilator: $finish at 3ms; walltime 2.427 s; speed 1.258 ms/s
+- Verilator: cpu 2.417 s on 1 threads; alloced 0 MB

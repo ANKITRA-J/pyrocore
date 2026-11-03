@@ -1,0 +1,12 @@
+test_bounded_json (test_desktop_protocol.DesktopProtocolTests) ... ok
+test_commands (test_desktop_protocol.DesktopProtocolTests) ... ok
+test_decode_validated_frame (test_desktop_protocol.DesktopProtocolTests) ... ok
+test_known_bit_packing_order (test_desktop_protocol.DesktopProtocolTests) ... ok
+test_palette_and_lengths (test_desktop_protocol.DesktopProtocolTests) ... ok
+test_random_roundtrip (test_desktop_protocol.DesktopProtocolTests) ... ok
+test_reject_untrusted_or_bad_frame (test_desktop_protocol.DesktopProtocolTests) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.006s
+
+OK

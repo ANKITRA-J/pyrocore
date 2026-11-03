@@ -1,0 +1,57 @@
+{
+  "target": "SLG47910V Rev BB",
+  "format": "MCU SPI",
+  "bytes": 46408,
+  "sha256": "cb66753d5973a2a5468b69451bbccf0b6c9a7b1af9848b7f08559bcc1cdbce2d",
+  "physical_board_tested": false,
+  "sources": {
+    "fpga/rtl/pyrocore_top.v": "78dafd8dfb3d2c98263e7f7b2abc252eccdffd2efb4ee7e3705c664fdbaeac4f",
+    "fpga/rtl/pyrocore_core.v": "d41198e0bf8c29d3a003a96ca69f6468700925022c2d4c994a247858d5e3a754",
+    "fpga/rtl/particle_renderer.v": "f1d31fe994fd79d3590a87ce3861b3fa70fcb731077794cdbcca514b1e47fed1",
+    "fpga/rtl/frame_streamer.v": "bde2d55954ee1f2845f12544ea9cd5399a225b95b29a824d3a115f8753baa882",
+    "fpga/rtl/uart_rx.v": "11cba6a2eae94966f3f6ccba125a8addb6153ea93982482f09f029dc329e0cb3",
+    "fpga/rtl/uart_tx.v": "33fb3eec401a5be4c299d4cb1541af993d570276a2d05fe82c470b5cb0eb9575"
+  },
+  "git_source_commit": "d9fdcae",
+  "firmware": {
+    "flash_bytes": 359234,
+    "global_ram_bytes": 26664,
+    "arduino_core": "3.3.12",
+    "ArduinoJson": "6.21.5",
+    "fqbn": "esp32:esp32:esp32s3:CDCOnBoot=cdc,FlashSize=8M,PartitionScheme=default_8MB",
+    "images": {
+      "pyrocore.ino.bin": {
+        "bytes": 359376,
+        "sha256": "4f24a0f3304fa6f9678ceb545063685b42d9cbcf92152144a5a32d80bda44da2"
+      },
+      "pyrocore.ino.bootloader.bin": {
+        "bytes": 19968,
+        "sha256": "883bb1e4765f12902e56b4bb901d0504df2ea2396bba8d79a7b29ae87d4b3658"
+      },
+      "boot_app0.bin": {
+        "bytes": 8192,
+        "sha256": "f94c5d786a7a8fab06ac5d10e33bf37711a6697636dc037559ea19cc410a17f0"
+      },
+      "pyrocore.ino.merged.bin": {
+        "bytes": 8388608,
+        "sha256": "b6cdff8bd34aeb1a37d26070d3c22ee1ad8f11cffa0da69325e7fa0e612fb33f"
+      },
+      "pyrocore.ino.partitions.bin": {
+        "bytes": 3072,
+        "sha256": "1d9cca96de0fe07ad7fc0648b9878ddecd9ce565e38b589ad20fea698ed4c80c"
+      },
+      "littlefs.bin": {
+        "bytes": 1572864,
+        "sha256": "32b72488be55d1b4ac3879435665637db672137e9e2415cff8de83f75f9eb905"
+      }
+    }
+  },
+  "validation": {
+    "fpga_synthesis_and_pnr": "passed",
+    "renderer_simulation": "passed",
+    "uart_frame_simulation": "two full frames passed; all4096 pixels/CRC/ownership verified",
+    "desktop_protocol": "7 checks passed",
+    "native_firmware_parser": "passed including RTL packet",
+    "physical_board": "not uploaded; not tested"
+  }
+}

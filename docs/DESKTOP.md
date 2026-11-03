@@ -61,7 +61,7 @@ runtime restriction rather than an application exception. On the current Mac,
 the offscreen command used for the screenshot was:
 
 ```sh
-QT_QPA_PLATFORM=offscreen /usr/bin/arch -x86_64 /Users/aayush/Documents/shrikengima/.venv/bin/python desktop/app.py --demo --screenshot build/desktop-demo.png
+QT_QPA_PLATFORM=offscreen /usr/bin/arch -x86_64 .venv/bin/python desktop/app.py --demo --screenshot build/desktop-demo.png
 ```
 
 Normal user Terminal launches should use the standard commands above.

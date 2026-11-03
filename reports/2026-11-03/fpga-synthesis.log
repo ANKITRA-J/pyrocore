@@ -1,0 +1,24 @@
+
+8. Printing statistics.
+
+=== pyrocore_top ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      497 wires
+     1942 wire bits
+      497 public wires
+     1942 public wire bits
+       76 ports
+      220 port bits
+      936 cells
+      398   FDRE
+       16   FDSE
+        1   INV
+       89   LUT2
+       53   LUT3
+      106   LUT4
+      116   LUT5
+      121   LUT6
+       36   SRL16E
+

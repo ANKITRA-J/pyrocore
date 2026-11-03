@@ -85,6 +85,8 @@ def encode_command(command, **fields):
     permitted = {'material', 'pattern'} if command in ('launch', 'set') else set()
     if command == 'stream':
         permitted = {'enabled', 'fps'}
+        if 'enabled' not in fields:
+            raise ProtocolError('stream requires enabled')
     if set(fields) - permitted:
         raise ProtocolError('Unsupported command field')
     for key, maximum in [('material', 5), ('pattern', 2), ('fps', 7)]:

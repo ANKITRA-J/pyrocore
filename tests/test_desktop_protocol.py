@@ -62,7 +62,8 @@ class DesktopProtocolTests(unittest.TestCase):
         self.assertEqual(json.loads(encode_command('stream', enabled=True, fps=5))['fps'], 5)
         for command, fields in [('invalid', {}), ('launch', {'material': 6}),
                                 ('set', {'pattern': -1}), ('stream', {'fps': 0}),
-                                ('stream', {'enabled': 1}), ('clear', {'material': 1})]:
+                                ('stream', {}), ('stream', {'enabled': 1}),
+                                ('clear', {'material': 1})]:
             with self.subTest(command=command, fields=fields), self.assertRaises(ProtocolError):
                 encode_command(command, **fields)
 

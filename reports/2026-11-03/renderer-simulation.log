@@ -1,0 +1,5 @@
+PASS: full clears, eight-particle launch/motion, queued launch, clear and done ordering
+- /Users/aayush/Documents/shrikengima/pyrocore/fpga/sim/particle_renderer_tb.v:64: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.034
+- Verilator: $finish at 289us; walltime 0.132 s; speed 2.195 ms/s
+- Verilator: cpu 0.131 s on 1 threads; alloced 0 MB
