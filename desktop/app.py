@@ -22,31 +22,114 @@ except ImportError:
     from frame_stats import FrameStats
 
 STYLE = '''
-QMainWindow, QWidget { background: #0b101b; color: #e8edf5; font-family: 'Inter', 'Arial'; font-size: 13px; }
+QMainWindow, QWidget {
+    background: #090d16;
+    color: #e2e8f0;
+    font-family: 'Helvetica Neue', Arial;
+    font-size: 13px;
+}
 QLabel { background: transparent; }
 QScrollArea { border: none; background: transparent; }
-QScrollBar:vertical { background: #111927; width: 10px; margin: 0; }
-QScrollBar::handle:vertical { background: #354960; min-height: 32px; border-radius: 5px; }
+QScrollBar:vertical { background: #0f172a; width: 8px; margin: 0; border-radius: 4px; }
+QScrollBar::handle:vertical { background: #334155; min-height: 28px; border-radius: 4px; }
+QScrollBar::handle:vertical:hover { background: #475569; }
 QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0; }
 QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical { background: transparent; }
-QFrame#card { background: #111927; border: 1px solid #223047; border-radius: 14px; }
-QFrame#separator { background: #223047; border: none; }
-QLabel#muted { color: #8d9cb1; }
-QLabel#eyebrow { color: #ffad64; font-size: 11px; font-weight: 700; }
-QLabel#title { font-size: 30px; font-weight: 800; letter-spacing: 2px; }
-QLabel#section { font-size: 17px; font-weight: 700; }
-QLabel#badge { color: #98a9bf; background: #172334; border: 1px solid #2b3c54; border-radius: 10px; padding: 7px 10px; font-size: 11px; }
-QLabel#demo { color: #ffcf89; background: #33271c; border: 1px solid #72512b; border-radius: 8px; padding: 9px; font-size: 12px; }
-QComboBox { background: #0c1421; border: 1px solid #2d3c51; border-radius: 8px; padding: 7px 10px; }
-QComboBox::drop-down { border: none; width: 25px; }
-QComboBox QAbstractItemView { background: #172334; selection-background-color: #385479; }
-QPushButton { background: #1a283b; border: 1px solid #31445f; border-radius: 8px; padding: 7px 12px; font-weight: 600; }
-QPushButton:hover { background: #263b55; border-color: #527292; }
-QPushButton:pressed { background: #365271; }
-QPushButton:disabled { color: #55677d; background: #111927; border-color: #223047; }
-QPushButton#launch { background: #ff9a50; color: #1b1110; border: 1px solid #ffb677; font-size: 14px; }
-QPushButton#launch:hover { background: #ffb677; }
-QPushButton#launch:disabled { background: #4d3525; color: #96765a; border-color: #5f4430; }
+
+QFrame#card {
+    background: #111827;
+    border: 1px solid #1f2937;
+    border-radius: 12px;
+}
+QFrame#stats_card {
+    background: #0c1322;
+    border: 1px solid #1e293b;
+    border-radius: 8px;
+}
+QLabel#muted { color: #94a3b8; }
+QLabel#title { font-size: 24px; font-weight: 800; letter-spacing: 1.5px; color: #f8fafc; }
+QLabel#section { font-size: 15px; font-weight: 700; color: #f1f5f9; }
+QLabel#badge {
+    color: #94a3b8;
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 11px;
+    font-weight: 600;
+}
+QLabel#badge_live {
+    color: #34d399;
+    background: #064e3b;
+    border: 1px solid #059669;
+    border-radius: 8px;
+    padding: 5px 10px;
+    font-size: 11px;
+    font-weight: 700;
+}
+QLabel#badge_stale {
+    color: #fbbf24;
+    background: #451a03;
+    border: 1px solid #b45309;
+    border-radius: 8px;
+    padding: 5px 10px;
+    font-size: 11px;
+    font-weight: 700;
+}
+QLabel#demo {
+    color: #fbbf24;
+    background: #2d1808;
+    border: 1px solid #92400e;
+    border-radius: 8px;
+    padding: 7px 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+QComboBox {
+    background: #0b1120;
+    border: 1px solid #1e293b;
+    border-radius: 8px;
+    padding: 6px 10px;
+    color: #f1f5f9;
+}
+QComboBox:focus, QComboBox:hover {
+    border-color: #3b82f6;
+}
+QComboBox::drop-down { border: none; width: 24px; }
+QComboBox QAbstractItemView {
+    background: #111827;
+    color: #f1f5f9;
+    selection-background-color: #2563eb;
+    border: 1px solid #374151;
+}
+QPushButton {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-weight: 600;
+    color: #f1f5f9;
+}
+QPushButton:hover { background: #334155; border-color: #475569; }
+QPushButton:pressed { background: #0f172a; }
+QPushButton:disabled { color: #475569; background: #0b1120; border-color: #1e293b; }
+
+QPushButton#launch {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #ff6b18, stop:1 #f97316);
+    color: #ffffff;
+    border: 1px solid #ff8533;
+    font-size: 14px;
+    font-weight: 700;
+}
+QPushButton#launch:hover {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #ff8033, stop:1 #fb923c);
+    border-color: #ffa166;
+}
+QPushButton#launch:disabled {
+    background: #372314;
+    color: #7c5c42;
+    border-color: #4a2f1b;
+}
 '''
 
 
@@ -110,7 +193,7 @@ class DemoScene:
 
     def launch(self, material=0, pattern=0):
         colours = [1, 2, 3, 4, 6, 7]
-        cx, cy = self.rng.randrange(18, 46), self.rng.randrange(15, 32)
+        cx, cy = self.rng.randrange(18, 46), (self.rng.randrange(38, 44) if pattern == 2 else self.rng.randrange(15, 32))
         for index in range(56):
             angle = 2 * math.pi * index / 56
             speed = 0.65 if pattern == 1 else self.rng.uniform(0.3, 0.9)
@@ -162,10 +245,9 @@ class MainWindow(QMainWindow):
         brand = QVBoxLayout()
         brand.setSpacing(1)
         brand.addWidget(label('PYROCORE', 'title'))
-        brand.addWidget(label('SMALL FPGA. REAL SPARKS.', 'eyebrow'))
         header.addLayout(brand)
         header.addStretch()
-        header.addWidget(label('SHRIKE-FI  /  64 × 64  /  3-BIT COLOUR', 'badge'))
+        header.addWidget(label('SHRIKE-FI  ·  64 × 64  ·  3-BIT COLOUR', 'badge'))
         root.addLayout(header)
 
         self.banner = label('SOFTWARE PREVIEW · Simulated particles, FPGA disconnected' if demo else
@@ -266,34 +348,31 @@ class MainWindow(QMainWindow):
 
         display = card()
         display_layout = QVBoxLayout(display)
-        display_layout.setContentsMargins(16, 16, 16, 16)
+        display_layout.setContentsMargins(18, 18, 18, 18)
+        display_layout.setSpacing(12)
         display_heading = QHBoxLayout()
         display_heading.addWidget(label('Software preview' if demo else 'FPGA framebuffer', 'section'))
         display_heading.addStretch()
-        self.live_label = label('DEMO' if demo else 'WAITING', 'badge')
+        self.live_label = label('DEMO' if demo else 'WAITING', 'demo' if demo else 'badge')
         display_heading.addWidget(self.live_label)
         display_layout.addLayout(display_heading)
         self.canvas = PixelCanvas()
         display_layout.addWidget(self.canvas, 1)
+
+        telemetry_box = QFrame()
+        telemetry_box.setObjectName('stats_card')
+        telemetry_layout = QVBoxLayout(telemetry_box)
+        telemetry_layout.setContentsMargins(14, 10, 14, 10)
+        telemetry_layout.setSpacing(4)
         self.frame_label = label('Stream FPS 0.0  ·  No frames yet', 'muted')
+        self.frame_label.setStyleSheet('color: #cbd5e1; font-weight: 600;')
         self.frame_label.setWordWrap(True)
-        display_layout.addWidget(self.frame_label)
-        self.frame_details = label('Complete received frames count even when the scene is black.', 'muted')
+        telemetry_layout.addWidget(self.frame_label)
+        self.frame_details = label('Frames stream continuously from hardware; black/idle frames are also transmitted.', 'muted')
+        self.frame_details.setStyleSheet('color: #64748b; font-size: 12px;')
         self.frame_details.setWordWrap(True)
-        display_layout.addWidget(self.frame_details)
-        palette_row = QHBoxLayout()
-        palette_row.setSpacing(8)
-        palette_row.addWidget(label('PALETTE', 'muted'))
-        for rgb in PALETTE:
-            swatch = QLabel()
-            swatch.setFixedSize(20, 20)
-            swatch.setStyleSheet('background: rgb(%d,%d,%d); border: 1px solid #496079; border-radius: 5px;' % rgb)
-            palette_row.addWidget(swatch)
-        palette_row.addStretch()
-        palette_note = label('8 entries · background included', 'muted')
-        palette_note.setWordWrap(True)
-        palette_row.addWidget(palette_note)
-        display_layout.addLayout(palette_row)
+        telemetry_layout.addWidget(self.frame_details)
+        display_layout.addWidget(telemetry_box)
         content.addWidget(display, 1)
         root.addLayout(content, 1)
         self.event_label = label('Ready.' if demo else 'Ready. No serial port is opened until you connect.', 'muted')
@@ -400,7 +479,10 @@ class MainWindow(QMainWindow):
 
     def random_launch(self):
         self.material.setCurrentIndex(self.rng.randrange(6))
-        self.pattern.setCurrentIndex(self.rng.randrange(3))
+        pattern = self.rng.randrange(3)
+        self.pattern.setCurrentIndex(pattern)
+        interval = 6000 if (pattern == 2 and not self.demo) else (2800 if pattern == 2 else 1700)
+        self.random_timer.setInterval(interval)
         self.launch()
 
     def random_show(self, running):
@@ -410,6 +492,7 @@ class MainWindow(QMainWindow):
             self.random_timer.start()
         else:
             self.random_timer.stop()
+            self.random_timer.setInterval(1700)
 
     def clear_scene(self):
         if self.demo:
@@ -446,17 +529,21 @@ class MainWindow(QMainWindow):
         if self.demo:
             return
         snap = self.frame_stats.snapshot()
-        rate = 'calculating…' if snap.fps is None else f'{snap.fps:.1f}'
-        scene = ('Active · ' + str(snap.lit_pixels) + ' lit pixels') if snap.lit_pixels else 'No sparks'
+        rate = 'calculating…' if snap.fps is None else f'{snap.fps:.1f} FPS'
+        scene = f'Active ({snap.lit_pixels} lit pixels)' if snap.lit_pixels else 'Idle (no sparks)'
         if snap.sequence is None:
             scene = 'Waiting for frames' if snap.state == 'warming' else 'No frames yet'
-        self.frame_label.setText(f'Stream FPS {rate}  ·  {scene}')
+        self.frame_label.setText(f'Stream: {rate}  ·  {scene}')
         if snap.sequence is not None:
-            self.frame_details.setText(f'Frame {snap.sequence:05d} · {snap.frames} received · CRC verified' +
-                                       (' · last image retained' if snap.state in ('offline', 'stale') else ''))
+            self.frame_details.setText(f'FPGA Frame #{snap.sequence:05d}  ·  {snap.frames} frames received  ·  CRC-8 verified' +
+                                       ('  ·  last image retained' if snap.state in ('offline', 'stale') else ''))
         if snap.state == 'stale':
             self.live_label.setText('FRAME STALE')
+            self.live_label.setStyleSheet('color: #fbbf24; background: #451a03; border: 1px solid #b45309; border-radius: 8px; padding: 5px 10px; font-size: 11px; font-weight: 700;')
             self.status_label.setText('No recent complete frame. Last image retained.')
+        elif snap.state == 'live':
+            self.live_label.setText('LIVE FPGA')
+            self.live_label.setStyleSheet('color: #34d399; background: #064e3b; border: 1px solid #059669; border-radius: 8px; padding: 5px 10px; font-size: 11px; font-weight: 700;')
 
     def demo_tick(self):
         self.canvas.set_pixels(self.scene.step())
@@ -478,6 +565,7 @@ class MainWindow(QMainWindow):
         self.refresh_button.setEnabled(True)
         self.status_label.setText('Disconnected')
         self.live_label.setText('OFFLINE')
+        self.live_label.setStyleSheet('color: #94a3b8; background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 5px 10px; font-size: 11px; font-weight: 600;')
         self.set_controls(False)
         self.event_label.setText(reason[:220])
         self.random_button.setChecked(False)
