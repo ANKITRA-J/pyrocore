@@ -1,0 +1,14 @@
+PASS: full clears,16 head/trail writes, exact previous positions and unchanged gravity, queued launch, paired glitter, clear/done ordering
+- /Users/aayush/Documents/shrikengima/pyrocore/fpga/sim/particle_renderer_tb.v:88: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.034
+- Verilator: $finish at 330us; walltime 0.157 s; speed 2.145 ms/s
+- Verilator: cpu 0.154 s on 1 threads; alloced 0 MB
+
+PASS: UART frame seq=3, CRC and4096 pixels match immutable RAM snapshot, lit=9
+PASS: UART frame seq=5, CRC and4096 pixels match immutable RAM snapshot, lit=16
+PASS: malformed command rejected, material/pattern/launch commands accepted, two complete UART frames
+- /Users/aayush/Documents/shrikengima/pyrocore/fpga/sim/pyrocore_core_tb.v:147: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.034
+- Verilator: $finish at 3ms; walltime 2.386 s; speed 1.277 ms/s
+- Verilator: cpu 2.381 s on 1 threads; alloced 0 MB
+

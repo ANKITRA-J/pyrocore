@@ -44,9 +44,24 @@ never replace the last complete image. A CRC8 computed by the ESP32 protects the
 FPGA UART packet; USB frames report that firmware validation rather than implying
 the desktop recalculates the UART packet CRC.
 
-The current bridge targets five hardware frames/second. The preview's timer is
-independent and does not demonstrate hardware throughput. No physical-board
-acceptance has been performed by these desktop checks.
+The stream-rate selector offers **7 FPS · faster** (default) and **5 FPS · steady**.
+The selected target is applied when connecting, after startup confirmation, and
+when changed during a connection. A physical-board run measured approximately
+7.03 FPS at the seven-frame target and 4.97 FPS at the five-frame target; these
+are received complete frames, not a particle count or a software-preview rate.
+The handoff and hardware reports retain the physical run evidence.
+
+**Stream FPS includes black frames.** A black image means the FPGA currently has
+no visible sparks, while its frame stream can remain healthy. The UI shows
+`No sparks` separately from `Active · N lit pixels`. It averages arrivals over a
+three-second time window, starts with `calculating…`, and refreshes on a timer
+so the value declines and reaches zero when frames stop. A disconnected or stale
+stream displays zero and retains the last image with an explicit status.
+
+Controls use minimum heights and normal Qt size hints rather than compressing
+the text into stylesheet padding. The sidebar scrolls in shorter windows or at
+larger display scaling; labels and buttons keep their spacing. The preview's
+software timer is independent and does not demonstrate FPGA throughput.
 
 ### Recorded local check
 
@@ -65,3 +80,15 @@ QT_QPA_PLATFORM=offscreen /usr/bin/arch -x86_64 .venv/bin/python desktop/app.py 
 ```
 
 Normal user Terminal launches should use the standard commands above.
+
+### Layout and frame-rate regression check
+
+```sh
+.venv/bin/python -m unittest discover -s tests -p test_frame_stats.py -v
+```
+
+Six mock-clock checks cover startup, steady black-frame reception, active scenes,
+rate decay without new frames, stale/disconnected zero and a resumed stream.
+A separate offscreen geometry/control smoke check verified uncompressed controls,
+the7/5FPS selector's commands, a black-frame fixture and explicit stale/offline
+status. The screenshot from that smoke check is a UI fixture, not a board capture.

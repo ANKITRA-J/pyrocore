@@ -274,6 +274,7 @@ endmodule
 
 // Eight-particle fixed-point fireworks rasterizer. No framebuffer storage here.
 // Caller must write pixel_* into its BACK buffer and honour busy/done.
+// One previous-position trail pixel is drawn before each current head.
 // Particle banks rotate once per particle, avoiding an eight-way state read mux.
 module particle_renderer (
     input clk, input rst, input start, input launch, input clear,
@@ -283,7 +284,7 @@ module particle_renderer (
     output reg [2:0] pixel_data
 );
     localparam IDLE=4'd0, CLEAR_FB=4'd1, DECIDE=4'd2, INIT=4'd3,
-               READ=4'd4, STEP=4'd5, DRAW=4'd6, ADVANCE=4'd7, FINISH=4'd8;
+               READ=4'd4, STEP=4'd5, DRAW=4'd6, ADVANCE=4'd7, FINISH=4'd8, TRAIL=4'd9;
     reg [3:0] state;
     reg [11:0] clear_addr;
     reg [2:0] index;
@@ -298,7 +299,7 @@ module particle_renderer (
     reg [1:0] queued_pattern, frame_pattern;
     reg signed [10:0] x, y, nx, ny;
     reg signed [6:0] vx, vy, nvy;
-    reg particle_alive;
+    reg particle_alive, draw_visible;
     reg [15:0] random_state;
     wire in_bounds = !nx[10] && !ny[10];
     wire [2:0] colour = active_material == 0 ? 3'd1 :
@@ -355,7 +356,7 @@ module particle_renderer (
             // Position/velocity banks are not reset: alive=0 makes them irrelevant
             // until all eight records have been initialized by a launch.
             x<=0; y<=0; vx<=0; vy<=0; nx<=0; ny<=0; nvy<=0;
-            particle_alive<=0; random_state<=16'hACE1;
+            particle_alive<=0; draw_visible<=0; random_state<=16'hACE1;
         end else begin
             done<=0;
             pixel_we<=0;
@@ -405,11 +406,24 @@ module particle_renderer (
                     nx <= x + {{4{vx[6]}},vx};
                     ny <= y + {{4{vy[6]}},vy};
                     nvy <= vy<7'sd60 ? vy+7'sd1 : vy;
+                    state<=TRAIL;
+                end
+                TRAIL: begin
+                    // Reuse the already captured old position: no history RAM.
+                    // Cache visibility so an aluminium spark's head and tail
+                    // flicker together even though the LFSR advances each cycle.
+                    draw_visible <= particle_alive && in_bounds &&
+                        !(active_material==4 && random_state[1:0]==0);
+                    if (particle_alive && in_bounds &&
+                        !(active_material==4 && random_state[1:0]==0)) begin
+                        pixel_we<=1;
+                        pixel_addr<={y[9:4],x[9:4]};
+                        pixel_data<=colour;
+                    end
                     state<=DRAW;
                 end
                 DRAW: begin
-                    if (particle_alive && in_bounds &&
-                        !(active_material==4 && random_state[1:0]==0)) begin
+                    if (draw_visible) begin
                         pixel_we<=1;
                         pixel_addr<={ny[9:4],nx[9:4]};
                         pixel_data<=colour;

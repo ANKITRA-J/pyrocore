@@ -1,29 +1,34 @@
 #!/usr/bin/env python3
 """PyroCore control panel. Run --demo for an explicitly labelled software preview."""
 import argparse
-from collections import deque
 import math
 from pathlib import Path
 import random
 import sys
-import time
 
 from PySide6.QtCore import Qt, QTimer, QRectF
 from PySide6.QtGui import QColor, QFont, QImage, QPainter, QPen
 from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QHBoxLayout,
-    QLabel, QMainWindow, QPushButton, QSizePolicy, QVBoxLayout, QWidget)
+    QLabel, QLayout, QMainWindow, QPushButton, QScrollArea, QSizePolicy, QVBoxLayout, QWidget)
 from serial.tools import list_ports
 
 try:
     from .protocol import MATERIALS, PALETTE, PATTERNS, encode_command
     from .serial_worker import SerialWorker
+    from .frame_stats import FrameStats
 except ImportError:
     from protocol import MATERIALS, PALETTE, PATTERNS, encode_command
     from serial_worker import SerialWorker
+    from frame_stats import FrameStats
 
 STYLE = '''
 QMainWindow, QWidget { background: #0b101b; color: #e8edf5; font-family: 'Inter', 'Arial'; font-size: 13px; }
 QLabel { background: transparent; }
+QScrollArea { border: none; background: transparent; }
+QScrollBar:vertical { background: #111927; width: 10px; margin: 0; }
+QScrollBar::handle:vertical { background: #354960; min-height: 32px; border-radius: 5px; }
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0; }
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical { background: transparent; }
 QFrame#card { background: #111927; border: 1px solid #223047; border-radius: 14px; }
 QFrame#separator { background: #223047; border: none; }
 QLabel#muted { color: #8d9cb1; }
@@ -32,14 +37,14 @@ QLabel#title { font-size: 30px; font-weight: 800; letter-spacing: 2px; }
 QLabel#section { font-size: 17px; font-weight: 700; }
 QLabel#badge { color: #98a9bf; background: #172334; border: 1px solid #2b3c54; border-radius: 10px; padding: 7px 10px; font-size: 11px; }
 QLabel#demo { color: #ffcf89; background: #33271c; border: 1px solid #72512b; border-radius: 8px; padding: 9px; font-size: 12px; }
-QComboBox { background: #0c1421; border: 1px solid #2d3c51; border-radius: 8px; padding: 10px; min-height: 18px; }
+QComboBox { background: #0c1421; border: 1px solid #2d3c51; border-radius: 8px; padding: 7px 10px; }
 QComboBox::drop-down { border: none; width: 25px; }
 QComboBox QAbstractItemView { background: #172334; selection-background-color: #385479; }
-QPushButton { background: #1a283b; border: 1px solid #31445f; border-radius: 8px; padding: 10px 14px; font-weight: 600; }
+QPushButton { background: #1a283b; border: 1px solid #31445f; border-radius: 8px; padding: 7px 12px; font-weight: 600; }
 QPushButton:hover { background: #263b55; border-color: #527292; }
 QPushButton:pressed { background: #365271; }
 QPushButton:disabled { color: #55677d; background: #111927; border-color: #223047; }
-QPushButton#launch { background: #ff9a50; color: #1b1110; border: 1px solid #ffb677; font-size: 15px; padding: 13px; }
+QPushButton#launch { background: #ff9a50; color: #1b1110; border: 1px solid #ffb677; font-size: 14px; }
 QPushButton#launch:hover { background: #ffb677; }
 QPushButton#launch:disabled { background: #4d3525; color: #96765a; border-color: #5f4430; }
 '''
@@ -47,6 +52,7 @@ QPushButton#launch:disabled { background: #4d3525; color: #96765a; border-color:
 
 def label(text, name=None):
     widget = QLabel(text)
+    widget.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Minimum)
     if name:
         widget.setObjectName(name)
     return widget
@@ -62,7 +68,7 @@ class PixelCanvas(QWidget):
     def __init__(self):
         super().__init__()
         self.image = None
-        self.setMinimumSize(420, 420)
+        self.setMinimumSize(340, 340)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
     def set_pixels(self, pixels):
@@ -91,7 +97,8 @@ class PixelCanvas(QWidget):
         else:
             painter.setPen(QColor('#74869d'))
             painter.setFont(QFont('Arial', 16))
-            painter.drawText(inner, Qt.AlignCenter, 'Ready for a spark\n\nConnect your Shrike-Fi to display FPGA frames')
+            painter.drawText(inner, Qt.AlignCenter | Qt.TextWordWrap,
+                             'Ready for a spark\n\nConnect your Shrike-Fi to display FPGA frames')
 
 
 class DemoScene:
@@ -138,12 +145,13 @@ class MainWindow(QMainWindow):
         self.demo = demo
         self.scene = DemoScene() if demo else None
         self.worker = None
-        self.arrivals = deque(maxlen=30)
+        self.frame_stats = FrameStats()
         self.frame_count = 0
         self.rng = random.Random()
         self.setWindowTitle('PyroCore — FPGA Fireworks Engine' + (' · SOFTWARE PREVIEW' if demo else ''))
-        self.resize(1120, 840)
-        self.setMinimumSize(960, 760)
+        available = QApplication.primaryScreen().availableGeometry()
+        self.resize(min(1120, available.width() - 40), min(880, available.height() - 40))
+        self.setMinimumSize(860, 660)
         self.setStyleSheet(STYLE)
         body = QWidget()
         self.setCentralWidget(body)
@@ -165,32 +173,44 @@ class MainWindow(QMainWindow):
         root.addWidget(self.banner)
         content = QHBoxLayout()
         content.setSpacing(20)
-        sidebar = QVBoxLayout()
+        sidebar_widget = QWidget()
+        sidebar = QVBoxLayout(sidebar_widget)
+        sidebar.setContentsMargins(0, 0, 0, 0)
+        sidebar.setSizeConstraint(QLayout.SetMinimumSize)
         sidebar.setSpacing(16)
         controls = card()
-        controls.setFixedWidth(310)
         controls_layout = QVBoxLayout(controls)
-        controls_layout.setContentsMargins(20, 20, 20, 20)
-        controls_layout.setSpacing(11)
+        controls_layout.setContentsMargins(18, 18, 18, 18)
+        controls_layout.setSpacing(12)
         controls_layout.addWidget(label('Launch control', 'section'))
         controls_layout.addWidget(label('Material', 'muted'))
         self.material = QComboBox()
+        self.material.setMinimumHeight(42)
+        self.material.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
         self.material.addItems(MATERIALS)
         controls_layout.addWidget(self.material)
         controls_layout.addWidget(label('Burst pattern', 'muted'))
         self.pattern = QComboBox()
+        self.pattern.setMinimumHeight(42)
+        self.pattern.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
         self.pattern.addItems(PATTERNS)
         controls_layout.addWidget(self.pattern)
         controls_layout.addSpacing(8)
         self.launch_button = QPushButton('Launch firework')
+        self.launch_button.setMinimumHeight(46)
+        self.launch_button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
         self.launch_button.setObjectName('launch')
         self.launch_button.clicked.connect(self.launch)
         controls_layout.addWidget(self.launch_button)
         self.random_button = QPushButton('Start random show')
+        self.random_button.setMinimumHeight(42)
+        self.random_button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
         self.random_button.setCheckable(True)
         self.random_button.toggled.connect(self.random_show)
         controls_layout.addWidget(self.random_button)
         self.clear_button = QPushButton('Clear scene')
+        self.clear_button.setMinimumHeight(42)
+        self.clear_button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
         self.clear_button.clicked.connect(self.clear_scene)
         controls_layout.addWidget(self.clear_button)
         controls_layout.addSpacing(6)
@@ -200,32 +220,49 @@ class MainWindow(QMainWindow):
         sidebar.addWidget(controls)
 
         connection = card()
-        connection.setFixedWidth(310)
         conn_layout = QVBoxLayout(connection)
         conn_layout.setContentsMargins(20, 20, 20, 20)
         conn_layout.setSpacing(10)
         conn_layout.addWidget(label('Board connection', 'section'))
         ports_line = QHBoxLayout()
         self.ports = QComboBox()
+        self.ports.setMinimumHeight(42)
         self.ports.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        self.ports.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon)
+        self.ports.setMinimumContentsLength(12)
         self.refresh_button = QPushButton('↻')
         self.refresh_button.setFixedWidth(42)
+        self.refresh_button.setMinimumHeight(42)
         self.refresh_button.setToolTip('Refresh serial ports')
         self.refresh_button.clicked.connect(self.refresh_ports)
         ports_line.addWidget(self.ports)
         ports_line.addWidget(self.refresh_button)
         conn_layout.addLayout(ports_line)
         self.connect_button = QPushButton('Connect')
+        self.connect_button.setMinimumHeight(42)
+        self.connect_button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
         self.connect_button.clicked.connect(self.toggle_connection)
         conn_layout.addWidget(self.connect_button)
         self.status_label = label('Preview mode' if demo else 'Disconnected', 'muted')
         self.status_label.setWordWrap(True)
         conn_layout.addWidget(self.status_label)
-        rate = label('Initial hardware stream: 5 FPS\nUSB → ESP32 → FPGA UART', 'muted')
-        conn_layout.addWidget(rate)
+        conn_layout.addWidget(label('Stream rate', 'muted'))
+        self.stream_rate = QComboBox()
+        self.stream_rate.addItem('7 FPS · faster', 7)
+        self.stream_rate.addItem('5 FPS · steady', 5)
+        self.stream_rate.setMinimumHeight(42)
+        self.stream_rate.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        self.stream_rate.currentIndexChanged.connect(self.stream_rate_changed)
+        conn_layout.addWidget(self.stream_rate)
         sidebar.addWidget(connection)
         sidebar.addStretch()
-        content.addLayout(sidebar)
+        sidebar_scroll = QScrollArea()
+        sidebar_scroll.setWidgetResizable(True)
+        sidebar_scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        sidebar_scroll.setMinimumWidth(300)
+        sidebar_scroll.setMaximumWidth(340)
+        sidebar_scroll.setWidget(sidebar_widget)
+        content.addWidget(sidebar_scroll)
 
         display = card()
         display_layout = QVBoxLayout(display)
@@ -238,8 +275,12 @@ class MainWindow(QMainWindow):
         display_layout.addLayout(display_heading)
         self.canvas = PixelCanvas()
         display_layout.addWidget(self.canvas, 1)
-        self.frame_label = label('No hardware frames received', 'muted')
+        self.frame_label = label('Stream FPS 0.0  ·  No frames yet', 'muted')
+        self.frame_label.setWordWrap(True)
         display_layout.addWidget(self.frame_label)
+        self.frame_details = label('Complete received frames count even when the scene is black.', 'muted')
+        self.frame_details.setWordWrap(True)
+        display_layout.addWidget(self.frame_details)
         palette_row = QHBoxLayout()
         palette_row.setSpacing(8)
         palette_row.addWidget(label('PALETTE', 'muted'))
@@ -249,7 +290,9 @@ class MainWindow(QMainWindow):
             swatch.setStyleSheet('background: rgb(%d,%d,%d); border: 1px solid #496079; border-radius: 5px;' % rgb)
             palette_row.addWidget(swatch)
         palette_row.addStretch()
-        palette_row.addWidget(label('8 entries · background included', 'muted'))
+        palette_note = label('8 entries · background included', 'muted')
+        palette_note.setWordWrap(True)
+        palette_row.addWidget(palette_note)
         display_layout.addLayout(palette_row)
         content.addWidget(display, 1)
         root.addLayout(content, 1)
@@ -261,13 +304,13 @@ class MainWindow(QMainWindow):
         self.random_timer.setInterval(1700)
         self.random_timer.timeout.connect(self.random_launch)
         self.freshness_timer = QTimer(self)
-        self.freshness_timer.setInterval(1000)
+        self.freshness_timer.setInterval(250)
         self.freshness_timer.timeout.connect(self.check_freshness)
         self.freshness_timer.start()
         self.refresh_ports()
         self.set_controls(demo)
         if demo:
-            for widget in (self.ports, self.refresh_button, self.connect_button):
+            for widget in (self.ports, self.refresh_button, self.connect_button, self.stream_rate):
                 widget.setEnabled(False)
             self.scene.launch(3, 0)
             self.scene.launch(2, 2)
@@ -284,13 +327,19 @@ class MainWindow(QMainWindow):
     def refresh_ports(self):
         current = self.ports.currentData()
         self.ports.clear()
+        preferred = None
         for port in list_ports.comports():
             self.ports.addItem(f'{port.device} · {port.description}', port.device)
+            if preferred is None and port.vid == 0x303A:
+                preferred = port.device
         if self.ports.count() == 0:
             self.ports.addItem('No serial ports found', None)
         selected = self.ports.findData(current)
+        if selected < 0 and preferred is not None:
+            selected = self.ports.findData(preferred)
         if selected >= 0:
             self.ports.setCurrentIndex(selected)
+        self.ports.setToolTip(self.ports.currentText())
 
     def toggle_connection(self):
         if self.worker is not None:
@@ -301,8 +350,10 @@ class MainWindow(QMainWindow):
             self.event_label.setText('Connect a Shrike-Fi and refresh the serial-port list.')
             return
         self.canvas.clear()
-        self.arrivals.clear()
+        self.frame_stats.reset(connected=True)
         self.frame_count = 0
+        self.live_label.setText('WAITING')
+        self.frame_details.setText('Waiting for the first complete frame…')
         self.worker = SerialWorker(port, self)
         self.worker.opened.connect(self.on_opened)
         self.worker.message.connect(self.on_message)
@@ -319,13 +370,20 @@ class MainWindow(QMainWindow):
         self.connect_button.setText('Disconnect')
         self.set_controls(True)
         self.send('hello')
-        self.send('stream', enabled=True, fps=5)
+        self.send('stream', enabled=True, fps=self.stream_rate.currentData())
         QTimer.singleShot(1500, self.confirm_stream)
 
     def confirm_stream(self):
         if self.worker is not None and self.worker.isRunning():
             self.send('hello')
-            self.send('stream', enabled=True, fps=5)
+            self.send('stream', enabled=True, fps=self.stream_rate.currentData())
+
+    def stream_rate_changed(self):
+        if not self.demo and self.worker is not None and self.worker.isRunning():
+            self.send('stream', enabled=True, fps=self.stream_rate.currentData())
+            self.frame_stats.reset(connected=True)
+            self.frame_count = 0
+            self.event_label.setText(f'Stream target set to {self.stream_rate.currentData()} FPS.')
 
     def send(self, command, **fields):
         if self.worker is not None:
@@ -364,17 +422,20 @@ class MainWindow(QMainWindow):
     def on_message(self, message):
         if message['type'] == 'frame':
             self.canvas.set_pixels(message['pixels'])
-            now = time.monotonic()
-            self.arrivals.append(now)
-            self.frame_count += 1
-            fps = (len(self.arrivals) - 1) / (now - self.arrivals[0]) if len(self.arrivals) > 1 else 0
-            self.frame_label.setText(f'Frame {message["seq"]:05d}   ·   {fps:.1f} received FPS   ·   {self.frame_count} frames   ·   CRC verified')
+            self.frame_stats.record(message['seq'], message['pixels'])
+            self.frame_count = self.frame_stats.frames
             self.status_label.setText('FPGA communication verified by a complete frame')
             self.live_label.setText('LIVE FPGA')
             self.banner.setText('FPGA frames · 64 × 64 pixels · 1,536 bytes per frame')
+            self.check_freshness()
         elif message['type'] in ('hello', 'status'):
-            self.event_label.setText('Bridge v' + str(message.get('version', '?')) +
-                (' · FPGA image transferred; waiting for frames' if message.get('fpga_loaded') else ' · FPGA image unavailable'))
+            if message.get('fpga_verified'):
+                detail = ' · FPGA frame verified'
+            elif message.get('fpga_loaded'):
+                detail = ' · FPGA image transferred; waiting for frames'
+            else:
+                detail = ' · FPGA image unavailable'
+            self.event_label.setText('Bridge v' + str(message.get('version', '?')) + detail)
         elif message['type'] == 'error':
             self.on_warning(str(message.get('message', 'Unknown bridge error')))
 
@@ -382,13 +443,25 @@ class MainWindow(QMainWindow):
         self.event_label.setText('Connection: ' + text[:220])
 
     def check_freshness(self):
-        if not self.demo and self.worker is not None and self.arrivals and time.monotonic() - self.arrivals[-1] > 2.5:
+        if self.demo:
+            return
+        snap = self.frame_stats.snapshot()
+        rate = 'calculating…' if snap.fps is None else f'{snap.fps:.1f}'
+        scene = ('Active · ' + str(snap.lit_pixels) + ' lit pixels') if snap.lit_pixels else 'No sparks'
+        if snap.sequence is None:
+            scene = 'Waiting for frames' if snap.state == 'warming' else 'No frames yet'
+        self.frame_label.setText(f'Stream FPS {rate}  ·  {scene}')
+        if snap.sequence is not None:
+            self.frame_details.setText(f'Frame {snap.sequence:05d} · {snap.frames} received · CRC verified' +
+                                       (' · last image retained' if snap.state in ('offline', 'stale') else ''))
+        if snap.state == 'stale':
             self.live_label.setText('FRAME STALE')
             self.status_label.setText('No recent complete frame. Last image retained.')
 
     def demo_tick(self):
         self.canvas.set_pixels(self.scene.step())
         self.frame_label.setText(f'Software preview frame {self.scene.frame:05d}   ·   Not connected to an FPGA')
+        self.frame_details.setText('Preview animation is software only; it does not measure stream FPS.')
 
     def disconnect(self):
         self.random_button.setChecked(False)
@@ -399,6 +472,7 @@ class MainWindow(QMainWindow):
 
     def on_disconnected(self, reason):
         self.worker = None
+        self.frame_stats.disconnect()
         self.connect_button.setText('Connect')
         self.ports.setEnabled(True)
         self.refresh_button.setEnabled(True)
@@ -407,6 +481,7 @@ class MainWindow(QMainWindow):
         self.set_controls(False)
         self.event_label.setText(reason[:220])
         self.random_button.setChecked(False)
+        self.check_freshness()
 
     def closeEvent(self, event):
         self.disconnect()

@@ -1,0 +1,96 @@
+{
+  "started_utc": "2026-11-03T16:55:01.598387+00:00",
+  "port": "/dev/cu.usbmodem1101",
+  "uploaded_by_this_tool": false,
+  "status": "passed",
+  "hello": {
+    "type": "hello",
+    "version": "0.1.0",
+    "board": "Shrike-Fi",
+    "fpga_loaded": true,
+    "fpga_verified": true,
+    "loader_message": "Image transferred; waiting for a valid FPGA frame",
+    "bitstream_bytes": 46408,
+    "streaming": true,
+    "fps_target": 5,
+    "material": 0,
+    "pattern": 1,
+    "frames": 1254,
+    "crc_errors": 0,
+    "header_errors": 0,
+    "timeouts": 0
+  },
+  "first_frame": {
+    "seq": 11807,
+    "lit_pixels": 0,
+    "colours": [],
+    "lit_positions": []
+  },
+  "motion_frames": [
+    {
+      "seq": 11811,
+      "lit_pixels": 8,
+      "colours": [
+        2
+      ],
+      "lit_positions": [
+        1504,
+        1565,
+        1570,
+        1756,
+        1764,
+        1885,
+        1890,
+        2016
+      ]
+    },
+    {
+      "seq": 11815,
+      "lit_pixels": 8,
+      "colours": [
+        2
+      ],
+      "lit_positions": [
+        992,
+        1239,
+        1256,
+        1748,
+        1772,
+        2327,
+        2344,
+        2528
+      ]
+    }
+  ],
+  "clear_frame": {
+    "seq": 11819,
+    "lit_pixels": 0,
+    "colours": [],
+    "lit_positions": []
+  },
+  "streaming": {
+    "frames": 22,
+    "target_fps": 7,
+    "measured_fps": 7.036,
+    "first_seq": 11821,
+    "last_seq": 11843
+  },
+  "final_status": {
+    "type": "status",
+    "version": "0.1.0",
+    "board": "Shrike-Fi",
+    "fpga_loaded": true,
+    "fpga_verified": true,
+    "loader_message": "Image transferred; waiting for a valid FPGA frame",
+    "bitstream_bytes": 46408,
+    "streaming": true,
+    "fps_target": 7,
+    "material": 1,
+    "pattern": 1,
+    "frames": 1281,
+    "crc_errors": 0,
+    "header_errors": 0,
+    "timeouts": 0
+  },
+  "ignored_lines": 1
+}

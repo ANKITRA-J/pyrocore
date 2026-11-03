@@ -109,7 +109,8 @@ def check(port, duration, report, fps=5):
             time.sleep(0.08)
             frame = link.frame()
             info = summary(frame)
-            if info['colours'] == [2] and 1 <= info['lit_pixels'] <= 8:
+            # Eight particles can contribute both a head and an FPGA-drawn trail.
+            if info['colours'] == [2] and 1 <= info['lit_pixels'] <= 16:
                 if not moving or (info['seq'] != moving[-1]['seq'] and
                                   info['lit_positions'] != moving[-1]['lit_positions']):
                     moving.append(info)

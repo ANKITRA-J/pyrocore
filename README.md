@@ -4,29 +4,33 @@ FPGA-generated pixel fireworks on the Vicharak Shrike-Fi. The FPGA owns particle
 motion and every image pixel; ESP32 carries commands/frames and the laptop displays
 the FPGA's completed64×64image through a configurable eight-entry palette.
 
-**Hardware checkpoint:** PyroCore is now running on a physical Shrike-Fi. Launch,
-particle motion, Clear and all18material/pattern combinations passed, with4.97FPS
-measured at the5FPS setting and no new CRC errors/timeouts. The first board run
-also found and fixed the peripheral BRAM power settings; the included FPGA image
-contains that correction. See[physical results](reports/2026-11-03/BRINGUP.md).
+**Hardware checkpoint:** PyroCore runs on a physical Shrike-Fi. The current image
+adds short FPGA-drawn trails; Launch, moving head/trail pixels and Clear passed.
+The faster setting measured **7.03 FPS**, up from 4.97 FPS at the five-frame setting,
+with no new communication errors in the short runs. The preceding image also passed
+all 18 material/pattern combinations. The peripheral BRAM power correction remains
+included. See [bring-up results](reports/2026-11-03/BRINGUP.md) and
+[the refinement checkpoint](reports/2026-11-03/refinement/RESULTS.md).
 Read **[docs/HANDOFF.md](docs/HANDOFF.md)** for the latest verified state and next task.
 
 ## Included
 
-- Eight-particle fixed-point FPGA physics: gravity, lifetime, clipping, radial/ring/willow.
+- Eight-particle fixed-point FPGA physics: gravity, lifetime, clipping, radial/ring/willow and previous-position trails.
 - Six visual material presets; white glitter uses FPGA pseudorandom flicker.
 - Two64×64×3bit framebuffers in six dedicated BRAM slices with safe frame ownership.
 - Binary CRC8-protected UART frames and an ESP32 USB bridge that forwards validated images.
-- Native desktop controls: Launch, Clear, Random Show, live status and received frame rate.
+- Native desktop controls: Launch, Clear, Random Show, 7/5 FPS selection and separate stream/activity status.
 - A clearly labelled **software preview** for looking at the UI without connecting hardware.
 - Reproducible build commands and implementation notes for continuation in another IDE.
 
-The initial hardware transport runs at about5FPS. Smooth20–30FPS needs a later
-measured faster-link change. The preview animation does not measure FPGA performance.
+The desktop defaults to the measured seven-frame stream; five FPS remains selectable.
+Smooth 20–30 FPS needs a later measured faster-link change. The preview animation
+does not measure FPGA performance.
 
-![PyroCore desktop software preview](docs/images/desktop-preview.png)
+![PyroCore corrected desktop layout](docs/images/desktop-layout.png)
 
-*Offline software preview of the interface. This image is not physical FPGA output.*
+*Corrected controls in disconnected mode; this image demonstrates the layout,
+not physical FPGA output. A labelled software preview is available with `--demo`.*
 
 ## Desktop
 

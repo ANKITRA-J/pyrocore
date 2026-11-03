@@ -54,7 +54,8 @@ Commands:
 {"cmd":"status"}
 ```
 
-Material and pattern are integers in the ranges above; fps is1–7, default5.
+Material and pattern are integers in the ranges above; fps is1–7. Firmware boots
+at5FPS; the desktop selects7FPS by default and offers5FPS as a fallback.
 Launch applies the supplied selection before sending the launch opcode.
 
 Hello/status include `type`, `version`, `fpga_loaded`, and useful counters.
@@ -75,5 +76,5 @@ Palette indices:0 black,1 red,2 green,3 blue,4 yellow,5 orange,6 white,7 pale si
 The FPGA produces indices; desktop maps the palette and enlarges pixels.
 
 Current full-frame bandwidth ceiling:115200/10/1545=7.46frames/s before any
-additional delays. FiveFPS is the initial transport target;20–30FPS needs a later
+additional delays. The short physical run measured7.03FPS;20–30FPS needs a later
 measured faster-link implementation.

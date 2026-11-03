@@ -1,0 +1,112 @@
+{
+  "started_utc": "2026-11-03T17:01:15.995514+00:00",
+  "port": "/dev/cu.usbmodem1101",
+  "uploaded_by_this_tool": false,
+  "status": "passed",
+  "hello": {
+    "type": "hello",
+    "version": "0.1.0",
+    "board": "Shrike-Fi",
+    "fpga_loaded": true,
+    "fpga_verified": false,
+    "loader_message": "Image transferred; waiting for a valid FPGA frame",
+    "bitstream_bytes": 46408,
+    "streaming": true,
+    "fps_target": 5,
+    "material": 0,
+    "pattern": 0,
+    "frames": 0,
+    "crc_errors": 0,
+    "header_errors": 0,
+    "timeouts": 0
+  },
+  "first_frame": {
+    "seq": 1338,
+    "lit_pixels": 0,
+    "colours": [],
+    "lit_positions": []
+  },
+  "motion_frames": [
+    {
+      "seq": 1341,
+      "lit_pixels": 16,
+      "colours": [
+        2
+      ],
+      "lit_positions": [
+        1504,
+        1565,
+        1570,
+        1630,
+        1632,
+        1633,
+        1756,
+        1758,
+        1762,
+        1764,
+        1822,
+        1825,
+        1885,
+        1888,
+        1890,
+        2016
+      ]
+    },
+    {
+      "seq": 1344,
+      "lit_pixels": 16,
+      "colours": [
+        2
+      ],
+      "lit_positions": [
+        1120,
+        1248,
+        1304,
+        1319,
+        1370,
+        1381,
+        1750,
+        1752,
+        1768,
+        1770,
+        2138,
+        2149,
+        2200,
+        2215,
+        2272,
+        2400
+      ]
+    }
+  ],
+  "clear_frame": {
+    "seq": 1347,
+    "lit_pixels": 0,
+    "colours": [],
+    "lit_positions": []
+  },
+  "streaming": {
+    "frames": 22,
+    "target_fps": 7,
+    "measured_fps": 7.027,
+    "first_seq": 1348,
+    "last_seq": 1372
+  },
+  "final_status": {
+    "type": "status",
+    "version": "0.1.0",
+    "board": "Shrike-Fi",
+    "fpga_loaded": true,
+    "fpga_verified": true,
+    "loader_message": "Image transferred; waiting for a valid FPGA frame",
+    "bitstream_bytes": 46408,
+    "streaming": true,
+    "fps_target": 7,
+    "material": 1,
+    "pattern": 1,
+    "frames": 27,
+    "crc_errors": 0,
+    "header_errors": 0,
+    "timeouts": 0
+  },
+  "ignored_lines": 1
+}
