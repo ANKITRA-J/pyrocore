@@ -81,8 +81,8 @@ def check(port, duration, report, fps=5):
             candidate = link.receive({'hello'}, seconds=0.6, allow_errors=True)
         except BoardError:
             continue
-        if candidate.get('version') != '0.1.0' or 'fpga_verified' not in candidate:
-            raise BoardError('The connected device is not running PyroCore firmware v0.1.0')
+        if candidate.get('version') not in ('0.1.0', '0.2.0') or 'fpga_verified' not in candidate:
+            raise BoardError('The connected device is not running supported PyroCore firmware (v0.1.0 or v0.2.0)')
         hello = candidate
     if hello is None:
         raise BoardError('No PyroCore hello response; use the native USB port and PyroCore firmware')

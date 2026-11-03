@@ -1,0 +1,15 @@
+PASS: existing renderer regressions; Pistil exact full/half velocities, colours, latched pattern and paired inner/Aluminium glitter
+- fpga/sim/particle_renderer_tb.v:183: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.034
+- Verilator: $finish at 496us; walltime 0.224 s; speed 2.211 ms/s
+- Verilator: cpu 0.224 s on 1 threads; alloced 0 MB
+
+PASS: UART frame seq=3, CRC and4096 pixels match immutable RAM snapshot, lit=9
+PASS: UART frame seq=5, CRC and4096 pixels match immutable RAM snapshot, lit=16
+PASS: UART frame seq=8, CRC and4096 pixels match immutable RAM snapshot, lit=16
+PASS: Pistil packed frame contains 8 yellow shell and 8 white core pixels
+PASS: malformed/unknown commands rejected, opcode 0x23 accepted, three complete UART frames including dual-colour Pistil
+- fpga/sim/pyrocore_core_tb.v:170: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.034
+- Verilator: $finish at 5ms; walltime 3.600 s; speed 1.264 ms/s
+- Verilator: cpu 3.592 s on 1 threads; alloced 0 MB

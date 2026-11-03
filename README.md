@@ -6,7 +6,8 @@ commands and frames; the desktop app provides controls and displays the result.
 
 ![PyroCore desktop software preview](docs/images/desktop.png)
 
-*Desktop software preview. The preview animation is separate from FPGA output.*
+*Pistil in the desktop software preview. Its approximate animation is separate
+from the FPGA output.*
 
 ## Get it running
 
@@ -26,7 +27,7 @@ For a preview without a board, add `--demo`.
 ## What it does
 
 - Eight particles with fixed-point motion, gravity, lifetime and short trails.
-- Radial, Ring and Willow patterns; six material colour presets.
+- Radial, Ring, Willow and dual-colour Pistil patterns; six material presets.
 - Two 64 × 64 × 3-bit framebuffers in dedicated FPGA BRAM.
 - Launch, Clear and Random Show controls, with validated frame reception.
 - A 7 FPS desktop stream target and a selectable 5 FPS fallback.

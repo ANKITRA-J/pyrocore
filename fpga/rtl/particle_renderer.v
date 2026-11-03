@@ -28,7 +28,9 @@ module particle_renderer (
     reg particle_alive, draw_visible;
     reg [15:0] random_state;
     wire in_bounds = !nx[10] && !ny[10];
-    wire [2:0] colour = active_material == 0 ? 3'd1 :
+    wire pistil_inner = frame_pattern == 2'd3 && index[0];
+    wire glitter = active_material == 4 || pistil_inner;
+    wire [2:0] colour = pistil_inner ? 3'd6 : active_material == 0 ? 3'd1 :
                         active_material == 1 ? 3'd2 :
                         active_material == 2 ? 3'd3 :
                         active_material == 3 ? 3'd4 :
@@ -47,10 +49,11 @@ module particle_renderer (
             6: begin init_vx=-32; init_vy=0;   end
             default: begin init_vx=-23; init_vy=-23; end
         endcase
-        if (frame_pattern == 0) begin
-            // Radial: alternating shorter spokes plus a small pseudorandom boost.
+        if (frame_pattern == 0 || frame_pattern == 3) begin
+            // Share the odd-spoke half-speed arithmetic for Radial and Pistil.
+            // Pistil keeps even spokes at Ring speed; only Radial adds variation.
             if (index[0]) begin init_vx=init_vx >>> 1; init_vy=init_vy >>> 1; end
-            if (random_state[0]) begin
+            if (frame_pattern == 0 && random_state[0]) begin
                 if (init_vx>0) init_vx=init_vx+7'sd2;
                 else if (init_vx<0) init_vx=init_vx-7'sd2;
             end
@@ -90,7 +93,7 @@ module particle_renderer (
             if (launch) begin
                 launch_pending<=1;
                 queued_material<=material<6 ? material : 3'd0;
-                queued_pattern<=pattern<3 ? pattern : 2'd0;
+                queued_pattern<=pattern;
             end
             if (clear) begin clear_pending<=1; launch_pending<=0; end
             case (state)
@@ -99,7 +102,7 @@ module particle_renderer (
                     frame_clear<=clear_pending || clear;
                     frame_launch<=!(clear_pending || clear) && (launch_pending || launch);
                     frame_material<=launch ? (material<6 ? material : 3'd0) : queued_material;
-                    frame_pattern<=launch ? (pattern<3 ? pattern : 2'd0) : queued_pattern;
+                    frame_pattern<=launch ? pattern : queued_pattern;
                     launch_pending<=0; clear_pending<=0;
                 end
                 CLEAR_FB: begin
@@ -136,12 +139,12 @@ module particle_renderer (
                 end
                 TRAIL: begin
                     // Reuse the already captured old position: no history RAM.
-                    // Cache visibility so an aluminium spark's head and tail
+                    // Cache visibility so a glittering spark's head and tail
                     // flicker together even though the LFSR advances each cycle.
                     draw_visible <= particle_alive && in_bounds &&
-                        !(active_material==4 && random_state[1:0]==0);
+                        !(glitter && random_state[1:0]==0);
                     if (particle_alive && in_bounds &&
-                        !(active_material==4 && random_state[1:0]==0)) begin
+                        !(glitter && random_state[1:0]==0)) begin
                         pixel_we<=1;
                         pixel_addr<={y[9:4],x[9:4]};
                         pixel_data<=colour;

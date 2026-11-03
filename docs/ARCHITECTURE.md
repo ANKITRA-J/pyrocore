@@ -22,16 +22,16 @@ Desktop display ← ESP32 ← FPGA frame serializer
 | Resource | Current design |
 |---|---|
 | FPGA | Renesas SLG47910V Rev BB |
-| Logic blocks | 136 / 140 CLBs |
+| Logic blocks | 132 / 140 CLBs |
 | Dedicated framebuffer BRAM | 6 / 8 slices, 24,576 / 32,768 bits |
-| CLB flip-flops | 320 |
+| CLB flip-flops | 319 |
 | IOB output flip-flops | 128 |
-| Raw placer LUT resources | 475, using the placer's 6-LUT accounting |
+| Raw placer LUT resources | 471, using the placer's 6-LUT accounting |
 | Core / oscillator clocks | 3.125 MHz / 50 MHz |
-| Typical post-route setup timing | WNS +15.599 ns; TNS 0 |
+| Typical post-route setup timing | WNS +15.344 ns; TNS 0 |
 
 The raw placer LUT count cannot be compared directly with the advertised 1,120
-LUT5 count. The CLB budget is the tighter immediate constraint: four CLBs remain.
+LUT5 count. The CLB budget is the tighter immediate constraint: eight CLBs remain.
 Adding an effect needs a new integrated fit check. The two unused BRAM slices
 contain 1,024 bytes in total; they do not provide additional logic blocks.
 
@@ -124,14 +124,19 @@ the next render; the latest queued launch wins and Clear takes priority.
 | 0 | Radial | Eight spokes with alternating speeds and a small FPGA-random variation |
 | 1 | Ring | Eight approximately equal-speed directions |
 | 2 | Willow | A narrower upward fan that bends down under gravity |
-| 3 | Unused | Rejected by the public command interfaces |
+| 3 | Pistil | Even particles use full Ring velocity; odd particles use half velocity and white glitter |
 
-Three patterns require a two-bit field. Its unused value 3 does not represent a
-fourth engine or a reserved block of FPGA logic. Removing that value would not
-reduce the field to one bit. The renderer also maps an invalid internal pattern
-input back to Radial.
+All four values of the two-bit pattern field are used. Opcode `0x23` selects
+Pistil. Its even particles (0, 2, 4, 6) keep full Ring velocity and the selected
+material colour. Odd particles (1, 3, 5, 7) use signed arithmetic right shifts
+(`>>> 1`) on both initial velocity components, draw palette index 6 (white),
+and use the existing LFSR glitter. Gravity still applies equally to every spark.
+The half-speed arithmetic is shared with Radial; no per-particle colour memory
+or additional BRAM is required. Selecting Aluminium makes both groups white.
+The launch captures its pattern, so changing the input selection alone does not
+recolour an active burst.
 
-Radial and Ring start at (32, 27). Willow starts at (32, 40), with horizontal
+Radial, Ring and Pistil start at (32, 27). Willow starts at (32, 40), with horizontal
 velocities of ±2, ±6, ±10 and ±14 fixed-point units and alternating vertical
 velocities of −20 and −24 units. The two vertical trajectories reach apex heights
 of approximately 26.875 and 21.25 pixels. The outermost two Willow particles leave
@@ -149,12 +154,11 @@ the burst's full lifetime.
 | 4 | Aluminium | 6, white |
 | 5 | Titanium | 7, pale silver |
 
-In the current RTL, Aluminium alone has glitter. A 16-bit FPGA LFSR supplies the
-visibility decision; an Aluminium particle is hidden when its low two bits are
-zero. The head and trail share the captured visibility flag, so both flicker
-together. Every material already has the state and colour data needed for the
-same effect. Applying glitter to other materials is an appearance choice; it
-does not require another framebuffer or particle-history store.
+A 16-bit FPGA LFSR supplies glitter for Aluminium sparks and the white odd
+particles of Pistil. A glittering spark is hidden when the low two LFSR bits are
+zero. Head and trail share the captured visibility decision, so both flicker
+together. Other materials in Radial, Ring and Willow keep their existing behavior;
+Pistil's outer group also keeps the selected material's usual behavior.
 
 ## Rendering and short trails
 

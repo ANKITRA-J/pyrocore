@@ -76,10 +76,11 @@ module pyrocore_core_tb;
     endfunction
     reg [7:0] packet[0:1544];
     reg [2:0] snapshot[0:4095];
-    reg [15:0] first_sequence,second_sequence;
-    integer lit_pixels,old_lit_pixels;
+    reg [15:0] first_sequence,second_sequence,pistil_sequence;
+    reg expect_pistil=0;
+    integer lit_pixels,shell_pixels,core_pixels;
     task receive_frame;
-        input save_packet;
+        input integer save_packet;
         output [15:0] seq_out;
         integer i,g,j,fd;
         reg [7:0] c,byte_value;
@@ -95,26 +96,34 @@ module pyrocore_core_tb;
             seq_out={packet[5],packet[4]};
             c=0;for(i=2;i<1544;i=i+1)c=crc_next(c,packet[i]);
             if(c!=packet[1544])$fatal(1,"frame CRC mismatch");
-            lit_pixels=0;
+            lit_pixels=0;shell_pixels=0;core_pixels=0;
             for(g=0;g<512;g=g+1)begin
                 group_word={packet[8+g*3+2],packet[8+g*3+1],packet[8+g*3]};
                 for(j=0;j<8;j=j+1)begin
                     pixel=(group_word>>(j*3))&3'b111;
                     if(pixel!==snapshot[g*8+j])$fatal(1,"frame packing/RAM latency mismatch at pixel %0d",g*8+j);
                     if(pixel!=0)begin
-                        if(pixel!=2)$fatal(1,"material selection was not green");
+                        if(expect_pistil)begin
+                            if(pixel==4)shell_pixels=shell_pixels+1;
+                            else if(pixel==6)core_pixels=core_pixels+1;
+                            else $fatal(1,"Pistil frame contained an unexpected colour");
+                        end else if(pixel!=2)$fatal(1,"material selection was not green");
                         lit_pixels=lit_pixels+1;
                     end
                 end
             end
             if(lit_pixels<4)$fatal(1,"launch did not produce visible FPGA particles");
+            if(expect_pistil && (shell_pixels==0 || core_pixels==0))
+                $fatal(1,"Pistil frame must contain selected yellow shell and white core pixels");
             if(save_packet)begin
-                fd=$fopen("frame_packet.bin","wb");
+                if(save_packet==2)fd=$fopen("pistil_frame_packet.bin","wb");
+                else fd=$fopen("frame_packet.bin","wb");
                 if(!fd)$fatal(1,"cannot open frame_packet.bin");
                 for(i=0;i<1545;i=i+1)$fwrite(fd,"%c",packet[i]);
                 $fclose(fd);
             end
             $display("PASS: UART frame seq=%0d, CRC and4096 pixels match immutable RAM snapshot, lit=%0d",seq_out,lit_pixels);
+            if(expect_pistil)$display("PASS: Pistil packed frame contains %0d yellow shell and %0d white core pixels",shell_pixels,core_pixels);
         end
     endtask
     integer i;
@@ -143,7 +152,21 @@ module pyrocore_core_tb;
             receive_frame(0,second_sequence);
         join
         if(second_sequence<=first_sequence)$fatal(1,"front sequence did not advance");
-        $display("PASS: malformed command rejected, material/pattern/launch commands accepted, two complete UART frames");
+        wait(!dut.stream_busy);
+        command(8'h23);
+        if(dut.pattern!=3)$fatal(1,"Pistil opcode 0x23 was not accepted");
+        command(8'h24);
+        if(dut.pattern!=3)$fatal(1,"unknown pattern opcode changed the selection");
+        command(8'h13);command(8'h01);
+        repeat(11000)@(negedge clk);
+        expect_pistil=1;
+        send_byte(8'hf0);
+        fork
+            send_byte(8'h0f);
+            receive_frame(2,pistil_sequence);
+        join
+        if(pistil_sequence<=second_sequence)$fatal(1,"Pistil frame sequence did not advance");
+        $display("PASS: malformed/unknown commands rejected, opcode 0x23 accepted, three complete UART frames including dual-colour Pistil");
         $finish;
     end
     initial begin #10000000;$fatal(1,"end-to-end UART test timeout");end

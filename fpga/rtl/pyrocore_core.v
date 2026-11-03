@@ -22,7 +22,7 @@ module pyrocore_core #(
     localparam TIMEOUT_BITS=$clog2(COMMAND_TIMEOUT+1);
     reg [TIMEOUT_BITS-1:0] pair_timer;
     wire opcode_known=rx_data==8'h01 || rx_data==8'h02 || rx_data==8'hf0 ||
-        (rx_data>=8'h10 && rx_data<=8'h15) || (rx_data>=8'h20 && rx_data<=8'h22);
+        (rx_data>=8'h10 && rx_data<=8'h15) || rx_data[7:2]==6'h08;
     always @(posedge clk) begin
       if(rst) begin pair_pending<=0;command_valid<=0;pending_opcode<=0;command<=0;pair_timer<=0;end
       else begin
@@ -76,7 +76,7 @@ module pyrocore_core #(
         frame_timer<=frame_tick ? 0 : frame_timer+1'b1;
         if(command_valid) begin
           if(command>=8'h10 && command<=8'h15) material<=command[2:0];
-          if(command>=8'h20 && command<=8'h22) pattern<=command[1:0];
+          if(command[7:2]==6'h08) pattern<=command[1:0];
           if(command==8'h01) launch<=1;
           if(command==8'h02) clear<=1;
         end

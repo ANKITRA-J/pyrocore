@@ -196,27 +196,33 @@ class DemoScene:
         cx, cy = self.rng.randrange(18, 46), (self.rng.randrange(38, 44) if pattern == 2 else self.rng.randrange(15, 32))
         for index in range(56):
             angle = 2 * math.pi * index / 56
-            speed = 0.65 if pattern == 1 else self.rng.uniform(0.3, 0.9)
+            speed = 0.65 if pattern in (1, 3) else self.rng.uniform(0.3, 0.9)
+            inner = pattern == 3 and index % 2 == 1
+            if inner:
+                speed *= 0.5
             vy = math.sin(angle) * speed
             if pattern == 2:
                 vy -= 0.35
             self.particles.append([float(cx), float(cy), math.cos(angle) * speed,
-                                   vy, self.rng.randrange(35, 72), colours[material]])
+                                   vy, self.rng.randrange(35, 72),
+                                   6 if inner else colours[material], inner])
 
     def step(self):
         pixels = bytearray(4096)
         living = []
-        for particle in self.particles:
-            x, y, vx, vy, life, colour = particle
+        for index, particle in enumerate(self.particles):
+            x, y, vx, vy, life, colour, inner_glitter = particle
             for back in range(3):
                 px, py = round(x - vx * back), round(y - vy * back)
-                if 0 <= px < 64 and 0 <= py < 64 and (life > 12 or self.frame % 2):
+                if (0 <= px < 64 and 0 <= py < 64 and
+                        (life > 12 or self.frame % 2) and
+                        (not inner_glitter or (self.frame + index) % 4 != 0)):
                     pixels[py * 64 + px] = colour if back == 0 else (5 if colour in (1, 4, 5) else colour)
             x += vx
             y += vy
             vy += 0.018
             if life > 0:
-                living.append([x, y, vx, vy, life - 1, colour])
+                living.append([x, y, vx, vy, life - 1, colour, inner_glitter])
         self.particles = living
         self.frame += 1
         return pixels
@@ -479,7 +485,7 @@ class MainWindow(QMainWindow):
 
     def random_launch(self):
         self.material.setCurrentIndex(self.rng.randrange(6))
-        pattern = self.rng.randrange(3)
+        pattern = self.rng.randrange(len(PATTERNS))
         self.pattern.setCurrentIndex(pattern)
         interval = 6000 if (pattern == 2 and not self.demo) else (2800 if pattern == 2 else 1700)
         self.random_timer.setInterval(interval)

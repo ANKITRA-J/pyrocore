@@ -34,6 +34,15 @@ class DesktopProtocolTests(unittest.TestCase):
         self.assertEqual(frame['seq'], 42)
         self.assertEqual(frame['pixels'], bytes(4096))
 
+    def test_mixed_pistil_colours_survive_frame_transport(self):
+        pixels = bytearray(4096)
+        for position in (0, 7, 1023):
+            pixels[position] = 2
+        for position in (63, 64, 4095):
+            pixels[position] = 6
+        encoded = base64.b64encode(pack_pixels(list(pixels))).decode('ascii')
+        self.assertEqual(decode_message(self.frame(data=encoded))['pixels'], pixels)
+
     def test_reject_untrusted_or_bad_frame(self):
         for changes in ({'source': 'demo'}, {'crc_ok': False}, {'crc_ok': 1},
                         {'seq': -1}, {'seq': 65536}, {'seq': True},
@@ -59,9 +68,13 @@ class DesktopProtocolTests(unittest.TestCase):
     def test_commands(self):
         self.assertEqual(encode_command('launch', material=5, pattern=2),
                          b'{"cmd":"launch","material":5,"pattern":2}\n')
+        self.assertEqual(encode_command('launch', material=1, pattern=3),
+                         b'{"cmd":"launch","material":1,"pattern":3}\n')
+        self.assertEqual(json.loads(encode_command('set', pattern=3))['pattern'], 3)
         self.assertEqual(json.loads(encode_command('stream', enabled=True, fps=5))['fps'], 5)
         for command, fields in [('invalid', {}), ('launch', {'material': 6}),
-                                ('set', {'pattern': -1}), ('stream', {'fps': 0}),
+                                ('set', {'pattern': -1}), ('set', {'pattern': 4}),
+                                ('launch', {'pattern': 4}), ('stream', {'fps': 0}),
                                 ('stream', {}), ('stream', {'enabled': 1}),
                                 ('clear', {'material': 1})]:
             with self.subTest(command=command, fields=fields), self.assertRaises(ProtocolError):

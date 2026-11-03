@@ -11,6 +11,8 @@ module particle_renderer_tb;
     integer cleared,drawn,cycles,expected_clear;
     integer verify_frame=0;
     integer trail_for_pair=0;
+    integer pistil_init_seen=0;
+    integer pistil_particle;
     function [11:0] first_head;
         input integer i;
         begin
@@ -29,18 +31,92 @@ module particle_renderer_tb;
             endcase
         end
     endfunction
+    function signed [6:0] pistil_vx;
+        input [2:0] i;
+        begin
+            case(i)
+                0:pistil_vx=0;1:pistil_vx=11;2:pistil_vx=32;3:pistil_vx=11;
+                4:pistil_vx=0;5:pistil_vx=-12;6:pistil_vx=-32;default:pistil_vx=-12;
+            endcase
+        end
+    endfunction
+    function signed [6:0] pistil_vy;
+        input [2:0] i;
+        begin
+            case(i)
+                0:pistil_vy=-32;1:pistil_vy=-12;2:pistil_vy=0;3:pistil_vy=11;
+                4:pistil_vy=32;5:pistil_vy=11;6:pistil_vy=0;default:pistil_vy=-12;
+            endcase
+        end
+    endfunction
+    function [11:0] pistil_first_head;
+        input integer i;
+        begin
+            case(i)
+                0:pistil_first_head=1632;1:pistil_first_head=1696;
+                2:pistil_first_head=1762;3:pistil_first_head=1760;
+                4:pistil_first_head=1888;5:pistil_first_head=1759;
+                6:pistil_first_head=1758;default:pistil_first_head=1695;
+            endcase
+        end
+    endfunction
+    function [11:0] pistil_second_head;
+        input integer i;
+        begin
+            case(i)
+                0:pistil_second_head=1504;1:pistil_second_head=1633;
+                2:pistil_second_head=1764;3:pistil_second_head=1825;
+                4:pistil_second_head=2016;5:pistil_second_head=1822;
+                6:pistil_second_head=1756;default:pistil_second_head=1630;
+            endcase
+        end
+    endfunction
+    function [11:0] pistil_third_even_head;
+        input integer i;
+        begin
+            case(i)
+                0:pistil_third_even_head=1376;2:pistil_third_even_head=1766;
+                4:pistil_third_even_head=2144;default:pistil_third_even_head=1754;
+            endcase
+        end
+    endfunction
+    always @(posedge clk) if(!rst && dut.state==4'd3 && dut.frame_pattern==2'd3)begin
+        if($signed(dut.init_vx)!==pistil_vx(dut.index) ||
+           $signed(dut.init_vy)!==pistil_vy(dut.index))
+            $fatal(1,"Pistil full/half signed initial velocity incorrect");
+        pistil_init_seen=pistil_init_seen+1;
+    end
     always @(posedge clk) if (!rst && pixel_we) begin
         if(pixel_data==0) begin
             if(pixel_addr!==expected_clear[11:0])$fatal(1,"clear address order");
             expected_clear=expected_clear+1;cleared=cleared+1;
         end else begin
-            if(verify_frame!=0)begin
+            if(verify_frame==1 || verify_frame==2)begin
                 if(pixel_data!=2)$fatal(1,"green head/trail colour incorrect");
                 if(!drawn[0])begin
                     if(pixel_addr !== (verify_frame==1 ? 12'd1760 : first_head(drawn>>1)))
                         $fatal(1,"trail does not match previous frame particle position");
                 end else if(pixel_addr !== (verify_frame==1 ? first_head(drawn>>1) : second_head(drawn>>1)))
                     $fatal(1,"head motion/gravity changed while adding trail");
+            end
+            if(verify_frame==3 || verify_frame==4)begin
+                pistil_particle=drawn>>1;
+                if(pixel_data!==(pistil_particle[0] ? 3'd6 : 3'd2))
+                    $fatal(1,"Pistil outer material / inner white colour incorrect");
+                if(!drawn[0])begin
+                    if(pixel_addr!==(verify_frame==3 ? 12'd1760 : pistil_first_head(pistil_particle)))
+                        $fatal(1,"Pistil previous-position trail incorrect");
+                end else if(pixel_addr!==(verify_frame==3 ? pistil_first_head(pistil_particle) : pistil_second_head(pistil_particle)))
+                    $fatal(1,"Pistil current head/gravity incorrect");
+            end
+            if(verify_frame==5)begin
+                pistil_particle=(drawn>>1)*2;
+                if(pixel_data!=2)$fatal(1,"hidden Pistil inner spark still visible");
+                if(!drawn[0])begin
+                    if(pixel_addr!==pistil_second_head(pistil_particle))
+                        $fatal(1,"Pistil outer trail changed while inner spark hidden");
+                end else if(pixel_addr!==pistil_third_even_head(pistil_particle))
+                    $fatal(1,"Pistil outer head changed while inner spark hidden");
             end
             if(!drawn[0])trail_for_pair={29'd0,pixel_data};
             else if(pixel_data!==trail_for_pair[2:0])$fatal(1,"head/trail colour mismatch");
@@ -84,7 +160,26 @@ module particle_renderer_tb;
         @(negedge clk);clear=0;
         frame();if(drawn!=0)$fatal(1,"clear left live particles");
         frame();if(drawn!=0)$fatal(1,"cleared particles revived");
-        $display("PASS: full clears,16 head/trail writes, exact previous positions and unchanged gravity, queued launch, paired glitter, clear/done ordering");
+        // Fix the random gate in simulation only: this exercises visibility
+        // deliberately instead of making the geometry assertions probabilistic.
+        force dut.random_state=16'h0001;
+        @(negedge clk);launch=1;material=1;pattern=3;
+        @(negedge clk);launch=0;material=0;pattern=0;
+        // The raw selector changes above must not alter the captured launch.
+        verify_frame=3;frame();
+        if(drawn!=16 || pistil_init_seen!=8 || dut.frame_pattern!=3)
+            $fatal(1,"Pistil launch not captured or incomplete");
+        verify_frame=4;frame();
+        if(drawn!=16 || dut.frame_pattern!=3)$fatal(1,"Pistil pattern did not remain latched");
+        force dut.random_state=16'h0000;
+        verify_frame=5;frame();
+        if(drawn!=8)$fatal(1,"Pistil inner glitter must hide four complete pairs");
+        verify_frame=0;
+        @(negedge clk);launch=1;material=4;pattern=3;
+        @(negedge clk);launch=0;
+        frame();if(drawn!=0)$fatal(1,"Aluminium outer/inner glitter visibility mismatch");
+        release dut.random_state;
+        $display("PASS: existing renderer regressions; Pistil exact full/half velocities, colours, latched pattern and paired inner/Aluminium glitter");
         $finish;
     end
     initial begin #1000000;$fatal(1,"test timeout");end

@@ -13,7 +13,7 @@ PALETTE = (
 )
 MATERIALS = ('Strontium · red', 'Barium · green', 'Copper · blue',
              'Sodium · yellow', 'Aluminium · white', 'Titanium · silver')
-PATTERNS = ('Radial', 'Ring', 'Willow')
+PATTERNS = ('Radial', 'Ring', 'Willow', 'Pistil')
 
 
 class ProtocolError(ValueError):
@@ -89,7 +89,7 @@ def encode_command(command, **fields):
             raise ProtocolError('stream requires enabled')
     if set(fields) - permitted:
         raise ProtocolError('Unsupported command field')
-    for key, maximum in [('material', 5), ('pattern', 2), ('fps', 7)]:
+    for key, maximum in [('material', 5), ('pattern', 3), ('fps', 7)]:
         if key in fields:
             minimum = 1 if key == 'fps' else 0
             if type(fields[key]) is not int or not minimum <= fields[key] <= maximum:

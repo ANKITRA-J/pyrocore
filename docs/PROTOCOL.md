@@ -5,11 +5,13 @@
 | Field | Valid IDs |
 |---|---|
 | Material | 0 Strontium, 1 Barium, 2 Copper, 3 Sodium, 4 Aluminium, 5 Titanium |
-| Pattern | 0 Radial, 1 Ring, 2 Willow |
+| Pattern | 0 Radial, 1 Ring, 2 Willow, 3 Pistil |
 | Stream FPS target | 1–7 |
 
-Pattern ID 3 is unused and rejected by the public interfaces. The third visible
-pattern is Willow, ID 2. Material names are visual presets, not combustion calculations.
+Pattern 3 is Pistil: selected-colour outer sparks and half-speed white glitter
+inside. Firmware v0.2.0 and its matching FPGA image add this pattern; update both
+when upgrading from v0.1.0. Existing command/frame formats remain compatible.
+Material names are visual presets, not combustion calculations.
 
 ## Desktop ↔ ESP32 native USB
 
@@ -60,7 +62,7 @@ Commands are two bytes: `[opcode, opcode XOR 0xFF]`.
 | `01` | Launch with the current selection |
 | `02` | Clear particles and scene |
 | `10`–`15` | Material 0–5 |
-| `20`–`22` | Pattern 0–2 |
+| `20`–`23` | Pattern 0–3 |
 | `F0` | Request the front-buffer frame; ignored during an active transmission |
 
 Opcode values above are hexadecimal. Malformed pairs do not execute; a lone first

@@ -4,7 +4,7 @@
 #include "frame_parser.h"
 
 namespace {
-constexpr char Version[] = "0.1.0";
+constexpr char Version[] = "0.2.0";
 constexpr uint32_t FrameTimeoutMs = 600;
 HardwareSerial FPGA(2);
 FrameParser parser;
@@ -73,8 +73,8 @@ bool selection(JsonDocument& doc, uint8_t& material, uint8_t& pattern) {
     material = doc["material"].as<uint8_t>();
   }
   if (doc.containsKey("pattern")) {
-    if (!doc["pattern"].is<int>() || doc["pattern"].as<int>() < 0 || doc["pattern"].as<int>() > 2) {
-      error("pattern must be an integer from 0 through 2"); return false;
+    if (!doc["pattern"].is<int>() || doc["pattern"].as<int>() < 0 || doc["pattern"].as<int>() > 3) {
+      error("pattern must be an integer from 0 through 3"); return false;
     }
     pattern = doc["pattern"].as<uint8_t>();
   }

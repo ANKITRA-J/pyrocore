@@ -102,6 +102,10 @@ explicit tool/library locations. `--baud` changes upload speed; its default is 1
 4. Use **Clear scene** to clear the image. Select **5 FPS** if you prefer the slower stream.
 
 Willow gets a longer Random Show interval so its falling arc can develop.
+**Pistil** adds a white glittering core inside the selected-colour shell. Choose
+a non-white material, such as Sodium or Strontium, to see both colours clearly.
+An upgrade from the three-pattern version needs both the new firmware and FPGA
+image: use the complete upload command in step 3.
 **Idle (no sparks)** with a nonzero stream FPS is normal: complete black frames
 are still being received. Stale or disconnected streams show zero FPS and retain
 the last image with an explicit status. Scroll the controls in a shorter window.

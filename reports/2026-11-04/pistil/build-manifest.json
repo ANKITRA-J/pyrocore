@@ -1,0 +1,75 @@
+{
+  "target": "SLG47910V Rev BB",
+  "format": "MCU SPI",
+  "bytes": 46408,
+  "sha256": "2c43d2c38a5dfc523b2b0acf14e82fb8469ae4645b2a72df387c8ca461251dbb",
+  "physical_board_tested": false,
+  "bram_power_down_bits": 0,
+  "sources": {
+    "fpga/rtl/pyrocore_top.v": "78dafd8dfb3d2c98263e7f7b2abc252eccdffd2efb4ee7e3705c664fdbaeac4f",
+    "fpga/rtl/pyrocore_core.v": "a2eadd1d9c6ade5d4d0d0adef4a259616440ee80c946acba220b37e836d09bc6",
+    "fpga/rtl/particle_renderer.v": "26ccccde96d938559f2556285af696721e20e4707bf117e1d58b122bf460dafe",
+    "fpga/rtl/frame_streamer.v": "bde2d55954ee1f2845f12544ea9cd5399a225b95b29a824d3a115f8753baa882",
+    "fpga/rtl/uart_rx.v": "11cba6a2eae94966f3f6ccba125a8addb6153ea93982482f09f029dc329e0cb3",
+    "fpga/rtl/uart_tx.v": "33fb3eec401a5be4c299d4cb1541af993d570276a2d05fe82c470b5cb0eb9575"
+  },
+  "source_base_commit": "518673bbedd74f16abadb16915aaa91cce8f18b6",
+  "source_checkpoint": "FPGA source hashes match the Pistil implementation committed with this report.",
+  "included_image": "firmware/pyrocore/data/fpga_bitstream.bin",
+  "resources": {
+    "logic_blocks": 132,
+    "logic_blocks_available": 140,
+    "rbb_lut_resources": 471,
+    "clb_flip_flops": 319,
+    "iob_output_flip_flops": 128,
+    "framebuffer_bram_slices": 6,
+    "framebuffer_bram_slices_available": 8,
+    "core_mhz": 3.125,
+    "oscillator_mhz": 50,
+    "wns_ns": 15.344,
+    "tns_ns": 0,
+    "corner": "vendor typical; external BRAM interface timing not fully signed off"
+  },
+  "firmware": {
+    "version": "0.2.0",
+    "esp32_arduino_core": "3.3.12",
+    "ArduinoJson": "6.21.5",
+    "application_flash_bytes": 359234,
+    "global_ram_bytes": 26664,
+    "uploaded": false,
+    "images": {
+      "pyrocore.ino.bin": {
+        "bytes": 359376,
+        "sha256": "cbc1b40601d1b6f9d4f013aae1a50596173371e14713ee16e2e9063054804ee6"
+      },
+      "littlefs.bin": {
+        "bytes": 1572864,
+        "sha256": "50056b79b7e067a5b7f21b225d3ad6014878116f13d5b88570ff4f2221f10c5b"
+      }
+    }
+  },
+  "component_sources": {
+    "firmware/pyrocore/pyrocore.ino": "fb2ae708ddc3b002f367ee215daad2297106f0a8967822fb51f976def1048b59",
+    "desktop/app.py": "242a8ad919ebeedb99be65f3e0d1797f379f2e1432ffdf4c2d5d4242329a7291",
+    "desktop/protocol.py": "6289140fcb28095a29b741593585d865bd62f0d7104a600e0d1c3003a17c0233",
+    "fpga/sim/particle_renderer_tb.v": "ef9f7f39a33ff58290fe0cab52c0d77ef9bbbb7a08b4601ca4a2095fd00fcf05",
+    "fpga/sim/pyrocore_core_tb.v": "6f222e066613e1a38dfa0d0445bed33046b492e1b981248ac5ab65e450c5077d"
+  },
+  "validation": {
+    "renderer_simulation": "passed: exact full/half signed velocities, selected-colour even/white odd writes, paired LFSR glitter, latched pattern, previous regressions",
+    "integrated_uart_simulation": "passed: opcode0x23 accepted,0x24 rejected, three CRC-valid frames;all4096 pixels match immutable RAM snapshots",
+    "host": "17 checks plus native firmware parser and RTL-packet-to-desktop end-to-end passed",
+    "desktop": "offscreen Pistil selection/preview/command smoke passed; no board port opened",
+    "firmware": "application and LittleFS package compiled successfully; no upload",
+    "physical_board": "not performed for this image"
+  },
+  "pistil_packet": {
+    "file": "rtl-pistil-frame.bin",
+    "bytes": 1545,
+    "sha256": "6dec36ef30c94cf5f42e179a902ec071c07c565d684404dd0fde4cc4d0671c72",
+    "sequence": 8,
+    "yellow_shell_pixels": 8,
+    "white_core_pixels": 8,
+    "crc_validated": true
+  }
+}
