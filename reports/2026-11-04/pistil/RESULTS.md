@@ -1,8 +1,8 @@
 # Pistil pattern checkpoint
 
 4 November 2026. Pattern 3 / opcode `0x23` is implemented across the FPGA,
-firmware v0.2.0 and desktop app. **This checkpoint has not been uploaded or
-physically tested on the board.**
+firmware v0.2.0 and desktop app. **The complete package is uploaded and physically
+verified on the Shrike-Fi board.**
 
 ## Behavior
 
@@ -59,5 +59,29 @@ The included 46,408-byte MCU image SHA256 is:
 
 Upgrade both firmware and its FPGA image with the complete helper command in
 SETUP.md; the preceding v0.1.0 firmware rejects pattern 3. Frame protocol v1 is
-unchanged. Physical multicolour output and stream rate remain to be checked after
-an explicitly requested board upload.
+unchanged. Physical acceptance results are below.
+
+## Physical board acceptance
+
+The owner explicitly requested the upload. The complete application/filesystem
+package was flashed at 115200 baud; all five written sections passed esptool hash
+verification and the board reset into firmware v0.2.0. No OTP programming was used.
+The original local flash backup remains preserved.
+
+`hardware-physical.json` records:
+
+- Ring launch/motion and Clear passed on the new image.
+- A short 7 FPS target stream received 22 frames at **7.035 FPS**.
+- Sodium Pistil: four advancing frames contained yellow shell and white core
+  pixels. Shell count stayed 8; white counts were 8, 6, 5, 8.
+- Barium Pistil: four advancing frames contained green shell and white core
+  pixels. Shell count stayed 8; white counts were 6, 8, 6, 8.
+- In all four sampled frames for each material, the shell's horizontal and vertical
+  span exceeded the inner core's span.
+- Pistil Clear returned a complete black frame. Firmware reported
+  `fpga_verified:true` and no new CRC, header or timeout errors.
+
+The white core visibly varied across frames; exact parity, half-speed and paired
+glitter behavior also have the deterministic simulation coverage above. This is
+a short functional check, not a long-duration reliability claim. The board is
+left with a cleared scene and the 7 FPS stream target selected.

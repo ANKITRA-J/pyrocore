@@ -3,7 +3,7 @@
   "format": "MCU SPI",
   "bytes": 46408,
   "sha256": "2c43d2c38a5dfc523b2b0acf14e82fb8469ae4645b2a72df387c8ca461251dbb",
-  "physical_board_tested": false,
+  "physical_board_tested": true,
   "bram_power_down_bits": 0,
   "sources": {
     "fpga/rtl/pyrocore_top.v": "78dafd8dfb3d2c98263e7f7b2abc252eccdffd2efb4ee7e3705c664fdbaeac4f",
@@ -36,7 +36,7 @@
     "ArduinoJson": "6.21.5",
     "application_flash_bytes": 359234,
     "global_ram_bytes": 26664,
-    "uploaded": false,
+    "uploaded": true,
     "images": {
       "pyrocore.ino.bin": {
         "bytes": 359376,
@@ -44,9 +44,11 @@
       },
       "littlefs.bin": {
         "bytes": 1572864,
-        "sha256": "50056b79b7e067a5b7f21b225d3ad6014878116f13d5b88570ff4f2221f10c5b"
+        "sha256": "73eaefcef7386af24d609a73de47ee92fc73429eb67073ddcc7b291e98c4bc44"
       }
-    }
+    },
+    "previous_build_only_littlefs_sha256": "50056b79b7e067a5b7f21b225d3ad6014878116f13d5b88570ff4f2221f10c5b",
+    "filesystem_note": "The upload helper repackaged LittleFS. Extracted fpga_bitstream.bin matches the published FPGA image hash; the ESP32 application hash is unchanged."
   },
   "component_sources": {
     "firmware/pyrocore/pyrocore.ino": "fb2ae708ddc3b002f367ee215daad2297106f0a8967822fb51f976def1048b59",
@@ -61,7 +63,7 @@
     "host": "17 checks plus native firmware parser and RTL-packet-to-desktop end-to-end passed",
     "desktop": "offscreen Pistil selection/preview/command smoke passed; no board port opened",
     "firmware": "application and LittleFS package compiled successfully; no upload",
-    "physical_board": "not performed for this image"
+    "physical_board": "passed: firmware0.2.0, Ring motion/Clear,7.035 received FPS over22 frames; advancing yellow/white and green/white Pistil; outer bounds larger than core in all4 sampled frames per material;Pistil Clear;no new CRC/header/timeout errors"
   },
   "pistil_packet": {
     "file": "rtl-pistil-frame.bin",
@@ -71,5 +73,12 @@
     "yellow_shell_pixels": 8,
     "white_core_pixels": 8,
     "crc_validated": true
-  }
+  },
+  "upload": {
+    "baud": 115200,
+    "flash_sections_hash_verified": 5,
+    "application_and_filesystem": true,
+    "otp_programmed": false
+  },
+  "physical_report": "hardware-physical.json"
 }

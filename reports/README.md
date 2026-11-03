@@ -7,7 +7,8 @@ selected-colour shell and half-speed white glitter core. The FPGA build fits
 132/140 logic blocks and six BRAM slices, with typical WNS +15.344 ns and TNS 0.
 Simulation checks a CRC-valid mixed-colour frame through the exact firmware parser
 and desktop decoder. Firmware v0.2.0 and LittleFS compile successfully.
-**This image has not yet been uploaded or physically tested.** See its
+The complete package is uploaded and physically checked: moving yellow/white
+and green/white Pistil, Clear, 7.035 FPS and no new communication errors. See its
 [manifest](2026-11-04/pistil/build-manifest.json) for image/source hashes and scope.
 
 ## Historical evidence

@@ -1,6 +1,6 @@
 # PyroCore handoff
 
-Updated 4 November 2026. **Pattern 3, Pistil, is implemented and built.** The
+Updated 4 November 2026. **Pattern 3, Pistil, is implemented, flashed and physically verified.** The
 owner's GUI and falling Willow changes remain intact. Firmware is now v0.2.0.
 Start with [SETUP.md](SETUP.md) for deployment and [DEVELOPMENT.md](DEVELOPMENT.md)
 for source changes. Preserve credits/notices and follow [AGENTS.md](../AGENTS.md).
@@ -44,16 +44,20 @@ simplified pattern validation and packing, not isolated effect-cost measurements
   the exact native firmware parser and desktop decoder.
 - Seventeen host checks, offscreen GUI selection/preview/command checks, FPGA
   synthesis/routing, and firmware/LittleFS compilation passed.
-- **No Pistil upload or physical-board test was performed.** The board's prior
-  running image was the owner's Willow version. Previous board evidence remains
-  labelled by image in the [reports index](../reports/README.md).
+- The user authorized the full upload. All five flash sections passed hash
+  verification; the board runs firmware v0.2.0 and this Pistil image.
+- Physical yellow/white and green/white Pistil frames passed motion and outer/core
+  span checks; white core counts varied. Clear passed, the short stream measured
+  7.035 FPS over 22 frames, and no new CRC/header/timeout errors occurred. See
+  [physical results](../reports/2026-11-04/pistil/hardware-physical.json).
 
 Upgrade **both** firmware and FPGA image: v0.1.0 rejects pattern 3. The full upload
 helper packages both, as documented in SETUP.md. Builds are under
 `build/pistil-firmware/`; they do not upload by default. The command-line board
 checker accepts firmware v0.1.0 and v0.2.0; its existing check uses green Ring.
-The next physical acceptance should additionally launch a non-white Pistil
-material and confirm both colours, glitter, motion, Clear and error counters.
+The additional Pistil check is recorded in the physical report. The board is left
+with a cleared scene and the 7 FPS stream target selected. Close serial clients
+before future uploads; preserve the existing working image and backups.
 
 ## Constraints to preserve
 
@@ -64,7 +68,8 @@ material and confirm both colours, glitter, motion, Clear and error counters.
 - Ignored local board/image backups under `build/backups/`; preserve them.
 
 The 115200-baud link permits at most 7.46 complete frames/s before delays. The
-7 FPS target and 5 FPS fallback are unchanged; no new physical rate claim is made.
+7 FPS target and 5 FPS fallback are unchanged; the short physical run measured
+7.035 FPS. Longer reliability remains unmeasured.
 Full external BRAM timing signoff and long-duration reliability remain limitations.
 Do not flash without the user's instruction. Keep implementation changes, generated
 project source, included image and matching reports together in useful commits.
