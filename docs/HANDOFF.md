@@ -2,6 +2,29 @@
 
 Updated 3 November 2026. Repository: https://github.com/ANKITRA-J/pyrocore
 
+## Restored-session checkpoint — 3 November 2026
+
+The restored working tree and GitHub were both at `f5f153e`, with no uncommitted
+changes. The repository's cross-IDE instructions were followed: read README,
+HANDOFF and PROTOCOL first; preserve useful commits and update this handoff.
+
+The user has connected the Shrike-Fi native USB device. The first physical run is
+in progress, starting with a local backup of its existing flash. No hardware pass
+has been claimed and no unchanged FPGA/firmware build was repeated in this session.
+
+Added `tools/board_check.py` for one short real-board check of validated frames,
+Launch, particle motion, Clear and measured streaming. It does not upload firmware;
+with no `--port` it lists ports without opening them. A run writes its result to
+`build/hardware/latest.json`, including failures; do not call a host-emulated run
+physical-board acceptance.
+
+The new runner passed one host pseudo-terminal exercise of its command/response
+flow and settings restoration. That exercise was host emulation, not board output.
+
+Credits are now centralized in [CREDITS.md](CREDITS.md). The bundled shrike-gen
+source retains its upstream MIT notice. Original project code was not assigned
+a new license, and Git authorship was not changed.
+
 ## Start here
 
 The first integrated prototype is implemented, compiled and checked in simulation.
@@ -128,6 +151,17 @@ Routine checks do not need a separate user discussion.
    sustained FPS and any CRC/timeouts before changing clock or baud settings.
 5. If a problem appears, investigate that measured failure and preserve this
    compiled baseline. Do not restart the whole project or repeat unrelated work.
+
+After PyroCore is running on the connected board, the short command-line run is:
+
+```sh
+.venv/bin/python tools/board_check.py --port YOUR_NATIVE_USB_PORT
+```
+
+Close the desktop or other serial programs first so they do not compete for the
+port. The checker changes the scene to exercise Launch/Clear, restores material,
+pattern and streaming settings, and records the result. It does not flash the MCU,
+filesystem or FPGA. Keep the saved physical result with the next handoff/commit.
 
 ## Remaining engineering limits
 

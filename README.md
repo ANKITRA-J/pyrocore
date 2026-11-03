@@ -89,3 +89,8 @@ FPGA-produced packet through the exact firmware parser and desktop decoder.
 Run RTL simulations with `python3 tools/run_rtl.py`; minimal vendor Verilator
 installations also need `--runtime` pointing to matching5.034 runtime sources.
 Keep routine changes in useful commits and update the handoff before switching IDEs.
+
+## Credits
+
+Project authorship, reused source, hardware/tool acknowledgements and the retained
+upstream license notice are recorded in [CREDITS.md](docs/CREDITS.md).

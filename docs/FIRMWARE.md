@@ -66,8 +66,21 @@ a raw1545byte FPGA response as an argument to validate an RTL-generated packet.
 Physical-board operation and sustained streaming remain unverified until an
 explicit upload and hardware run. A compiler success is not a hardware result.
 
-Recorded local compile with the versions above:359,234bytes of application flash
-(10%) and26,664bytes of global RAM(8%). Firmware compilation and LittleFS packaging
-completed, and the native parser checks passed. The packaging check used a previous
-standalone BRAM test image only as build input; replace it with the real PyroCore
-MCU image before any release or upload. No physical board was accessed.
+Recorded local compile with the versions above: 359,234 bytes of application flash
+(10%) and 26,664 bytes of global RAM (8%). The final firmware/LittleFS package uses
+the actual PyroCore MCU image included in `data/fpga_bitstream.bin`; image/source
+hashes are in `reports/2026-11-03/build-manifest.json`. The earlier packaging-only
+check used a BRAM exerciser, but that is not the included checkpoint image.
+No physical board has been accessed for PyroCore acceptance yet.
+
+Once the PyroCore firmware is running, close other serial applications and use
+the project environment for the short board run:
+
+```sh
+.venv/bin/python tools/board_check.py --port YOUR_NATIVE_USB_PORT
+```
+
+It checks hello/loader state, complete validated frames, moving green particles,
+Clear, measured streaming and error counters. It writes `build/hardware/latest.json`
+and restores the selected material/pattern and streaming settings. It changes the
+displayed scene but never uploads firmware. Without `--port`, it only lists ports.

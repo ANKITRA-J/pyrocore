@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT
+# Upstream: https://github.com/trholding/shrike-gen/blob/master/shrike_gen/gen_bitstreams.py
+# Copyright (c) 2026 Vulcan. The retained notice is in the adjacent LICENSE.
 """
 gen_bitstreams.py — Generate MCU, OTP and FLASH_MEM bitstream variants
                     from the AXI log produced by eda-placer.
