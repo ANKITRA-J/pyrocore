@@ -55,18 +55,18 @@ module particle_renderer (
                 else if (init_vx<0) init_vx=init_vx-7'sd2;
             end
         end else if (frame_pattern == 2) begin
-            // Willow: narrow upward fan that gravity pulls down into falling arcs.
+            // Willow: upward fan launched from lower screen that gravity pulls down into falling arcs.
             case (index)
-                0: init_vx=-21;
-                1: init_vx=-15;
-                2: init_vx=-9;
-                3: init_vx=-3;
-                4: init_vx=3;
-                5: init_vx=9;
-                6: init_vx=15;
-                default: init_vx=21;
+                0: init_vx=-14;
+                1: init_vx=-10;
+                2: init_vx=-6;
+                3: init_vx=-2;
+                4: init_vx=2;
+                5: init_vx=6;
+                6: init_vx=10;
+                default: init_vx=14;
             endcase
-            init_vy = index[0] ? -7'sd36 : -7'sd32;
+            init_vy = index[0] ? -7'sd24 : -7'sd20;
         end
     end
 
@@ -116,7 +116,7 @@ module particle_renderer (
                 end
                 INIT: begin
                     xs<={11'd512,xs[87:11]};
-                    ys<={11'd432,ys[87:11]};
+                    ys<={frame_pattern==2'd2 ? 11'd640 : 11'd432,ys[87:11]};
                     vxs<={init_vx,vxs[55:7]};
                     vys<={init_vy,vys[55:7]};
                     alive<={1'b1,alive[7:1]};

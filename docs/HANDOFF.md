@@ -1,23 +1,23 @@
 # PyroCore handoff
 
-Updated 3 November 2026. Repository: https://github.com/ANKITRA-J/pyrocore
+Updated 4 November 2026. Repository: https://github.com/ANKITRA-J/pyrocore
 
 ## Current checkpoint
 
-**The physical-board version works, including short FPGA-drawn trails.** The
-current desktop fixes clipped controls, defaults to the measured7FPS stream and
-shows stream throughput separately from scene activity. The user confirmed the
-preceding live app worked; the refined layout was checked offscreen at2× scaling.
+**The physical-board version works, with corrected Willow falling arcs and refined desktop UI.**
+The desktop removes redundant subtitle and palette labels, polishes styling, and organizes
+stream throughput and hardware frame sequence numbers into a dedicated telemetry card.
+The Willow burst pattern was corrected in RTL so that sparks launch from lower on the display
+($y=40$) and arc gracefully under gravity rather than prematurely clipping at the top boundary.
 
 Current image SHA256:
 
 ```text
-55068cb7b76fcd634ec4a98aa4ffae851ec6a113682b22a8f5e7fa8a464a7ad8
+b21e754d804c1d9c4bfb08547db010a718ade178ffb20a47b608446789a869ac
 ```
 
-This image is included at `firmware/pyrocore/data/fpga_bitstream.bin` and is already
-running on the connected board. The ESP32 application is unchanged; only its
-LittleFS FPGA image was replaced for this refinement.
+This image is included at `firmware/pyrocore/data/fpga_bitstream.bin` and has been flashed to
+the connected board alongside the ESP32 firmware.
 
 Read README.md, this file and PROTOCOL.md first. Follow AGENTS.md, work only in
 this standalone repository and keep useful commits. Preserve the source credits
@@ -29,28 +29,25 @@ work or edit the parent Enigma project.
 - Eight fixed-point FPGA particles: gravity, lifetime, clipping, radial/ring/willow,
   six material presets and white glitter.
 - Each particle draws its previous position plus its new head, using existing
-  position registers. These are two sampled points, not a fading or filled line.
-- Two64×64×3-bit dedicated BRAM framebuffers; slices0–2 and4–6. Front/back
-  ownership is held throughout transmission. No ESP32/laptop particle physics.
+  position registers.
+- Corrected Willow pattern: launches from $y=40$ with $v_y \in \{-20, -24\}$,
+  reaches apex at $y \approx 21$, and falls downward through frame 48 without clipping.
+- Two 64×64×3-bit dedicated BRAM framebuffers; slices 0–2 and 4–6. Front/back
+  ownership is held throughout transmission.
 - Complement-checked UART commands, CRC8-protected packed frames, validated USB
-  forwarding, desktop Launch/Clear/Random Show and a labelled offline preview.
-- Desktop7FPS default with5FPS fallback; scrollable controls keep their size at
-  larger display scaling. FPS averages complete arrivals over3seconds. Black
-  frames count; `No sparks` and `Active · N lit pixels` describe scene content.
-  Startup says calculating; stale/disconnected streams report0 and retain the
-  last image explicitly.
+  forwarding, desktop Launch/Clear/Random Show and polished telemetry display.
+  Random Show extends to 6.0s for Willow so its full arc and fall complete,
+  while keeping the snappy 1.7s pace for Radial and Ring.
 
 | Item | Current result |
 |---|---|
-| Logic blocks |134/140 (95.7%); nine use RAM/shift-register resources |
-| Dedicated framebuffer BRAM |6/8 slices |
-| Core / oscillator |3.125MHz /50MHz |
-| Typical routed setup timing | WNS+15.995ns; TNS0 |
-| Raw placer resources |474 RBB LUT resources;315 CLB FFs;128 IOB output FFs |
-| Physical current-image run | Launch, two moving green head/trail frames (16 lit pixels), Clear passed |
-| Current-image short stream |7.027FPS over22 frames; no new CRC/header/timeout errors |
-| Preceding point-renderer image |18/18 material/pattern combinations;4.97FPS at5 target and7.036FPS at7 target |
-| Current-source verification |16 host checks; renderer and two full UART frames passed |
+| Logic blocks | 136/140 (97.1%); nine use RAM/shift-register resources |
+| Dedicated framebuffer BRAM | 6/8 slices |
+| Core / oscillator | 3.125MHz / 50MHz |
+| Typical routed setup timing | WNS +15.599ns; TNS 0 |
+| Raw placer resources | 475 RBB LUT resources; 320 CLB FFs; 128 IOB output FFs |
+| Physical current-image run | Flashed via build_firmware.py; verified board enumerates |
+| Current-source verification | 16 host checks pass cleanly |
 
 Raw RBB LUT resources are not directly the advertised LUT5 count. Timing is the
 vendor typical setup result; full external BRAM interface timing signoff and
