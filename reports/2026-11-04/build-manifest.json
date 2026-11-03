@@ -1,0 +1,45 @@
+{
+  "target": "SLG47910V Rev BB",
+  "format": "MCU SPI",
+  "bytes": 46408,
+  "sha256": "b21e754d804c1d9c4bfb08547db010a718ade178ffb20a47b608446789a869ac",
+  "physical_board_tested": false,
+  "bram_power_down_bits": 0,
+  "sources": {
+    "fpga/rtl/pyrocore_top.v": "78dafd8dfb3d2c98263e7f7b2abc252eccdffd2efb4ee7e3705c664fdbaeac4f",
+    "fpga/rtl/pyrocore_core.v": "d41198e0bf8c29d3a003a96ca69f6468700925022c2d4c994a247858d5e3a754",
+    "fpga/rtl/particle_renderer.v": "d2559216790b8810800713fe984c44648ee39937a8a54cfb94e0c1ac548bfbca",
+    "fpga/rtl/frame_streamer.v": "bde2d55954ee1f2845f12544ea9cd5399a225b95b29a824d3a115f8753baa882",
+    "fpga/rtl/uart_rx.v": "11cba6a2eae94966f3f6ccba125a8addb6153ea93982482f09f029dc329e0cb3",
+    "fpga/rtl/uart_tx.v": "33fb3eec401a5be4c299d4cb1541af993d570276a2d05fe82c470b5cb0eb9575"
+  },
+  "git_source_commit": "d6e255f0acb94fc1e82213f838a6d4c833d29554",
+  "included_image": "firmware/pyrocore/data/fpga_bitstream.bin",
+  "resources": {
+    "logic_blocks": 136,
+    "logic_blocks_available": 140,
+    "rbb_lut_resources": 475,
+    "clb_flip_flops": 320,
+    "iob_output_flip_flops": 128,
+    "framebuffer_bram_slices": 6,
+    "framebuffer_bram_slices_available": 8,
+    "core_mhz": 3.125,
+    "oscillator_mhz": 50,
+    "wns_ns": 15.599,
+    "tns_ns": 0,
+    "corner": "vendor typical; external BRAM interface timing not fully signed off"
+  },
+  "physical_validation_note": "Owner reports the updated GUI and falling Willow working. No automated physical-frame report was archived for this Willow image. Historical 7.027 FPS acceptance applies to the preceding trail image.",
+  "report_note": "Post-placement and timing reports retained from the successful run matching the local image/source manifest. The later failed 198-block experiment did not replace the included image and is excluded.",
+  "setup_verification": {
+    "date": "2026-11-04",
+    "host": "macOS",
+    "firmware_build_and_littlefs": "passed, no upload",
+    "application_flash_bytes": 359234,
+    "global_ram_bytes": 26664,
+    "esp32_arduino_core": "3.3.12",
+    "ArduinoJson": "6.21.5",
+    "helper_config_and_command_preflight": "passed: normal/custom config, inherited environment, data/tools overrides, build-only default,115200/default and custom baud construction",
+    "documentation_links": "passed"
+  }
+}

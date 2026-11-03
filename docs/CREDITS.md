@@ -11,12 +11,13 @@ identity; source provenance is documented below.
 
 | Source | Use in PyroCore | Attribution / notice |
 |---|---|---|
-| [Shrikenigma](https://github.com/ANKITRA-J/shrikenigma) | The owner's working UART RTL and board configuration sequence | See `fpga/rtl/uart_rx.v`, `fpga/rtl/uart_tx.v`, and `docs/PROVENANCE.md` |
+| [Shrikenigma](https://github.com/ANKITRA-J/shrikenigma) | The owner's working UART RTL and board configuration sequence | See `fpga/rtl/uart_rx.v`, `fpga/rtl/uart_tx.v` and `firmware/pyrocore/fpga_loader.cpp` |
 | [trholding/shrike-gen](https://github.com/trholding/shrike-gen/blob/master/shrike_gen/gen_bitstreams.py) | `tools/vendor/gen_bitstreams.py`: MCU image formatting from the vendor AXI output | Copyright © 2026 Vulcan; MIT notice retained in [`tools/vendor/LICENSE`](../tools/vendor/LICENSE) |
 
 The FPGA particle engine, framebuffer/streaming logic, PyroCore firmware protocol,
 desktop interface and project-specific build integration were implemented for
-this project. No Enigma cipher logic is included.
+this project. The reused board sequence and UART modules originated in the owner’s
+working Shrikenigma project; no cipher logic is included.
 
 ## Hardware and tools
 

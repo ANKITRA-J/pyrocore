@@ -16,8 +16,9 @@ repeat all18 on hardware.
 
 The new desktop fixes compressed controls with minimum heights, spacing and a
 scrollable sidebar, and offers7FPS by default with5FPS selectable. An offscreen
-2×-scaling layout capture is `docs/images/desktop-layout.png`; it is disconnected
-UI evidence, not a board image. The user had confirmed the preceding live app.
+2×-scaling layout capture was retained with this checkpoint in commit `a72c715`.
+The current screenshot is in the repository README. Neither is physical board
+image evidence. The user had confirmed the preceding live app.
 
 Stream FPS counts complete frames, including black ones. A separate activity
 label describes visible sparks. A3-second time window and periodic refresh make

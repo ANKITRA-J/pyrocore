@@ -1,80 +1,97 @@
 # PyroCore protocol v1
 
-This is the shared implementation contract for FPGA, ESP32 and desktop.
+## Selections
 
-## ESP32 ↔ FPGA
-
-115200 baud, 8N1. The initial FPGA uses 27 clocks/bit at a 3.125MHz core
-(115741 baud, about 0.47% above nominal). No flow-control wires.
-
-Every command is two bytes: `[opcode, opcode XOR 0xFF]`.
-
-| Opcode | Action |
+| Field | Valid IDs |
 |---|---|
-| 0x01 | Launch a burst with the selected material and pattern |
-| 0x02 | Clear particles / scene |
-| 0x10–0x15 | Material 0–5: strontium, barium, copper, sodium, aluminium, titanium |
-| 0x20–0x22 | Pattern 0–2: radial, ring, willow |
-| 0xF0 | Request a complete front-buffer frame; ignored while transmitting |
+| Material | 0 Strontium, 1 Barium, 2 Copper, 3 Sodium, 4 Aluminium, 5 Titanium |
+| Pattern | 0 Radial, 1 Ring, 2 Willow |
+| Stream FPS target | 1–7 |
 
-Malformed command pairs do not execute. A lone first byte expires after 100ms.
-The complement is a lightweight command check, not a CRC or authentication.
+Pattern ID 3 is unused and rejected by the public interfaces. The third visible
+pattern is Willow, ID 2. Material names are visual presets, not combustion calculations.
 
-A response frame is exactly 1545 bytes:
+## Desktop ↔ ESP32 native USB
 
-```text
-50 59   01 46   seq_lo seq_hi   00 06   [1536 payload bytes]   crc8
-magic   ver/type                 len=1536, little endian
-```
-
-CRC-8: polynomial0x07, initial0, no reflection/xorout. Cover bytes from version
-through the last payload byte; exclude the two magic bytes and final CRC byte.
-Check vector `123456789` →0xF4.
-
-Pixels are row-major (`y*64+x`). Eight 3-bit colour indices pack into a24-bit
-little-endian word: `word = sum(pixel[i] << (3*i), i=0..7)`. Emit low byte first.
-The payload is512 such groups, with no row padding. Value0 is the black background.
-Readout must keep the selected front buffer and sequence number stable until the
-last byte is sent. Swaps wait for both rendering and transfer completion.
-
-## Desktop ↔ ESP32 USB
-
-Newline-delimited UTF-8 JSON over native USB CDC. Baud selection is115200, but
-native USB is not the FPGA UART throughput limit. One JSON object per line.
-
-Commands:
+Newline-delimited UTF-8 JSON, one object per line. The desktop opens native USB
+CDC with a 115200 baud selection; the separate FPGA UART is the throughput limit.
 
 ```json
 {"cmd":"hello"}
-{"cmd":"launch","material":0,"pattern":0}
-{"cmd":"set","material":1,"pattern":2}
-{"cmd":"clear"}
-{"cmd":"stream","enabled":true,"fps":5}
-{"cmd":"frame"}
 {"cmd":"status"}
+{"cmd":"set","material":1,"pattern":2}
+{"cmd":"launch","material":1,"pattern":2}
+{"cmd":"clear"}
+{"cmd":"stream","enabled":true,"fps":7}
+{"cmd":"frame"}
 ```
 
-Material and pattern are integers in the ranges above; fps is1–7. Firmware boots
-at5FPS; the desktop selects7FPS by default and offers5FPS as a fallback.
-Launch applies the supplied selection before sending the launch opcode.
+`set` changes the selection; `launch` applies the selection and starts a burst.
+Omitted material/pattern values retain the current selection. `frame` requests one
+complete frame. Firmware starts at 5 FPS; the desktop selects 7 FPS by default,
+with 5 FPS available. Commands report `ack` or `error` objects.
 
-Hello/status include `type`, `version`, `fpga_loaded`, and useful counters.
-An image transferred to the FPGA is not itself proof that its UART works.
-Frame reception establishes communication separately.
+Hello/status report version, `fpga_loaded`, `fpga_verified`, stream/selection state,
+frame count, CRC errors, header errors and timeouts. `fpga_loaded` means image
+transfer finished. `fpga_verified` means a complete valid FPGA frame has been
+received during this boot; recent arrivals/counters determine current stream health.
 
 ```json
 {"type":"frame","seq":1,"width":64,"height":64,"format":"indexed3-lsb","source":"fpga","crc_ok":true,"data":"BASE64_OF_1536_BYTES"}
 {"type":"error","message":"FPGA frame timeout"}
 ```
 
-Forward frames only after complete length/version/type/CRC validation. On timeout,
-resynchronize on magic and wait for a new complete frame. Desktop rejects malformed
-or incorrectly-sized payloads and displays completed frames only. Never label a
-software preview as FPGA output.
+The bridge forwards frames only after validating UART length, version, type and
+CRC. The desktop checks this envelope, sequence range, strict base64 and payload
+size. Malformed/partial frames do not replace the last complete image. `crc_ok`
+reports the bridge's UART validation; the USB envelope does not contain that raw CRC.
+Black frames are valid frames and count toward received FPS. Software preview is
+separately labelled and never represented as FPGA output.
 
-Palette indices:0 black,1 red,2 green,3 blue,4 yellow,5 orange,6 white,7 pale silver.
-The FPGA produces indices; desktop maps the palette and enlarges pixels.
+## ESP32 ↔ FPGA UART
 
-Current full-frame bandwidth ceiling:115200/10/1545=7.46frames/s before any
-additional delays. The short physical run measured7.03FPS;20–30FPS needs a later
-measured faster-link implementation.
+115200 baud, 8N1, no flow-control wires. The FPGA uses 27 clocks/bit at 3.125 MHz,
+about 115741 baud (0.47% above nominal).
+
+Commands are two bytes: `[opcode, opcode XOR 0xFF]`.
+
+| Opcode | Action |
+|---|---|
+| `01` | Launch with the current selection |
+| `02` | Clear particles and scene |
+| `10`–`15` | Material 0–5 |
+| `20`–`22` | Pattern 0–2 |
+| `F0` | Request the front-buffer frame; ignored during an active transmission |
+
+Opcode values above are hexadecimal. Malformed pairs do not execute; a lone first
+byte expires after 100 ms. The complement is a lightweight command check.
+
+A frame is exactly **1545 bytes**:
+
+```text
+50 59 | 01 46 | seq_lo seq_hi | 00 06 | 1536 payload bytes | crc8
+magic   ver/type   sequence     length=1536 (little endian)
+```
+
+CRC-8 polynomial `0x07`, initial 0, no reflection or final XOR. Cover version
+through the last payload byte, excluding magic and the final CRC byte.
+The reference vector `123456789` produces `0xF4`.
+
+Pixels are row-major at `y*64+x`, each a three-bit palette index. Eight pixels
+pack into a 24-bit little-endian word:
+
+```text
+word = sum(pixel[i] << (3*i), i=0..7)
+```
+
+Emit the low byte first. A payload contains 512 such groups with no row padding.
+Palette indices are 0 black, 1 red, 2 green, 3 blue, 4 yellow, 5 orange, 6 white
+and 7 pale silver. The desktop maps indices to RGB and enlarges the image.
+
+The front buffer and sequence stay fixed until the last transmitted byte.
+A swap waits for rendering and transmission to finish. On a failed packet the
+bridge resynchronizes on magic; the next request drains/resets the failed transfer.
+The 600 ms timeout exceeds the approximately 134 ms wire time.
+
+The current full-frame ceiling is `115200 / 10 / 1545 ≈ 7.46 FPS` before delays.
+Higher rates require a measured transport change, not a different USB baud selector.
