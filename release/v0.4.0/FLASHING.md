@@ -9,12 +9,13 @@ From the repository root, with the board connected to its **native ESP32 USB**
 port:
 
 ```sh
-.venv/bin/python tools/flash_release.py --port YOUR_PORT
+.venv/bin/python tools/flash_release.py
 ```
 
-- macOS: `YOUR_PORT` looks like `/dev/cu.usbmodem1101`
-- Linux: `/dev/ttyACM0`
-- Windows: `COM5`
+The helper detects the port automatically. If more than one serial port is
+present, it prints a numbered picker. Non-interactive shells can pass
+`--port NAME`; `--list-ports` shows what was detected. Typical names are
+`/dev/cu.usbmodem…` on macOS, `/dev/ttyACM…` on Linux and `COM…` on Windows.
 
 The helper verifies `SHA256SUMS`, writes the five sections and lets esptool
 verify each one. It takes about 15 seconds. Use `--dry-run` first if you want to

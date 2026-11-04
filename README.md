@@ -72,13 +72,16 @@ esptool only — not the ESP32 Arduino core.
 
 ```sh
 .venv/bin/python -m pip install -r tools/requirements-flash.txt
-.venv/bin/python tools/flash_release.py --port YOUR_PORT
+.venv/bin/python tools/flash_release.py
 ```
 
-If Arduino's ESP32 core is already installed, the helper finds its bundled
-esptool and the first line is unnecessary. It verifies `SHA256SUMS`, writes all
-five sections and checks the flash hashes; the upload takes about 15 seconds.
-This replaces the existing application and filesystem. See
+The flasher finds the board automatically. If several serial ports exist, it
+prints a numbered list and asks which one to use; `--port NAME` skips the picker
+and `--list-ports` shows what it detected. If Arduino's ESP32 core is already
+installed, the helper finds its bundled esptool and the first line is
+unnecessary. It verifies `SHA256SUMS`, writes all five sections and checks the
+flash hashes; the upload takes about 15 seconds. This replaces the existing
+application and filesystem. See
 [the release notes](release/v0.4.0/FLASHING.md) for the raw esptool equivalent.
 
 #### Option B — build from source with Arduino

@@ -22,12 +22,15 @@ records the version, target board, bitstream hash and the verified hardware run.
 From the repository root, with the board on native USB:
 
 ```sh
-.venv/bin/python tools/flash_release.py --port YOUR_PORT
+.venv/bin/python tools/flash_release.py
 ```
 
-`YOUR_PORT` is `/dev/cu.usbmodem…` on macOS, `/dev/ttyACM…` on Linux or `COM…`
-on Windows. Use `--dry-run` to verify the checksums and print the esptool
-command without flashing.
+The helper detects the port and auto-selects it when there is only one. With
+several ports it prints a numbered list and prompts; `--port NAME` skips the
+picker and `--list-ports` shows the detected devices. Typical names are
+`/dev/cu.usbmodem…` on macOS, `/dev/ttyACM…` on Linux and `COM…` on Windows.
+Use `--dry-run` to verify the checksums and print the esptool command without
+flashing.
 
 The helper uses esptool from the active Python environment, `PATH`, or the
 Arduino ESP32 core if one is installed. If none is present:
