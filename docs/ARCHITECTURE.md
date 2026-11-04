@@ -22,16 +22,16 @@ Desktop display ← ESP32 ← FPGA frame serializer
 | Resource | Current design |
 |---|---|
 | FPGA | Renesas SLG47910V Rev BB |
-| Logic blocks | 132 / 140 CLBs |
+| Logic blocks | 131 / 140 CLBs |
 | Dedicated framebuffer BRAM | 6 / 8 slices, 24,576 / 32,768 bits |
-| CLB flip-flops | 319 |
-| IOB output flip-flops | 128 |
-| Raw placer LUT resources | 471, using the placer's 6-LUT accounting |
+| CLB flip-flops | 316 |
+| IOB output flip-flops | 116 |
+| Raw placer LUT resources | 467, using the placer's 6-LUT accounting |
 | Core / oscillator clocks | 3.125 MHz / 50 MHz |
-| Typical post-route setup timing | WNS +15.344 ns; TNS 0 |
+| Typical post-route setup timing | WNS +15.059 ns; TNS 0 |
 
 The raw placer LUT count cannot be compared directly with the advertised 1,120
-LUT5 count. The CLB budget is the tighter immediate constraint: eight CLBs remain.
+LUT5 count. The CLB budget is the tighter immediate constraint: nine CLBs remain.
 Adding an effect needs a new integrated fit check. The two unused BRAM slices
 contain 1,024 bytes in total; they do not provide additional logic blocks.
 
@@ -112,6 +112,9 @@ Gravity is therefore 1/16 pixel per rendered update squared; the downward speed
 cap is 3.75 pixels per update. A particle leaving the screen becomes inactive.
 A burst lasts at most 49 rendered updates, including its first update. Motion
 advances on rendering, so transport stalls can slow its wall-clock cadence.
+The faster link reduces those stalls: a burst can progress and expire sooner in
+real time while its per-update velocity, gravity and lifetime remain unchanged.
+Hidden glitter sparks continue advancing their state.
 
 A launch replaces the previous burst. Material and pattern are captured with
 the launch command. Launch and Clear received during a render are queued for
@@ -129,8 +132,8 @@ the next render; the latest queued launch wins and Clear takes priority.
 All four values of the two-bit pattern field are used. Opcode `0x23` selects
 Pistil. Its even particles (0, 2, 4, 6) keep full Ring velocity and the selected
 material colour. Odd particles (1, 3, 5, 7) use signed arithmetic right shifts
-(`>>> 1`) on both initial velocity components, draw palette index 6 (white),
-and use the existing LFSR glitter. Gravity still applies equally to every spark.
+(`>>> 1`) on both initial velocity components and draw palette index 6 (white).
+Both groups use the common LFSR glitter. Gravity still applies equally to every spark.
 The half-speed arithmetic is shared with Radial; no per-particle colour memory
 or additional BRAM is required. Selecting Aluminium makes both groups white.
 The launch captures its pattern, so changing the input selection alone does not
@@ -154,11 +157,11 @@ the burst's full lifetime.
 | 4 | Aluminium | 6, white |
 | 5 | Titanium | 7, pale silver |
 
-A 16-bit FPGA LFSR supplies glitter for Aluminium sparks and the white odd
-particles of Pistil. A glittering spark is hidden when the low two LFSR bits are
-zero. Head and trail share the captured visibility decision, so both flicker
-together. Other materials in Radial, Ring and Willow keep their existing behavior;
-Pistil's outer group also keeps the selected material's usual behavior.
+A 16-bit FPGA LFSR supplies the existing Aluminium glitter behavior to every
+material and pattern, including both groups in Pistil. Each spark is hidden when
+the low two LFSR bits are zero. Head and trail share the captured visibility
+decision, so both flicker together and retain their selected colour. Visibility
+does not stop particle motion, gravity or lifetime updates.
 
 ## Rendering and short trails
 
@@ -191,10 +194,15 @@ complete frame carries 1,536 payload bytes inside a 1,545-byte packet with heade
 sequence number and CRC-8. The ESP32 validates complete packets before forwarding
 their payloads to the desktop over native USB CDC.
 
-At 115200 baud with 8N1 framing, the FPGA link's arithmetic ceiling is about 7.46
-complete packets per second before additional delays. A higher display rate
-requires a measured faster transport implementation. Increasing the FPGA clock
-alone does not change that UART limit.
+The FPGA link uses 312500 baud with 8N1 framing, exactly 10 cycles per bit at the
+preserved 3.125 MHz core clock. Its wire-only ceiling is about 20.23 complete
+packets per second. Memory-fetch and UART-handshake pauses, followed by bridge
+and USB work, reduce that rate. The desktop requests 18 FPS with 7/5 FPS fallbacks;
+firmware starts at 5 FPS. These targets still need physical-board measurement.
+Choosing a fallback reduces request frequency without changing the UART rate.
+The 25 Hz render scheduler and safe buffer ownership remain unchanged.
+RTL simulation measures 54.03936 ms per serialized frame, including those
+memory/handshake pauses, for an 18.505 FPS ceiling before bridge and USB work.
 
 See [Protocol](PROTOCOL.md) for byte layouts and commands,
 [README setup](../README.md#setup) for installation and use, and

@@ -29,7 +29,6 @@ module particle_renderer (
     reg [15:0] random_state;
     wire in_bounds = !nx[10] && !ny[10];
     wire pistil_inner = frame_pattern == 2'd3 && index[0];
-    wire glitter = active_material == 4 || pistil_inner;
     wire [2:0] colour = pistil_inner ? 3'd6 : active_material == 0 ? 3'd1 :
                         active_material == 1 ? 3'd2 :
                         active_material == 2 ? 3'd3 :
@@ -139,12 +138,11 @@ module particle_renderer (
                 end
                 TRAIL: begin
                     // Reuse the already captured old position: no history RAM.
-                    // Cache visibility so a glittering spark's head and tail
-                    // flicker together even though the LFSR advances each cycle.
-                    draw_visible <= particle_alive && in_bounds &&
-                        !(glitter && random_state[1:0]==0);
-                    if (particle_alive && in_bounds &&
-                        !(glitter && random_state[1:0]==0)) begin
+                    // Every material/pattern shares Aluminium's glitter gate.
+                    // Cache visibility so head and tail flicker together even
+                    // though the LFSR advances each cycle.
+                    draw_visible <= particle_alive && in_bounds && random_state[1:0]!=0;
+                    if (particle_alive && in_bounds && random_state[1:0]!=0) begin
                         pixel_we<=1;
                         pixel_addr<={y[9:4],x[9:4]};
                         pixel_data<=colour;

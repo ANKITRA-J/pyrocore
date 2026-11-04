@@ -9,7 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from desktop.protocol import MAX_LINE_BYTES, ProtocolError, decode_message, encode_command
+from desktop.protocol import MAX_LINE_BYTES, MAX_STREAM_FPS, ProtocolError, decode_message, encode_command
 
 
 class BoardError(RuntimeError):
@@ -81,8 +81,8 @@ def check(port, duration, report, fps=5):
             candidate = link.receive({'hello'}, seconds=0.6, allow_errors=True)
         except BoardError:
             continue
-        if candidate.get('version') not in ('0.1.0', '0.2.0') or 'fpga_verified' not in candidate:
-            raise BoardError('The connected device is not running supported PyroCore firmware (v0.1.0 or v0.2.0)')
+        if candidate.get('version') not in ('0.1.0', '0.2.0', '0.3.0') or 'fpga_verified' not in candidate:
+            raise BoardError('The connected device is not running supported PyroCore firmware (v0.1.0, v0.2.0 or v0.3.0)')
         hello = candidate
     if hello is None:
         raise BoardError('No PyroCore hello response; use the native USB port and PyroCore firmware')
@@ -169,7 +169,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--port', help='Native USB CDC port; omit to list available ports')
     parser.add_argument('--duration', type=float, default=3, help='Streaming measurement in seconds (1–30)')
-    parser.add_argument('--fps', type=int, choices=range(1,8), default=5, help='Requested stream rate (1–7)')
+    parser.add_argument('--fps', type=int, choices=range(1, MAX_STREAM_FPS + 1), default=5,
+                        help=f'Requested stream rate (1–{MAX_STREAM_FPS})')
     parser.add_argument('--output', type=Path, default=ROOT/'build/hardware/latest.json')
     args = parser.parse_args()
     try:

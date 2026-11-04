@@ -13,13 +13,14 @@ def main():
     default=shutil.which('verilator') or '/Applications/Go Configure Software Hub.app/Contents/MacOS/external/verilator/bin/verilator_bin'
     ap.add_argument('--verilator',default=default)
     ap.add_argument('--runtime',type=Path,help='Matching Verilator include/runtime directory for the minimal vendor distribution')
-    ap.add_argument('--top',choices=['particle_renderer_tb','pyrocore_core_tb','all'],default='all')
+    checks=['particle_renderer_tb','pyrocore_core_tb','uart_link_tb','pyrocore_stream_rate_tb']
+    ap.add_argument('--top',choices=[*checks,'all'],default='all')
     a=ap.parse_args()
     verilator=Path(a.verilator).resolve()
     if not verilator.is_file():raise SystemExit('Install Verilator5 or supply --verilator PATH')
     if verilator.name=='verilator_bin':os.environ['VERILATOR_ROOT']=str(verilator.parent.parent)
     build=ROOT/'build/sim';build.mkdir(parents=True,exist_ok=True)
-    tops=['particle_renderer_tb','pyrocore_core_tb'] if a.top=='all' else [a.top]
+    tops=checks if a.top=='all' else [a.top]
     for top in tops:
         obj=build/top;obj.mkdir(exist_ok=True)
         sources=[p for p in (ROOT/'fpga/rtl').glob('*.v') if p.stem!='pyrocore_top']

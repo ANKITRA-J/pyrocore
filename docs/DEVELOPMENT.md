@@ -78,6 +78,8 @@ reads the generated partition table and packages LittleFS. Add `--port YOUR_PORT
 only when an upload is intended. This replaces the application and filesystem;
 close serial clients first. Build output and its manifest are in `build/firmware/`.
 A new FPGA image does not necessarily require changing the ESP32 application source.
+For the current v0.3.0 release, deploy the matching application and FPGA image
+together; its faster board link is incompatible with the previous pair.
 
 The helper preserves your normal Arduino CLI configuration and detects its data
 directory. Use `--arduino-cli PATH` for a CLI outside PATH, `--arduino-config FILE`
@@ -113,6 +115,12 @@ RTL renderer and complete UART/framebuffer simulation, with Verilator 5 and a C+
 python3 tools/run_rtl.py
 ```
 
+This runs all-material glitter/geometry checks, full-frame CRC and RAM comparisons,
+back-to-back UART bytes at nominal and ±1% baud with four asynchronous start phases,
+and production-clock throughput comparisons at the old and new link rates.
+The rate test checks advancing frame sequences as well as received packet cadence;
+it does not model ESP32 execution time, USB throughput or physical wiring.
+
 The minimal bundled Verilator may need a matching runtime source directory:
 
 ```sh
@@ -134,17 +142,21 @@ For a board running PyroCore, close other serial clients first:
 
 ```sh
 .venv/bin/python tools/board_check.py
-.venv/bin/python tools/board_check.py --port YOUR_PORT --fps 7
+.venv/bin/python tools/board_check.py --port YOUR_PORT --fps 18
 ```
 
 Without `--port`, the first command lists ports only. The second changes the scene
 to check launch, motion, Clear, streaming and error counters, restores selection/
 stream settings, and writes `build/hardware/latest.json`. It never uploads.
 This general board checker launches green Ring; it does not select Pistil. For a
-Pistil acceptance run, use the connected desktop to launch Sodium/Pistil, confirm
+current acceptance run, check glitter with each material/pattern, including
+paired head/trail flicker and advancing motion. Launch Sodium/Pistil, confirm
 moving yellow and white groups, repeat with Barium for green/white, then Clear.
-The [recorded physical run](../reports/2026-11-04/pistil/RESULTS.md#physical-board-acceptance)
-includes frame data, inner/outer span checks, measured streaming and error counters.
+Measure the 18 FPS target and both 7/5 FPS fallbacks with error counters; lower
+targets reduce request load, not the board link speed. The current glitter/faster
+link has not been physically checked. The
+[earlier Pistil run](../reports/2026-11-04/pistil/RESULTS.md#physical-board-acceptance)
+records the preceding image's frame data, spans, streaming and error counters.
 Simulation, successful compilation, uploading and physical functional acceptance
 are separate results. Do not claim one from another.
 

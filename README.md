@@ -12,10 +12,11 @@ FPGA frames after connecting.*
 ## What it does
 
 - Eight particles with fixed-point motion, gravity, lifetime and short trails.
+- Glitter on every material and pattern, with each spark retaining its colour.
 - Radial, Ring, Willow and dual-colour Pistil patterns; six material presets.
 - Two 64 × 64 × 3-bit framebuffers in dedicated FPGA BRAM.
 - Launch, Clear and Random Show controls, with validated frame reception.
-- A 7 FPS desktop stream target and a selectable 5 FPS fallback.
+- An 18 FPS desktop stream target, with 7 FPS and 5 FPS fallbacks.
 
 The included design targets **SLG47910V Rev BB + ESP32-S3 with 8 MB flash** on
 Shrike-Fi. Other boards need a port; the included binary is device- and board-specific.
@@ -25,8 +26,9 @@ Shrike-Fi. Other boards need a port; the included binary is device- and board-sp
 You need the matching Shrike-Fi board, a USB data cable, Git and Python **3.9–3.13**.
 Connect to the board's **native ESP32 USB** port. No external display or extra
 wiring is required, and the included FPGA image needs no FPGA compiler.
-The complete workflow has been checked on macOS; Windows/Linux host workflows
-have not had the same physical-board validation.
+Earlier physical checks used macOS. The current glitter and faster stream need a
+fresh board check; Windows/Linux host workflows have not had the same physical
+validation.
 
 ### Install the desktop app
 
@@ -97,22 +99,26 @@ Run from the repository root:
 ```
 
 1. Select the native USB port and click **Connect**.
-2. Confirm bridge **v0.2.0** and wait for **LIVE FPGA** with received frames.
+2. Confirm bridge **v0.3.0** and wait for **LIVE FPGA** with received frames.
 3. Choose **Sodium · yellow** and **Pistil**, then click **Launch firework** for
    a yellow outer group and smaller white glittering core.
 4. Try other selections or **Start random show**. Use **Clear scene** to clear
-   the image; **5 FPS** selects the slower stream.
+   the image; **7 FPS** and **5 FPS** select slower stream targets.
 
 The app displays received FPGA frames. Idle black frames with a healthy FPS are
 normal; stale or disconnected streams retain the last image with an explicit
-status. Willow gets a longer Random Show interval. Pistil's white core flickers;
-choose a non-white material to see the contrast. Scroll the sidebar in a short window.
+status. Every spark glitters, including its trail; motion continues while a spark
+is hidden. Willow gets a longer Random Show interval. Choose a non-white material
+to see Pistil's white-core contrast. Scroll the sidebar in a short window.
 On macOS, `Launch PyroCore.command` is also available after installing the app.
 
 For later updates, run `git pull --ff-only`, close the old app and reopen it.
-Upgrading from the three-pattern version also requires uploading the matching
-v0.2.0 application and FPGA image together using [the helper above](#load-the-board-package).
-The desktop-only removal of `--demo` needs no board upload.
+This release changes board communication, so upgrading from v0.2.0 or earlier
+requires uploading the matching **v0.3.0 application and FPGA image together**
+using [the helper above](#load-the-board-package). Updating only the desktop app
+does not enable the new glitter or faster board link. The 18 FPS target awaits
+physical measurement; faster frame delivery also advances the burst more quickly
+in real time, with the same motion and lifetime calculations.
 
 <details>
 <summary>Troubleshooting</summary>
@@ -124,7 +130,8 @@ The desktop-only removal of `--demo` needs no board upload.
 | FPGA image unavailable or no valid frames | Use the matching board and complete helper package, including LittleFS; check the status/error text. |
 | Black image with healthy FPS | Press Launch; particles expire and Clear deliberately produces black frames. |
 | No Pistil option | Update the repository and restart the app. |
-| Pattern 3 rejected or incorrect | Upload the matching v0.2.0 application and FPGA image together. |
+| Pattern 3 rejected or incorrect | Upload the matching v0.3.0 application and FPGA image together. |
+| Stream rate unstable | Select 7 FPS or 5 FPS and check the status/error counters. |
 | Pistil has no colour contrast | Choose a non-white material; Aluminium makes both groups white. |
 | Controls below the window | Scroll the sidebar or enlarge the window. |
 | Dependency installation fails | Use Python 3.9–3.13 and install into `.venv`. |
@@ -133,11 +140,11 @@ The desktop-only removal of `--demo` needs no board upload.
 
 ## Handoff
 
-Firmware v0.2.0 / protocol v1: Pistil and Clear were physically checked, with a short
-7.035 FPS stream ([results](reports/2026-11-04/pistil/RESULTS.md)). `--demo` is removed;
-17 host tests and offscreen UI checks passed, without a new board test.
-Next: confirm live frames in the updated desktop. Long-run reliability and full
-BRAM timing signoff remain open.
+Firmware v0.3.0 / protocol v1 adds glitter everywhere and an 18 FPS target;
+RTL, host/UI checks and FPGA/firmware builds pass at 131/140 blocks ([results](reports/2026-11-04/glitter-fps/RESULTS.md)).
+The new package is not flashed or physically tested; the board still has the
+previous image. Next: upload the complete package when requested, then measure
+FPS and glitter on the board. Long-run reliability and full BRAM timing remain open.
 
 For source changes, builds and technical references, see [Development](docs/DEVELOPMENT.md).
 Source attribution and bundled notices are listed in [Credits](docs/CREDITS.md).

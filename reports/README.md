@@ -2,6 +2,17 @@
 
 ## Current included image
 
+[Glitter and faster link, 4 November 2026](2026-11-04/glitter-fps/RESULTS.md):
+firmware v0.3.0, glitter for all materials/patterns, and a 312500-baud FPGA link
+with an 18 FPS desktop target. The FPGA build fits 131/140 blocks and six BRAM
+slices; typical WNS is +15.059 ns, TNS 0. RTL simulation measures 54.03936 ms per
+serialized frame and six advancing frames at 18.182 FPS with ideal polling.
+These are simulation results; the current package has not been uploaded or
+physically checked. See the [manifest](2026-11-04/glitter-fps/build-manifest.json)
+for matching source/image hashes and validation scope.
+
+## Previous board-validated image
+
 [Pistil checkpoint, 4 November 2026](2026-11-04/pistil/RESULTS.md): pattern 3,
 selected-colour shell and half-speed white glitter core. The FPGA build fits
 132/140 logic blocks and six BRAM slices, with typical WNS +15.344 ns and TNS 0.

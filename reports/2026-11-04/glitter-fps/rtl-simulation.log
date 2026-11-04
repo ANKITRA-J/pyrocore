@@ -1,0 +1,47 @@
+particle_renderer_tb
+PASS: existing renderer/Pistil geometry regressions; all 24 material/pattern combinations glitter with preserved colours, latched selection and paired head/trail visibility under a changing gate
+- fpga/sim/particle_renderer_tb.v:216: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.034 2025-02-24
+- Verilator: $finish at 3ms; walltime 1.570 s; speed 2.225 ms/s
+- Verilator: cpu 1.564 s on 1 threads; alloced 0 MB
+
+pyrocore_core_tb
+PASS: UART frame seq=3, CRC and4096 pixels match immutable RAM snapshot, lit=5
+PASS: UART frame seq=4, CRC and4096 pixels match immutable RAM snapshot, lit=14
+PASS: UART frame seq=6, CRC and4096 pixels match immutable RAM snapshot, lit=5
+PASS: Pistil packed frame contains 2 yellow shell and 3 white core pixels
+PASS: malformed/unknown commands rejected, opcode 0x23 accepted, three complete UART frames including dual-colour Pistil
+- fpga/sim/pyrocore_core_tb.v:168: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.034 2025-02-24
+- Verilator: $finish at 5ms; walltime 4.375 s; speed 1.252 ms/s
+- Verilator: cpu 4.368 s on 1 threads; alloced 0 MB
+
+uart_link_tb
+PASS: UART peer baud 99%, phase 1 ns, 270 back-to-back bytes
+PASS: UART peer baud 99%, phase 73 ns, 270 back-to-back bytes
+PASS: UART peer baud 99%, phase 161 ns, 270 back-to-back bytes
+PASS: UART peer baud 99%, phase 271 ns, 270 back-to-back bytes
+PASS: UART peer baud 100%, phase 1 ns, 270 back-to-back bytes
+PASS: UART peer baud 100%, phase 73 ns, 270 back-to-back bytes
+PASS: UART peer baud 100%, phase 161 ns, 270 back-to-back bytes
+PASS: UART peer baud 100%, phase 271 ns, 270 back-to-back bytes
+PASS: UART peer baud 101%, phase 1 ns, 270 back-to-back bytes
+PASS: UART peer baud 101%, phase 73 ns, 270 back-to-back bytes
+PASS: UART peer baud 101%, phase 161 ns, 270 back-to-back bytes
+PASS: UART peer baud 101%, phase 271 ns, 270 back-to-back bytes
+PASS: production 3.125 MHz / CPB10 UART received all 3240 bytes; nominal and +/-1% peer baud, four asynchronous start phases, no extra idle bits
+- fpga/sim/uart_link_tb.v:102: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.034 2025-02-24
+- Verilator: $finish at 104ms; walltime 1.909 s; speed 64.879 ms/s
+- Verilator: cpu 1.599 s on 1 threads; alloced 0 MB
+
+pyrocore_stream_rate_tb
+PASS: CPB=10 target=18, 6 CRC-valid advancing frames; all4096 pixels match RAM
+MEASURE: CPB=10 stream_cycles=168873 transfer_ms=54.039360 serializer_ceiling_fps=18.505030 polling_fps=18.181818 (simulation only)
+PASS: CPB=27 target=7, 6 CRC-valid advancing frames; all4096 pixels match RAM
+MEASURE: CPB=27 stream_cycles=431523 transfer_ms=138.087360 serializer_ceiling_fps=7.241792 polling_fps=7.042254 (simulation only)
+PASS: faster link meets18 target versus7 baseline without repeated frame sequences or ownership violations; MCU/USB/hardware unmeasured
+- fpga/sim/pyrocore_stream_rate_tb.v:131: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.034 2025-02-24
+- Verilator: $finish at 893ms; walltime 30.174 s; speed 29.605 ms/s
+- Verilator: cpu 30.148 s on 1 threads; alloced 0 MB

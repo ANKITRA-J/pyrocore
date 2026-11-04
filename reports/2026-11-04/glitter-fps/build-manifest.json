@@ -1,0 +1,106 @@
+{
+  "target": "SLG47910V Rev BB",
+  "format": "MCU SPI",
+  "bytes": 46408,
+  "sha256": "b8832397d4080ff0ba1192ed063b89bac00845e4f6a501c85108e292cc326e18",
+  "physical_board_tested": false,
+  "bram_power_down_bits": 0,
+  "sources": {
+    "fpga/rtl/pyrocore_top.v": "78dafd8dfb3d2c98263e7f7b2abc252eccdffd2efb4ee7e3705c664fdbaeac4f",
+    "fpga/rtl/pyrocore_core.v": "55d6840f89fbcf3489e13a0fbec3c0f9d8e4070bc40a14a93a6ab8d580f529ab",
+    "fpga/rtl/particle_renderer.v": "171eeffa7e3d35ca08637f87418b3da2fa68c022bb4cdfc34242ef4e251830d0",
+    "fpga/rtl/frame_streamer.v": "bde2d55954ee1f2845f12544ea9cd5399a225b95b29a824d3a115f8753baa882",
+    "fpga/rtl/uart_rx.v": "11cba6a2eae94966f3f6ccba125a8addb6153ea93982482f09f029dc329e0cb3",
+    "fpga/rtl/uart_tx.v": "33fb3eec401a5be4c299d4cb1541af993d570276a2d05fe82c470b5cb0eb9575"
+  },
+  "source_base_commit": "eb1364d67b263cd8fb2f73c45c56ecc8b20f25aa",
+  "source_checkpoint": "Source hashes define this glitter/faster-link implementation; no board upload.",
+  "included_image": "firmware/pyrocore/data/fpga_bitstream.bin",
+  "resources": {
+    "logic_blocks": 131,
+    "logic_blocks_available": 140,
+    "rbb_lut_resources": 467,
+    "clb_flip_flops": 316,
+    "iob_output_flip_flops": 116,
+    "iob_input_flip_flops": 1,
+    "framebuffer_bram_slices": 6,
+    "framebuffer_bram_slices_available": 8,
+    "core_mhz": 3.125,
+    "oscillator_mhz": 50,
+    "wns_ns": 15.059,
+    "tns_ns": 0,
+    "corner": "vendor typical; full external BRAM timing signoff remains open"
+  },
+  "transport": {
+    "fpga_uart_baud": 312500,
+    "core_clocks_per_bit": 10,
+    "desktop_target_fps": 18,
+    "desktop_fallback_fps": [
+      7,
+      5
+    ],
+    "firmware_startup_fps": 5,
+    "frame_bytes": 1545,
+    "stream_cycles": 168873,
+    "stream_ms": 54.03936,
+    "serializer_ceiling_fps": 18.50503,
+    "simulated_polling_fps": 18.181818,
+    "baseline": {
+      "core_clocks_per_bit": 27,
+      "target_fps": 7,
+      "stream_cycles": 431523,
+      "stream_ms": 138.08736,
+      "simulated_polling_fps": 7.042254
+    },
+    "measurement_scope": "production-clock RTL simulation; MCU execution, USB and physical wiring unmeasured"
+  },
+  "firmware": {
+    "version": "0.3.0",
+    "esp32_arduino_core": "3.3.12",
+    "ArduinoJson": "6.21.5",
+    "application_flash_bytes": 359238,
+    "global_ram_bytes": 26664,
+    "uploaded": false,
+    "images": {
+      "pyrocore.ino.bin": {
+        "bytes": 359392,
+        "sha256": "f1e0a6dd23a1f70629949a2639396bf14b8c72b3188ee807bbb42d3433a58ad1"
+      },
+      "littlefs.bin": {
+        "bytes": 1572864,
+        "sha256": "9926c1262bd141398825ccd060f6fe6b44be8cc9a50f314b31c99e0ca6aa0651"
+      }
+    }
+  },
+  "component_sources": {
+    "firmware/pyrocore/pyrocore.ino": "0faaa6ab4ae8898061412281bbb4815139a35ccf955e7404dd8af509a3c2dda5",
+    "desktop/app.py": "1902ed30930ae1a20534a2aa3566383ece3477565046c15bed09cbb07964c786",
+    "desktop/protocol.py": "9d0cc001e31ccd7f5c43ac82f96a5b3653a02e7f3cd48eeeedeb3aa31fa30fd3",
+    "fpga/sim/particle_renderer_tb.v": "260820fb1fa407b6daa49741161efd4ea8ea40cc3ec2937a80debd1d0b816c21",
+    "fpga/sim/pyrocore_core_tb.v": "35106f9182bfa93ba59efcd21777cadaa247b00ea1fd25ed29cc7f365303d44f",
+    "fpga/sim/uart_link_tb.v": "8cc02dc316ad72fe6f2e91e9de7a4769e0d183c5dfd5524dbe5af39191303beb",
+    "fpga/sim/pyrocore_stream_rate_tb.v": "7a9893b9eef6c44b97ea6c61adbf12910c0cf373d8685785217cd31f7472810e",
+    "tools/run_rtl.py": "72658c03fc51b74940cd5eabfaac129f769fed6d365b5fc92c1a73e51c297bc7",
+    "tools/board_check.py": "1644f5aa12ba3789bb439f41f437afdd2de8eab74b6292a8d25bce5c0b3d5a61",
+    "tests/test_desktop_protocol.py": "fd85879d1f44121f237b710366ed5688bf465b932d3cdcea5aef6f722484dabb"
+  },
+  "validation": {
+    "renderer": "passed: all24 material/pattern combinations; colours, latched selection, changing glitter gate, paired head/trail and geometry/Clear regressions",
+    "integrated_uart": "passed: three CRC-valid frames, all4096 pixels match immutable RAM snapshots, opcode checks and framebuffer ownership",
+    "uart_receiver": "passed:3240 back-to-back bytes, nominal/plus-minus1percent peer baud at four asynchronous phases",
+    "stream_rate": "passed: six advancing CRC-valid frames at each rate;all4096 pixels match RAM;18.182FPS versus7.042FPS simulated polling",
+    "host": "18tests, native firmware frame parser and generated Pistil packet to desktop decoder passed",
+    "desktop": "offscreen18default/reconfirmation and7/5fallback commands passed with serial access blocked",
+    "firmware": "ESP32 application and matching LittleFS compiled; no upload",
+    "physical_board": "not performed; board remains on preceding physically checked Pistil0.2.0 image"
+  },
+  "pistil_packet": {
+    "file": "rtl-pistil-frame.bin",
+    "bytes": 1545,
+    "sha256": "b29aa9abf6f7836e04cad1cf9183a6c315e7089d2b42abdc2370c53fad5cfdd6",
+    "sequence": 6,
+    "yellow_shell_pixels": 2,
+    "white_core_pixels": 3,
+    "crc_validated": true
+  }
+}

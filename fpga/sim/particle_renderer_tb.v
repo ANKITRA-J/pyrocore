@@ -13,6 +13,29 @@ module particle_renderer_tb;
     integer trail_for_pair=0;
     integer pistil_init_seen=0;
     integer pistil_particle;
+    integer test_material,test_pattern;
+    reg stress_glitter=0;
+    function [2:0] material_colour;
+        input integer m;
+        begin
+            case(m)
+                0:material_colour=1;1:material_colour=2;2:material_colour=3;
+                3:material_colour=4;4:material_colour=6;default:material_colour=7;
+            endcase
+        end
+    endfunction
+    // Reverse the random gate between TRAIL and DRAW. Every even particle must
+    // keep both writes; every odd particle must keep neither. This checks the
+    // cached decision with a changing LFSR, not just a constant visible/hidden gate.
+    always @(negedge clk) if(stress_glitter)begin
+        if(dut.state==4'd9)begin
+            if(dut.index[0])force dut.random_state=16'h0000;
+            else force dut.random_state=16'h0001;
+        end else if(dut.state==4'd6)begin
+            if(dut.index[0])force dut.random_state=16'h0001;
+            else force dut.random_state=16'h0000;
+        end
+    end
     function [11:0] first_head;
         input integer i;
         begin
@@ -71,15 +94,6 @@ module particle_renderer_tb;
             endcase
         end
     endfunction
-    function [11:0] pistil_third_even_head;
-        input integer i;
-        begin
-            case(i)
-                0:pistil_third_even_head=1376;2:pistil_third_even_head=1766;
-                4:pistil_third_even_head=2144;default:pistil_third_even_head=1754;
-            endcase
-        end
-    endfunction
     always @(posedge clk) if(!rst && dut.state==4'd3 && dut.frame_pattern==2'd3)begin
         if($signed(dut.init_vx)!==pistil_vx(dut.index) ||
            $signed(dut.init_vy)!==pistil_vy(dut.index))
@@ -109,14 +123,14 @@ module particle_renderer_tb;
                 end else if(pixel_addr!==(verify_frame==3 ? pistil_first_head(pistil_particle) : pistil_second_head(pistil_particle)))
                     $fatal(1,"Pistil current head/gravity incorrect");
             end
-            if(verify_frame==5)begin
-                pistil_particle=(drawn>>1)*2;
-                if(pixel_data!=2)$fatal(1,"hidden Pistil inner spark still visible");
-                if(!drawn[0])begin
-                    if(pixel_addr!==pistil_second_head(pistil_particle))
-                        $fatal(1,"Pistil outer trail changed while inner spark hidden");
-                end else if(pixel_addr!==pistil_third_even_head(pistil_particle))
-                    $fatal(1,"Pistil outer head changed while inner spark hidden");
+            if(verify_frame==6 || verify_frame==7)begin
+                pistil_particle=verify_frame==6 ? drawn>>1 : (drawn>>1)*2;
+                if(pixel_data!==(test_pattern==3 && pistil_particle[0] ? 3'd6 : material_colour(test_material)))
+                    $fatal(1,"glitter changed selected material or Pistil core colour");
+                if(verify_frame==7 && dut.index[0])
+                    $fatal(1,"hidden particle drew after gate changed");
+                if((!drawn[0] && dut.state!=4'd6) || (drawn[0] && dut.state!=4'd7))
+                    $fatal(1,"glitter split a particle's head/trail writes");
             end
             if(!drawn[0])trail_for_pair={29'd0,pixel_data};
             else if(pixel_data!==trail_for_pair[2:0])$fatal(1,"head/trail colour mismatch");
@@ -141,6 +155,8 @@ module particle_renderer_tb;
     initial begin
         cleared=0;drawn=0;cycles=0;expected_clear=0;
         repeat(3)@(negedge clk);rst=0;
+        // Geometry regressions deliberately hold the gate visible for all sparks.
+        force dut.random_state=16'h0001;
         frame();if(drawn!=0)$fatal(1,"unlaunched particles drawn");
         @(negedge clk);launch=1;pattern=1;material=1;
         @(negedge clk);launch=0;
@@ -172,15 +188,32 @@ module particle_renderer_tb;
         verify_frame=4;frame();
         if(drawn!=16 || dut.frame_pattern!=3)$fatal(1,"Pistil pattern did not remain latched");
         force dut.random_state=16'h0000;
-        verify_frame=5;frame();
-        if(drawn!=8)$fatal(1,"Pistil inner glitter must hide four complete pairs");
+        verify_frame=0;frame();
+        if(drawn!=0)$fatal(1,"Pistil outer and inner glitter must hide together");
         verify_frame=0;
         @(negedge clk);launch=1;material=4;pattern=3;
         @(negedge clk);launch=0;
         frame();if(drawn!=0)$fatal(1,"Aluminium outer/inner glitter visibility mismatch");
+        // Every material in every pattern uses the same gate, retains its colour,
+        // and keeps advancing while hidden. Raw selectors must not alter a burst.
+        for(test_material=0;test_material<6;test_material=test_material+1)begin
+            for(test_pattern=0;test_pattern<4;test_pattern=test_pattern+1)begin
+                force dut.random_state=16'h0001;
+                @(negedge clk);launch=1;material=test_material[2:0];pattern=test_pattern[1:0];
+                @(negedge clk);launch=0;material=test_material==5 ? 3'd0 : test_material[2:0]+3'd1;pattern=test_pattern[1:0]+2'd1;
+                verify_frame=6;frame();
+                if(drawn!=16 || dut.active_material!=test_material[2:0] || dut.frame_pattern!=test_pattern[1:0])
+                    $fatal(1,"visible glitter launch/selection missing for material %0d pattern %0d",test_material,test_pattern);
+                force dut.random_state=16'h0000;
+                frame();if(drawn!=0)$fatal(1,"hidden glitter frame drew pixels");
+                stress_glitter=1;verify_frame=7;frame();stress_glitter=0;
+                if(drawn!=8 || dut.life!=46 || dut.active_material!=test_material[2:0] || dut.frame_pattern!=test_pattern[1:0])
+                    $fatal(1,"paired glitter recovery/latched motion failed for material %0d pattern %0d",test_material,test_pattern);
+            end
+        end
         release dut.random_state;
-        $display("PASS: existing renderer regressions; Pistil exact full/half velocities, colours, latched pattern and paired inner/Aluminium glitter");
+        $display("PASS: existing renderer/Pistil geometry regressions; all 24 material/pattern combinations glitter with preserved colours, latched selection and paired head/trail visibility under a changing gate");
         $finish;
     end
-    initial begin #1000000;$fatal(1,"test timeout");end
+    initial begin #10000000;$fatal(1,"test timeout");end
 endmodule

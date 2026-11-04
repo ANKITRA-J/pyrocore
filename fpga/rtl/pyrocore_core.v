@@ -1,6 +1,6 @@
 // Board-independent engine: command decoder, renderer ownership and frame UART.
 module pyrocore_core #(
-    parameter CLKS_PER_BIT=27,
+    parameter CLKS_PER_BIT=10, // 3.125 MHz / 10 = 312500 baud, exact.
     parameter FRAME_CYCLES=125000,
     parameter COMMAND_TIMEOUT=312500
 )(

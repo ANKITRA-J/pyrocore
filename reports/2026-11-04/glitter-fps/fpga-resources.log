@@ -1,0 +1,39 @@
+
+
+####   Resource Utilization Report   ####
+
+    Top level module name: pyrocore_top
+
+    Resource usage:
+     131 Logic 6-LUT RBBs
+            9 of which require RAM and/or shift-register functions
+          467 RBB LUTs utilized (up to 4 per RBB)
+          316 RBB FFs utilized (up to 4 pairs per RBB)
+     108 I/O RBBs
+            7  Input pins
+            1  Input FFs utilized
+          211 Output pins
+          116 Output FFs utilized
+       2 Clocks
+           Clock 0: net     2, OSC_CLK, Fanout: 2 RBBs
+           Clock 1: net     3, core_clk, Fanout: 209 RBBs
+           Total 2 unique clocks
+    need 0 DSP and 1 Logic-Memory EFLX 1K Tiles.
+
+
+####   Resource Utilization Complete   ####
+
+TILE-REQ:		0		0		0		2
+
+### Total EFLX resources from current floorplan: ###
+                       184 IOBs
+                       140 Logic 6-LUT RBBs
+                              40 RBBs support RAM/SR
+
+Usage of Logic RBBs is 93.6%.
+    Logic-Memory RBB for RAM/Shift-Register is 22.5%.
+Usage of LUTs is 83.4%.
+    dual-LUTs is 23.8%.
+Usage of FF is 56.4%.
+    dual-FF is 20.2%.
+Usage of IO RBB is 58.7%.

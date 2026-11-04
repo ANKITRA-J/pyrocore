@@ -12,11 +12,11 @@ from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QHBoxLayout,
 from serial.tools import list_ports
 
 try:
-    from .protocol import MATERIALS, PALETTE, PATTERNS, encode_command
+    from .protocol import MATERIALS, MAX_STREAM_FPS, PALETTE, PATTERNS, encode_command
     from .serial_worker import SerialWorker
     from .frame_stats import FrameStats
 except ImportError:
-    from protocol import MATERIALS, PALETTE, PATTERNS, encode_command
+    from protocol import MATERIALS, MAX_STREAM_FPS, PALETTE, PATTERNS, encode_command
     from serial_worker import SerialWorker
     from frame_stats import FrameStats
 
@@ -279,7 +279,8 @@ class MainWindow(QMainWindow):
         conn_layout.addWidget(self.status_label)
         conn_layout.addWidget(label('Stream rate', 'muted'))
         self.stream_rate = QComboBox()
-        self.stream_rate.addItem('7 FPS · faster', 7)
+        self.stream_rate.addItem(f'{MAX_STREAM_FPS} FPS · faster', MAX_STREAM_FPS)
+        self.stream_rate.addItem('7 FPS · fallback', 7)
         self.stream_rate.addItem('5 FPS · steady', 5)
         self.stream_rate.setMinimumHeight(42)
         self.stream_rate.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)

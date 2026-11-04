@@ -7,6 +7,7 @@ WIDTH = HEIGHT = 64
 PIXEL_COUNT = WIDTH * HEIGHT
 PAYLOAD_BYTES = PIXEL_COUNT * 3 // 8
 MAX_LINE_BYTES = 8192
+MAX_STREAM_FPS = 18
 PALETTE = (
     (0, 0, 0), (255, 78, 100), (70, 230, 148), (87, 145, 255),
     (255, 215, 91), (255, 145, 67), (255, 255, 245), (181, 217, 235),
@@ -89,7 +90,7 @@ def encode_command(command, **fields):
             raise ProtocolError('stream requires enabled')
     if set(fields) - permitted:
         raise ProtocolError('Unsupported command field')
-    for key, maximum in [('material', 5), ('pattern', 3), ('fps', 7)]:
+    for key, maximum in [('material', 5), ('pattern', 3), ('fps', MAX_STREAM_FPS)]:
         if key in fields:
             minimum = 1 if key == 'fps' else 0
             if type(fields[key]) is not int or not minimum <= fields[key] <= maximum:

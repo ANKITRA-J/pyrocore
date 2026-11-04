@@ -1,6 +1,6 @@
 `timescale 1ns/1ps
 module pyrocore_core_tb;
-    localparam CPB=8;
+    localparam CPB=10;
     reg clk=0;always #5 clk=~clk;
     reg rst=1,uart_rx_pin=1;
     wire uart_tx_pin,mem_we,mem_wbank,mem_re,mem_rbank,led;
@@ -44,8 +44,6 @@ module pyrocore_core_tb;
                 uart_rx_pin=value[b];repeat(CPB)@(negedge clk);
             end
             uart_rx_pin=1;repeat(CPB)@(negedge clk);
-            // One extra bit of idle keeps command tests independent of UART gap.
-            repeat(CPB)@(negedge clk);
         end
     endtask
     task command;

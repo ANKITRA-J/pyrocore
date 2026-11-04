@@ -1,0 +1,26 @@
+test_bounded_json (test_desktop_protocol.DesktopProtocolTests) ... ok
+test_commands (test_desktop_protocol.DesktopProtocolTests) ... ok
+test_decode_validated_frame (test_desktop_protocol.DesktopProtocolTests) ... ok
+test_known_bit_packing_order (test_desktop_protocol.DesktopProtocolTests) ... ok
+test_mixed_pistil_colours_survive_frame_transport (test_desktop_protocol.DesktopProtocolTests) ... ok
+test_palette_and_lengths (test_desktop_protocol.DesktopProtocolTests) ... ok
+test_random_roundtrip (test_desktop_protocol.DesktopProtocolTests) ... ok
+test_reject_untrusted_or_bad_frame (test_desktop_protocol.DesktopProtocolTests) ... ok
+test_stream_rate_range (test_desktop_protocol.DesktopProtocolTests) ... ok
+test_preserves_project_settings_and_enables_bram (test_fpga_image.PeripheralHeaderTests) ... ok
+test_rejects_default_powered_down_banks (test_fpga_image.PeripheralHeaderTests) ... ok
+test_rejects_wrong_configuration_size (test_fpga_image.PeripheralHeaderTests) ... ok
+test_black_frames_count_at_five_fps (test_frame_stats.FrameStatsTests) ... ok
+test_disconnect_sets_zero_and_retains_last_image_details (test_frame_stats.FrameStatsTests) ... ok
+test_rate_decays_without_new_arrivals_then_stops (test_frame_stats.FrameStatsTests) ... ok
+test_resumed_stream_warms_up_again (test_frame_stats.FrameStatsTests) ... ok
+test_scene_content_does_not_change_stream_rate (test_frame_stats.FrameStatsTests) ... ok
+test_startup_is_calculating (test_frame_stats.FrameStatsTests) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 0.045s
+
+OK
+PASS CRC vector, valid payload, corruption rejection, length rejection, resynchronization, reset
+PASS FPGA packet: seq=6, payload=1536 bytes
+PASS: RTL UART packet → exact firmware parser → desktop decoder;4096 pixels, 5 lit, colours=[4, 6]
