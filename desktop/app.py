@@ -181,7 +181,7 @@ class MainWindow(QMainWindow):
         self.frame_stats = FrameStats()
         self.frame_count = 0
         self.rng = random.Random()
-        self.setWindowTitle('PyroCore — FPGA Fireworks Engine')
+        self.setWindowTitle('PyroCore — Fixed-Function GPU')
         available = QApplication.primaryScreen().availableGeometry()
         self.resize(min(1120, available.width() - 40), min(880, available.height() - 40))
         self.setMinimumSize(860, 660)

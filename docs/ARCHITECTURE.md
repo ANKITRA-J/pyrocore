@@ -1,9 +1,9 @@
 # PyroCore architecture
 
-PyroCore is an eight-particle fireworks engine on the Shrike-Fi FPGA. The FPGA
-updates particle motion, draws pixels into its own memory and sends completed
-frames to the ESP32. The desktop supplies controls, decodes the palette indices
-and enlarges the 64 × 64 image.
+PyroCore is a fixed-function GPU that simulates fireworks, implemented on the
+Shrike-Fi FPGA. The FPGA updates particle motion, draws pixels into its own
+memory and sends completed frames to the ESP32. The desktop supplies controls,
+decodes the palette indices and enlarges the 64 × 64 image.
 
 ```text
 Desktop controls → ESP32 → FPGA command decoder
