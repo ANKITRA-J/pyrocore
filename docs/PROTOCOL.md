@@ -59,8 +59,8 @@ The bridge forwards frames only after validating UART length, version, type and
 CRC. The desktop checks this envelope, sequence range, strict base64 and payload
 size. Malformed/partial frames do not replace the last complete image. `crc_ok`
 reports the bridge's UART validation; the USB envelope does not contain that raw CRC.
-Black frames are valid frames and count toward received FPS. Software preview is
-separately labelled and never represented as FPGA output.
+Black frames are valid frames and count toward received FPS. The desktop displays
+received FPGA frames; it does not generate a local fireworks animation.
 
 ## ESP32 ↔ FPGA UART
 

@@ -34,15 +34,9 @@ py -3.13 -m venv .venv
 ```
 
 Another supported Python version can be used in place of `3.13`. No environment
-activation is required. To try the interface before uploading anything:
-
-```sh
-.venv/bin/python desktop/app.py --demo
-```
-
-On Windows, replace `.venv/bin/python` in this guide with
-`.\.venv\Scripts\python.exe`. Preview mode is labelled SOFTWARE PREVIEW and does
-not open a board port.
+activation is required. On Windows, replace `.venv/bin/python` in this guide with
+`.\.venv\Scripts\python.exe`. The desktop displays fireworks from the connected
+board's FPGA frames.
 
 ## 2. Install the firmware tools
 

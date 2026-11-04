@@ -198,5 +198,5 @@ alone does not change that UART limit.
 
 See PROTOCOL.md for byte layouts and commands, SETUP.md for build/run instructions,
 and HANDOFF.md for the current image, matching reports and measured board results.
-The desktop's explicitly labelled software preview has its own approximate visual
-model; connected mode displays the frames produced by this FPGA pipeline.
+The desktop displays the frames produced by this FPGA pipeline. It does not
+generate a local fireworks animation.

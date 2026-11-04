@@ -8,10 +8,10 @@ commands and frames; the desktop app provides controls and displays the result.
 and checked on Shrike-Fi: moving yellow/white and green/white bursts, Clear and a
 short 7.04 FPS stream passed. See the [board results](reports/2026-11-04/pistil/RESULTS.md).
 
-![PyroCore desktop software preview](docs/images/desktop.png)
+![PyroCore desktop waiting for a board connection](docs/images/desktop.png)
 
-*Pistil in the desktop software preview. Its approximate animation is separate
-from the FPGA output.*
+*The desktop app waiting for a board connection. Fireworks appear from received
+FPGA frames after connecting.*
 
 ## Get it running
 
@@ -27,8 +27,8 @@ then reopen it from the repository root:
 ```
 
 On Windows, use `.venv\Scripts\python.exe` instead of `.venv/bin/python`.
-For a preview without a board, add `--demo`. If upgrading from the three-pattern
-version, also upload the complete v0.2.0 package using [Setup step 3](docs/SETUP.md#3-upload-the-application-and-fpga-image).
+If upgrading from the three-pattern version, also upload the complete v0.2.0
+package using [Setup step 3](docs/SETUP.md#3-upload-the-application-and-fpga-image).
 
 ## What it does
 

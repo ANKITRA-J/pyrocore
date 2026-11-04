@@ -6,6 +6,37 @@ Firmware is v0.2.0; the wire protocol remains v1.
 Start with [SETUP.md](SETUP.md) for deployment and [DEVELOPMENT.md](DEVELOPMENT.md)
 for source changes. Preserve credits/notices and follow [AGENTS.md](../AGENTS.md).
 
+## Desktop update: FPGA frames only
+
+Removed `--demo` and the approximate local particle animation at the owner's
+request. The app starts disconnected with launch controls disabled and displays
+received FPGA frames after connection. Random Show still sends board commands,
+including the existing 6-second Willow interval. Clear still waits for the next
+received frame. Setup, architecture, protocol and README now describe this behavior;
+the README screenshot shows the disconnected app with no local animation.
+
+Validation commands from the repository root:
+
+```sh
+.venv/bin/python -m unittest discover -s tests -v
+.venv/bin/python desktop/app.py --help
+.venv/bin/python desktop/app.py --demo
+QT_QPA_PLATFORM=offscreen .venv/bin/python desktop/app.py --screenshot build/desktop.png
+```
+
+All 17 host tests pass. Help lists only `--screenshot` and help; the removed
+`--demo` command intentionally exits 2 with an unrecognized-arguments error.
+Offscreen startup/capture passes. An additional offscreen smoke check with serial
+access blocked passed disconnected controls, Launch/Clear/stream commands,
+6-second Willow cadence and all 4,096 displayed pixel colours from the saved RTL
+Pistil packet. This is software validation, not a physical-board test.
+
+Firmware, FPGA sources and the included image are unchanged; no upload or new
+physical-board validation was performed. The earlier physical results below
+remain the board evidence. Next concrete step: reopen with
+`.venv/bin/python desktop/app.py`, connect the board and confirm a live burst in
+the updated desktop. No firmware rebuild or upload is needed for this change.
+
 ## Current feature and image
 
 Patterns are 0 Radial, 1 Ring, 2 Willow and 3 Pistil. Pistil's even particles use
@@ -43,8 +74,9 @@ simplified pattern validation and packing, not isolated effect-cost measurements
 - Three complete UART frames pass CRC and all-pixel RAM snapshot comparisons.
   The Pistil packet contains 8 yellow shell and 8 white core pixels and passes
   the exact native firmware parser and desktop decoder.
-- Seventeen host checks, offscreen GUI selection/preview/command checks, FPGA
-  synthesis/routing, and firmware/LittleFS compilation passed.
+- At the Pistil checkpoint, seventeen host checks, offscreen GUI
+  selection/preview/command checks, FPGA synthesis/routing, and firmware/LittleFS
+  compilation passed. That software preview has since been removed as noted above.
 - The user authorized the full upload. All five flash sections passed hash
   verification; the board runs firmware v0.2.0 and this Pistil image.
 - Physical yellow/white and green/white Pistil frames passed motion and outer/core
