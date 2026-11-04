@@ -62,6 +62,6 @@ Only for Shrike-Fi (SLG47910V Rev BB + ESP32-S3, 8 MB flash). This replaces the
 existing application and filesystem, so back up anything you need first.
 
 Verified 4 November 2026: this package was flashed on Shrike-Fi, loaded the FPGA,
-passed Launch/motion/Clear and streamed at 29.34 FPS with zero CRC, header or
+passed Launch/motion/Clear and streamed at 29.436 FPS with zero CRC, header or
 timeout errors. See
 [`reports/2026-11-04/v0.4.0-flash-verification/`](../../reports/2026-11-04/v0.4.0-flash-verification/RESULTS.md).

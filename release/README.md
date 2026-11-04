@@ -13,8 +13,9 @@ the Arduino ESP32 core or an FPGA compiler — only Python and esptool.
 | `pyrocore.ino.bin` | `0x10000` |
 | `littlefs.bin` | `0x670000` |
 
-`SHA256SUMS` covers all five files. The flasher verifies it before touching the
-board, and esptool verifies each written section afterwards. `RELEASE.json`
+`SHA256SUMS` must cover all five files exactly once. The flasher rejects missing,
+duplicate, malformed or unexpected entries before touching the board, and esptool
+verifies each written section afterwards. `RELEASE.json`
 records the version, target board, bitstream hash and the verified hardware run.
 
 ## Flash

@@ -9,7 +9,7 @@
   "build_source_commit": "1672e139ef103fc638a0f09eb044ab0d53f64be2",
   "verified_on_hardware": "2026-11-04",
   "hardware_result": {
-    "measured_fps": 29.449,
+    "measured_fps": 29.436,
     "frames": 294,
     "crc_errors": 0,
     "header_errors": 0,

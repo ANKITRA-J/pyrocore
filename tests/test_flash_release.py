@@ -1,6 +1,12 @@
+from contextlib import redirect_stdout
+import hashlib
 import importlib.util
+import io
 from pathlib import Path
+import sys
+import tempfile
 import unittest
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location('flash_release', ROOT / 'tools/flash_release.py')
@@ -60,6 +66,98 @@ class PortSelectionTests(unittest.TestCase):
                  FakePort('COM4', 0x1A86, 0x7523, 'CH340')]
         with self.assertRaises(SystemExit):
             flash.select_port(ports, out=lambda *_: None, interactive=False)
+
+
+class ChecksumVerificationTests(unittest.TestCase):
+    def setUp(self):
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        self.release = Path(temporary.name)
+        self.lines = []
+        for _, name in flash.LAYOUT:
+            payload = ('fixture: ' + name).encode('ascii')
+            (self.release / name).write_bytes(payload)
+            self.lines.append(f'{hashlib.sha256(payload).hexdigest()}  {name}')
+        self.write_manifest(self.lines)
+
+    def write_manifest(self, lines):
+        (self.release / 'SHA256SUMS').write_text('\n'.join(lines) + '\n')
+
+    def assert_invalid_manifest(self, lines):
+        self.write_manifest(lines)
+        with patch.object(flash, 'sha256') as digest:
+            with self.assertRaises(SystemExit):
+                flash.verify(self.release)
+            digest.assert_not_called()
+
+    def test_valid_complete_manifest_and_gnu_binary_checksums(self):
+        variants = [self.lines,
+                    [line.split()[0].upper() + ' *' + line.split()[1]
+                     for line in self.lines]]
+        for lines in variants:
+            with self.subTest(lines=lines):
+                self.write_manifest(['# release checksums', '', *lines])
+                with redirect_stdout(io.StringIO()):
+                    flash.verify(self.release)
+
+    def test_missing_checksum_file_is_rejected(self):
+        (self.release / 'SHA256SUMS').unlink()
+        with self.assertRaises(SystemExit):
+            flash.verify(self.release)
+
+    def test_empty_manifest_is_rejected_before_hashing(self):
+        self.assert_invalid_manifest([])
+
+    def test_partial_manifest_is_rejected_before_hashing(self):
+        self.assert_invalid_manifest(self.lines[:-1])
+
+    def test_malformed_checksum_lines_are_rejected_cleanly(self):
+        digest, name = self.lines[0].split()
+        malformed = [digest, f'{"g" * 64}  {name}',
+                     f'{digest[:-1]}  {name}', f'{digest}  {name} trailing']
+        for line in malformed:
+            with self.subTest(line=line):
+                self.assert_invalid_manifest([line, *self.lines[1:]])
+
+    def test_duplicate_filename_is_rejected_before_hashing(self):
+        self.assert_invalid_manifest([*self.lines, self.lines[0]])
+
+    def test_unexpected_filename_is_rejected_before_hashing(self):
+        self.assert_invalid_manifest([*self.lines, f'{"0" * 64}  unexpected.bin'])
+
+    def test_path_entries_are_rejected_before_hashing(self):
+        digest, name = self.lines[0].split()
+        paths = ['../' + name, str(self.release / name), './' + name,
+                 'nested/' + name, '..\\' + name]
+        for name in paths:
+            with self.subTest(name=name):
+                self.assert_invalid_manifest([f'{digest}  {name}', *self.lines[1:]])
+
+    def test_corrupt_and_missing_images_are_rejected(self):
+        image = self.release / flash.LAYOUT[0][1]
+        with self.subTest(problem='corrupt'):
+            image.write_bytes(b'corrupted image')
+            with self.assertRaises(SystemExit):
+                flash.verify(self.release)
+        with self.subTest(problem='missing'):
+            image.unlink()
+            with self.assertRaises(SystemExit):
+                flash.verify(self.release)
+
+    def test_main_rejects_bad_manifest_before_resolving_or_running_esptool(self):
+        for lines in ([], self.lines[:-1], ['malformed', *self.lines[1:]]):
+            with self.subTest(lines=lines):
+                self.write_manifest(lines)
+                arguments = ['flash_release.py', '--port', 'TEST_ONLY',
+                             '--dir', str(self.release)]
+                with patch.object(sys, 'argv', arguments), \
+                     patch.object(flash, 'serial_ports', return_value=[]), \
+                     patch.object(flash, 'find_esptool') as find_esptool, \
+                     patch.object(flash.subprocess, 'run') as run:
+                    with self.assertRaises(SystemExit):
+                        flash.main()
+                    find_esptool.assert_not_called()
+                    run.assert_not_called()
 
 
 if __name__ == '__main__':

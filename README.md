@@ -5,6 +5,8 @@ The FPGA calculates particle motion and renders a 64 × 64 image in eight colour
 The ESP32 carries commands and frames; the desktop app provides controls and
 displays the result.
 
+Get the verified board images from the [v0.4.0 release](https://github.com/ANKITRA-J/pyrocore/releases/tag/v0.4.0).
+
 ![PyroCore desktop waiting for a board connection](docs/images/desktop.png)
 
 *The desktop app waiting for a board connection. Fireworks appear from received
@@ -183,7 +185,7 @@ installing the app.
 For later updates, run `git pull --ff-only`, close the old app and reopen it.
 This release (v0.4.0) changes board communication to 30 FPS with 625000 baud FPGA link, 
 so upgrading from v0.3.0 or earlier requires uploading the matching **v0.4.0 application 
-and FPGA image together** using [the helper above](#load-the-board-package). Updating 
+and FPGA image together** using [the helper above](#flash-the-prebuilt-release-recommended). Updating
 only the desktop app does not enable the faster board link. The 30 FPS target achieves 
 approximately 29.4 FPS on hardware with the 40 Hz render scheduler.
 

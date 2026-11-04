@@ -149,13 +149,26 @@ def verify(release):
     sums = release / 'SHA256SUMS'
     if not sums.is_file():
         raise SystemExit(f'Missing checksum file: {sums}')
+    required = {name for _, name in LAYOUT}
     expected = {}
-    for line in sums.read_text().splitlines():
+    for number, line in enumerate(sums.read_text().splitlines(), 1):
         line = line.strip()
         if not line or line.startswith('#'):
             continue
-        digest, name = line.split(None, 1)
-        expected[name.lstrip('*')] = digest
+        fields = line.split(None, 1)
+        if len(fields) != 2 or not re.fullmatch(r'[0-9a-fA-F]{64}', fields[0]):
+            raise SystemExit(f'Invalid checksum entry on line {number} of SHA256SUMS')
+        digest, name = fields
+        if name.startswith('*'):
+            name = name[1:]
+        if name not in required:
+            raise SystemExit(f'Unexpected checksum filename: {name}')
+        if name in expected:
+            raise SystemExit(f'Duplicate checksum entry: {name}')
+        expected[name] = digest.lower()
+    missing = sorted(required - expected.keys())
+    if missing:
+        raise SystemExit('Missing release checksums: ' + ', '.join(missing))
     bad = [name for name, digest in expected.items()
            if not (release / name).is_file() or sha256(release / name) != digest]
     if bad:

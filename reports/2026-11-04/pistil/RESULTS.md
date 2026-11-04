@@ -59,7 +59,7 @@ The included 46,408-byte MCU image SHA256 is:
 ```
 
 Upgrade both firmware and its FPGA image with the complete helper command in
-[README board-package instructions](../../../README.md#load-the-board-package); the
+[README board-package instructions](../../../README.md#flash-the-prebuilt-release-recommended); the
 preceding v0.1.0 firmware rejects pattern 3. Frame protocol v1 is
 unchanged. Physical acceptance results are below.
 
