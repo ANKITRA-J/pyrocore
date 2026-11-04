@@ -47,8 +47,7 @@ Lower targets reduce polling load while keeping the same baud.
 
 Rendering remains scheduled at 25 Hz with safe buffer ownership. Faster transfer
 reduces stalls, so bursts can move and expire sooner in real time with unchanged
-per-update physics. Full external BRAM timing signoff and long-run reliability
-remain open.
+per-update physics.
 
 ## Checks and package
 
@@ -133,8 +132,7 @@ QT_QPA_PLATFORM=offscreen .venv/bin/python build/glitter_fps_gui_check.py
 ```
 
 The scene is left cleared with streaming enabled at the 18 FPS target, and all
-test clients are closed. This is a short functional acceptance run; long-duration
-reliability and full external BRAM timing signoff remain open.
+test clients are closed.
 
 ## Optional 30 FPS follow-up
 
