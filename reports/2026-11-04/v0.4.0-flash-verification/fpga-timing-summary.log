@@ -1,0 +1,311 @@
+Timing Summary
+==============
+
+   POST-ROUTE
+
+         Group  No. Clocks  No. Clock Pairs  WNS(ps)  TNS(ps)  TNS Endpoints      
+   -----------  ----------  ---------------  -------  -------  -------------      
+     <DEFAULT>           2                2    15344        0              0      
+
+
+
+
+Clocks
+======
+
+            Clock    Clock net        Group  Constrained Period(ps)      Waveform(ps)   Achievable Period(ps)  Achievable Frequency(MHz)
+   --------------  -----------  -----------  ----------------------  -----------------  ---------------------  -------------------------
+         core_clk     core_clk    <DEFAULT>                320000          (0,160000)                  74495                     13.424 
+          OSC_CLK      OSC_CLK    <DEFAULT>                 20000           (0,10000)                   4655                    214.823 
+
+
+
+
+Clock Relationships
+===================
+
+       From Clock        To Clock               Group    Endpoints     WNS(ps)    TNS(ps)  TNS Endpoints
+   --------------  --------------  ------------------  -----------  ----------  ---------  -------------
+         core_clk        core_clk           <DEFAULT>         2248      306263          0              0
+          OSC_CLK         OSC_CLK           <DEFAULT>           11       15344          0              0
+         core_clk         OSC_CLK           <DEFAULT>            0                                     0
+          OSC_CLK        core_clk           <DEFAULT>            0                                     0
+
+
+
+
+Timing Details for Clock Pair core_clk and core_clk
+===================================================
+
+       From Clock        To Clock               Group    Endpoints     WNS(ps)    TNS(ps)  TNS Endpoints
+   --------------  --------------  ------------------  -----------  ----------  ---------  -------------
+         core_clk        core_clk           <DEFAULT>         2248      306263          0              0
+
+Path 6:
+   Slack (met):                            306263ps
+     Path type:                               SETUP
+     Group:                               <DEFAULT>
+     Launching clock:                      core_clk (rising edge)
+     Capturing clock:                      core_clk (rising edge)
+
+     Requested period:                     320000ps
+   + Delay of the capturing clock:           2468ps
+   - Clock uncertainty:                       150ps
+   = Required time:                        322318ps
+   - Propagation time:                      13570ps (36.7% logic, 63.3% route, logic stage 5)
+   - Delay of the launching clock:           2485ps
+   = Slack:                                306263ps
+
+   Instance/Pin or Net Name                             Type         ID     Location or Fanout   Delay(ps)  Edge  Arrival Time(ps)    Instance detail                                                                  
+   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   core_clk                                             CLOCK-PORT    -                      -     launch     r               0                                                                                        
+   core_clk                                             Clock net     3          (fanout=4760)       2485                     -                                                                                        
+   RBB_158/CLK                                          RBB_6L      158  [TILE 0 0, RBB 28 22]          -     r            2485                                                                                        
+   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   RBB_158/BQ                                           RBB_6L      158  [TILE 0 0, RBB 28 22]        800     r            3285     {inst312: engine.frame_timer_FDRE_Q_3 (FD,site=bff)}                               
+   engine.frame_timer[13]                               Net         392             (fanout=5)       1436                     -                                                                                        
+   RBB_164/A5                                           RBB_6L      164  [TILE 0 0, RBB 28 24]          -     r            4721                                                                                        
+   RBB_164/A                                            RBB_6L      164  [TILE 0 0, RBB 28 24]       1023     r            5744     {inst337: engine.front_bank_LUT6_I4_I1_LUT5_O_I3_LUT5_O_I4_LUT4_O (LUT,site=alut)} 
+   engine.front_bank_LUT6_I4_I1_LUT5_O_I3_LUT5_O_I4[4]  Net         757             (fanout=1)       1859                     -                                                                                        
+   RBB_190/D5                                           RBB_6L      190  [TILE 0 0, RBB 22 10]          -     r            7603                                                                                        
+   RBB_190/D                                            RBB_6L      190  [TILE 0 0, RBB 22 10]        616     r            8219     {inst336: engine.front_bank_LUT6_I4_I1_LUT5_O_I3_LUT5_O (LUT,site=dlut)}           
+   engine.front_bank_LUT6_I4_I1_LUT5_O_I3[4]            Net         802             (fanout=1)       2171                     -                                                                                        
+   RBB_158/A3                                           RBB_6L      158  [TILE 0 0, RBB 28 22]          -     r           10390                                                                                        
+   RBB_158/A                                            RBB_6L      158  [TILE 0 0, RBB 28 22]       1003     r           11393     {inst335: engine.front_bank_LUT6_I4_I1_LUT5_O (LUT,site=alut)}                     
+   engine.front_bank_LUT6_I4_I1[1]                      Net         603            (fanout=16)       1104                     -                                                                                        
+   RBB_138/A4                                           RBB_6L      138  [TILE 0 0, RBB 19 20]          -     r           12497                                                                                        
+   RBB_138/A                                            RBB_6L      138  [TILE 0 0, RBB 19 20]        665     r           13162     {inst525: engine.render_start_FDRE_Q_D_LUT4_O (LUT,site=alut)}                     
+   engine.render_start_FDRE_Q_D                         Net         469             (fanout=1)       2017                     -                                                                                        
+   RBB_179/A6                                           RBB_6L      179   [TILE 0 0, RBB 19 8]          -     r           15179     {<CE>inst522: engine.render_inflight_FDRE_Q (FDRE,site=dff)}                       
+   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   RBB_179/CLK                                          RBB_6L      179   [TILE 0 0, RBB 19 8]        876     r           16055                                                                                        
+   core_clk                                             Clock net     3          (fanout=4760)      -2468                     -                                                                                        
+   core_clk                                             CLOCK-PORT    -                      -    capture     r           13587                                                                                        
+   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Path 22:
+   Slack (met):                            307051ps
+     Path type:                               SETUP
+     Group:                               <DEFAULT>
+     Launching clock:                      core_clk (rising edge)
+     Capturing clock:                      core_clk (rising edge)
+
+     Requested period:                     320000ps
+   + Delay of the capturing clock:           2497ps
+   - Clock uncertainty:                       150ps
+   = Required time:                        322347ps
+   - Propagation time:                      12825ps (41.7% logic, 58.3% route, logic stage 5)
+   - Delay of the launching clock:           2471ps
+   = Slack:                                307051ps
+
+   Instance/Pin or Net Name                             Type         ID     Location or Fanout   Delay(ps)  Edge  Arrival Time(ps)    Instance detail                                                                 
+   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   core_clk                                             CLOCK-PORT    -                      -     launch     r               0                                                                                       
+   core_clk                                             Clock net     3          (fanout=4760)       2471                     -                                                                                       
+   RBB_194/CLK                                          RBB_6L      194  [TILE 0 0, RBB 19 16]          -     r            2471                                                                                       
+   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   RBB_194/BMUX                                         RBB_6L      194  [TILE 0 0, RBB 19 16]       1350     r            3821     {inst618: engine.renderer.life_FDRE_Q_5 (FDRE,site=bffo)}                         
+   engine.renderer.life[0]                              Net         220             (fanout=2)        809                     -                                                                                       
+   RBB_194/A4                                           RBB_6L      194  [TILE 0 0, RBB 19 16]          -     r            4630                                                                                       
+   RBB_194/A                                            RBB_6L      194  [TILE 0 0, RBB 19 16]        763     r            5393     {inst586: engine.renderer.frame_clear_LUT5_I3_O_LUT3_O_I2_LUT2_O (LUT,site=alut)} 
+   engine.renderer.frame_clear_LUT5_I3_O_LUT3_O_I2[2]   Net         820             (fanout=2)        970                     -                                                                                       
+   RBB_194/A1                                           RBB_6L      194  [TILE 0 0, RBB 19 16]          -     r            6363                                                                                       
+   RBB_194/AMUX                                         RBB_6L      194  [TILE 0 0, RBB 19 16]        813     r            7176     {inst582: engine.renderer.frame_clear_LUT5_I3_I4_LUT3_O (LUT,site=aluto)}         
+   engine.renderer.frame_clear_LUT5_I3_I4[4]            Net         711             (fanout=2)       2252                     -                                                                                       
+   RBB_124/C3                                           RBB_6L      124  [TILE 0 0, RBB 19 14]          -     r            9428                                                                                       
+   RBB_124/C                                            RBB_6L      124  [TILE 0 0, RBB 19 14]        661     r           10089     {inst579: engine.renderer.frame_clear_LUT2_I1_1_O_LUT3_O (LUT,site=clut)}         
+   engine.renderer.frame_clear_LUT2_I1_1_O[3]           Net         778             (fanout=4)       1084                     -                                                                                       
+   RBB_124/A5                                           RBB_6L      124  [TILE 0 0, RBB 19 14]          -     r           11173                                                                                       
+   RBB_124/A                                            RBB_6L      124  [TILE 0 0, RBB 19 14]        706     r           11879     {inst529: engine.renderer.active_material_FDRE_Q_CE_LUT4_I2 (LUT,site=alut)}      
+   engine.renderer.active_material_FDRE_Q_CE_LUT4_I2_O  Net         782             (fanout=2)       2356                     -                                                                                       
+   RBB_205/A6                                           RBB_6L      205  [TILE 0 0, RBB 13 22]          -     r           14235     {<CE>inst538: engine.renderer.alive_FDRE_Q_7 (FDRE,site=dff)}                     
+   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   RBB_205/CLK                                          RBB_6L      205  [TILE 0 0, RBB 13 22]       1061     r           15296                                                                                       
+   core_clk                                             Clock net     3          (fanout=4760)      -2497                     -                                                                                       
+   core_clk                                             CLOCK-PORT    -                      -    capture     r           12799                                                                                       
+   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Path 23:
+   Slack (met):                            307215ps
+     Path type:                               SETUP
+     Group:                               <DEFAULT>
+     Launching clock:                      core_clk (rising edge)
+     Capturing clock:                      core_clk (rising edge)
+
+     Requested period:                     320000ps
+   + Delay of the capturing clock:           2491ps
+   - Clock uncertainty:                       150ps
+   = Required time:                        322341ps
+   - Propagation time:                      12641ps (33.2% logic, 66.8% route, logic stage 4)
+   - Delay of the launching clock:           2485ps
+   = Slack:                                307215ps
+
+   Instance/Pin or Net Name                             Type         ID     Location or Fanout   Delay(ps)  Edge  Arrival Time(ps)    Instance detail                                                                                              
+   --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   core_clk                                             CLOCK-PORT    -                      -     launch     r               0                                                                                                                    
+   core_clk                                             Clock net     3          (fanout=4760)       2485                     -                                                                                                                    
+   RBB_158/CLK                                          RBB_6L      158  [TILE 0 0, RBB 28 22]          -     r            2485                                                                                                                    
+   --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   RBB_158/BQ                                           RBB_6L      158  [TILE 0 0, RBB 28 22]        800     r            3285     {inst312: engine.frame_timer_FDRE_Q_3 (FD,site=bff)}                                                           
+   engine.frame_timer[13]                               Net         392             (fanout=5)       1436                     -                                                                                                                    
+   RBB_164/A5                                           RBB_6L      164  [TILE 0 0, RBB 28 24]          -     r            4721                                                                                                                    
+   RBB_164/A                                            RBB_6L      164  [TILE 0 0, RBB 28 24]       1023     r            5744     {inst337: engine.front_bank_LUT6_I4_I1_LUT5_O_I3_LUT5_O_I4_LUT4_O (LUT,site=alut)}                             
+   engine.front_bank_LUT6_I4_I1_LUT5_O_I3_LUT5_O_I4[4]  Net         757             (fanout=1)       1859                     -                                                                                                                    
+   RBB_190/D5                                           RBB_6L      190  [TILE 0 0, RBB 22 10]          -     r            7603                                                                                                                    
+   RBB_190/D                                            RBB_6L      190  [TILE 0 0, RBB 22 10]        616     r            8219     {inst336: engine.front_bank_LUT6_I4_I1_LUT5_O_I3_LUT5_O (LUT,site=dlut)}                                       
+   engine.front_bank_LUT6_I4_I1_LUT5_O_I3[4]            Net         802             (fanout=1)       2171                     -                                                                                                                    
+   RBB_158/A3                                           RBB_6L      158  [TILE 0 0, RBB 28 22]          -     r           10390                                                                                                                    
+   RBB_158/A                                            RBB_6L      158  [TILE 0 0, RBB 28 22]       1003     r           11393     {inst335: engine.front_bank_LUT6_I4_I1_LUT5_O (LUT,site=alut)}                                                 
+   engine.front_bank_LUT6_I4_I1[1]                      Net         603            (fanout=16)       2979                     -                                                                                                                    
+   RBB_143/C2                                           RBB_6L      143  [TILE 0 0, RBB 13 14]          -     r           14372     {inst334: engine.front_bank_LUT6_I4 (LUT,site=clut,cluto)} {inst521: engine.render_bank_FDRE_Q (FDR,site=cff)} 
+   --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   RBB_143/CLK                                          RBB_6L      143  [TILE 0 0, RBB 13 14]        754     r           15126                                                                                                                    
+   core_clk                                             Clock net     3          (fanout=4760)      -2491                     -                                                                                                                    
+   core_clk                                             CLOCK-PORT    -                      -    capture     r           12635                                                                                                                    
+   --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+Timing Details for Clock Pair OSC_CLK and OSC_CLK
+=================================================
+
+       From Clock        To Clock               Group    Endpoints     WNS(ps)    TNS(ps)  TNS Endpoints
+   --------------  --------------  ------------------  -----------  ----------  ---------  -------------
+          OSC_CLK         OSC_CLK           <DEFAULT>           11       15344          0              0
+
+Path 25:
+   Slack (met):                             15344ps
+     Path type:                               SETUP
+     Group:                               <DEFAULT>
+     Launching clock:                       OSC_CLK (rising edge)
+     Capturing clock:                       OSC_CLK (rising edge)
+
+     Requested period:                      20000ps
+   + Delay of the capturing clock:           2410ps
+   - Clock uncertainty:                       150ps
+   = Required time:                         22260ps
+   - Propagation time:                       4467ps (59.3% logic, 40.7% route, logic stage 2)
+   - Delay of the launching clock:           2449ps
+   = Slack:                                 15344ps
+
+   Instance/Pin or Net Name   Type         ID     Location or Fanout   Delay(ps)  Edge  Arrival Time(ps)    Instance detail                                                                         
+   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   OSC_CLK                    CLOCK-PORT    -                      -     launch     r               0                                                                                               
+   OSC_CLK                    Clock net     2           (fanout=469)       2449                     -                                                                                               
+   RBB_120/CLK                RBB_6L      120   [TILE 0 0, RBB 28 8]          -     r            2449                                                                                               
+   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   RBB_120/CQ                 RBB_6L      120   [TILE 0 0, RBB 28 8]        800     r            3249     {inst256: core_clk_out_FDRE_Q (FD,site=cff)}                                              
+   core_clk_out               Net           4             (fanout=1)       1207                     -                                                                                               
+   RBB_120/C1                 RBB_6L      120   [TILE 0 0, RBB 28 8]          -     r            4456                                                                                               
+   RBB_120/C                  RBB_6L      120   [TILE 0 0, RBB 28 8]       1190     r            5646     {inst257: core_clk_out_LUT4_I0 (LUT,site=clut)}                                           
+   core_clk_out_LUT4_I0_O[3]  Net         474             (fanout=1)        612                     -                                                                                               
+   RBB_106/O[1]               IOB         106  [TILE 0 0, RBB 31 11]          -     r            6258     {inst1511: core_clk_out_OUT (FD)} {(output_port) inst1370: g_1370_core_clk_out_obuf (IO)} 
+   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   RBB_106/CLK                IOB         106  [TILE 0 0, RBB 31 11]        658     r            6916                                                                                               
+   OSC_CLK                    Clock net     2           (fanout=469)      -2410                     -                                                                                               
+   OSC_CLK                    CLOCK-PORT    -                      -    capture     r            4506                                                                                               
+   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Path 5:
+   Slack (met):                             16375ps
+     Path type:                               SETUP
+     Group:                               <DEFAULT>
+     Launching clock:                       OSC_CLK (rising edge)
+     Capturing clock:                       OSC_CLK (rising edge)
+
+     Requested period:                      20000ps
+   + Delay of the capturing clock:           2449ps
+   - Clock uncertainty:                       150ps
+   = Required time:                         22299ps
+   - Propagation time:                       3475ps (81.9% logic, 18.1% route, logic stage 1)
+   - Delay of the launching clock:           2449ps
+   = Slack:                                 16375ps
+
+   Instance/Pin or Net Name   Type         ID    Location or Fanout   Delay(ps)  Edge  Arrival Time(ps)    Instance detail                                                                                      
+   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   OSC_CLK                    CLOCK-PORT    -                     -     launch     r               0                                                                                                            
+   OSC_CLK                    Clock net     2          (fanout=469)       2449                     -                                                                                                            
+   RBB_120/CLK                RBB_6L      120  [TILE 0 0, RBB 28 8]          -     r            2449                                                                                                            
+   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   RBB_120/CMUX               RBB_6L      120  [TILE 0 0, RBB 28 8]       1416     r            3865     {inst253: clock_div_FDRE_Q_1 (FD,site=cffo)}                                                           
+   clock_div_FDRE_Q_2_D[1]    Net         905            (fanout=2)        628                     -                                                                                                            
+   RBB_120/C4                 RBB_6L      120  [TILE 0 0, RBB 28 8]          -     r            4493     {inst258: core_clk_out_LUT4_I0_O_LUT2_O (LUT,site=cluto)} {inst253: clock_div_FDRE_Q_1 (FD,site=cffo)} 
+   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   RBB_120/CLK                RBB_6L      120  [TILE 0 0, RBB 28 8]       1431     r            5924                                                                                                            
+   OSC_CLK                    Clock net     2          (fanout=469)      -2449                     -                                                                                                            
+   OSC_CLK                    CLOCK-PORT    -                     -    capture     r            3475                                                                                                            
+   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Path 4:
+   Slack (met):                             16448ps
+     Path type:                               SETUP
+     Group:                               <DEFAULT>
+     Launching clock:                       OSC_CLK (rising edge)
+     Capturing clock:                       OSC_CLK (rising edge)
+
+     Requested period:                      20000ps
+   + Delay of the capturing clock:           2449ps
+   - Clock uncertainty:                       150ps
+   = Required time:                         22299ps
+   - Propagation time:                       3402ps (82.7% logic, 17.3% route, logic stage 1)
+   - Delay of the launching clock:           2449ps
+   = Slack:                                 16448ps
+
+   Instance/Pin or Net Name   Type         ID    Location or Fanout   Delay(ps)  Edge  Arrival Time(ps)    Instance detail                                                                                      
+   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   OSC_CLK                    CLOCK-PORT    -                     -     launch     r               0                                                                                                            
+   OSC_CLK                    Clock net     2          (fanout=469)       2449                     -                                                                                                            
+   RBB_120/CLK                RBB_6L      120  [TILE 0 0, RBB 28 8]          -     r            2449                                                                                                            
+   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   RBB_120/DMUX               RBB_6L      120  [TILE 0 0, RBB 28 8]       1423     r            3872     {inst254: clock_div_FDRE_Q_2 (FD,site=dffo)}                                                           
+   clock_div[0]               Net          45            (fanout=2)        590                     -                                                                                                            
+   RBB_120/C3                 RBB_6L      120  [TILE 0 0, RBB 28 8]          -     r            4462     {inst258: core_clk_out_LUT4_I0_O_LUT2_O (LUT,site=cluto)} {inst253: clock_div_FDRE_Q_1 (FD,site=cffo)} 
+   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   RBB_120/CLK                RBB_6L      120  [TILE 0 0, RBB 28 8]       1389     r            5851                                                                                                            
+   OSC_CLK                    Clock net     2          (fanout=469)      -2449                     -                                                                                                            
+   OSC_CLK                    CLOCK-PORT    -                     -    capture     r            3402                                                                                                            
+   ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+Timing Details for Clock Pair core_clk and OSC_CLK
+==================================================
+
+       From Clock        To Clock               Group    Endpoints     WNS(ps)    TNS(ps)  TNS Endpoints
+   --------------  --------------  ------------------  -----------  ----------  ---------  -------------
+         core_clk         OSC_CLK           <DEFAULT>            0                                     0
+
+   No path.
+
+
+
+
+Timing Details for Clock Pair OSC_CLK and core_clk
+==================================================
+
+       From Clock        To Clock               Group    Endpoints     WNS(ps)    TNS(ps)  TNS Endpoints
+   --------------  --------------  ------------------  -----------  ----------  ---------  -------------
+          OSC_CLK        core_clk           <DEFAULT>            0                                     0
+
+   No path.
+
+
+
+
+
+
+
+
+
+
+

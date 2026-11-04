@@ -1,0 +1,104 @@
+{
+  "started_utc": "2026-11-04T13:14:41.279642+00:00",
+  "port": "/dev/cu.usbmodem1101",
+  "uploaded_by_this_tool": false,
+  "status": "passed",
+  "hello": {
+    "type": "hello",
+    "version": "0.4.0",
+    "board": "Shrike-Fi",
+    "fpga_loaded": true,
+    "fpga_verified": false,
+    "loader_message": "Image transferred; waiting for a valid FPGA frame",
+    "bitstream_bytes": 46408,
+    "streaming": true,
+    "fps_target": 5,
+    "material": 0,
+    "pattern": 0,
+    "frames": 0,
+    "crc_errors": 0,
+    "header_errors": 0,
+    "timeouts": 0
+  },
+  "first_frame": {
+    "seq": 833,
+    "lit_pixels": 0,
+    "colours": [],
+    "lit_positions": []
+  },
+  "motion_frames": [
+    {
+      "seq": 838,
+      "lit_pixels": 16,
+      "colours": [
+        2
+      ],
+      "lit_positions": [
+        1376,
+        1435,
+        1444,
+        1504,
+        1565,
+        1570,
+        1754,
+        1756,
+        1764,
+        1766,
+        1885,
+        1890,
+        2011,
+        2016,
+        2020,
+        2144
+      ]
+    },
+    {
+      "seq": 844,
+      "lit_pixels": 8,
+      "colours": [
+        2
+      ],
+      "lit_positions": [
+        736,
+        800,
+        2580,
+        2603,
+        2707,
+        2732,
+        2848,
+        3040
+      ]
+    }
+  ],
+  "clear_frame": {
+    "seq": 849,
+    "lit_pixels": 0,
+    "colours": [],
+    "lit_positions": []
+  },
+  "streaming": {
+    "frames": 294,
+    "target_fps": 30,
+    "measured_fps": 29.436,
+    "first_seq": 852,
+    "last_seq": 1186
+  },
+  "final_status": {
+    "type": "status",
+    "version": "0.4.0",
+    "board": "Shrike-Fi",
+    "fpga_loaded": true,
+    "fpga_verified": true,
+    "loader_message": "Image transferred; waiting for a valid FPGA frame",
+    "bitstream_bytes": 46408,
+    "streaming": true,
+    "fps_target": 30,
+    "material": 1,
+    "pattern": 1,
+    "frames": 299,
+    "crc_errors": 0,
+    "header_errors": 0,
+    "timeouts": 0
+  },
+  "ignored_lines": 0
+}

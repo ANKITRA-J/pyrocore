@@ -128,4 +128,4 @@ At the production clock, RTL simulation measures 91,623 cycles (29.319360 ms)
 per serialized frame, a ceiling of 34.107 FPS before bridge/USB work. The polling
 test receives six advancing CRC-valid frames at 30.303 FPS; integer-millisecond
 `1000 / 30` scheduling requests every 33 ms. Physical hardware validation confirms
-29.428 FPS with zero errors.
+29.436 FPS with zero errors.

@@ -2,12 +2,24 @@
 
 ## Current included image
 
+[v0.4.0 flash verification, 4 November 2026](2026-11-04/v0.4.0-flash-verification/RESULTS.md):
+firmware v0.4.0 and the 625000-baud FPGA image (`cfd6c830…`). The complete
+package was flashed on Shrike-Fi with all five sections hash-verified. The board
+loaded the FPGA, passed Launch/motion/Clear, and streamed at 29.436 FPS on a
+30 FPS target with zero CRC, header or timeout errors. The build fits 131/140
+logic blocks, 477 RBB LUTs, 319 RBB flip-flops and six BRAM slices, with
+post-route WNS +15.344 ns. See the
+[raw report](2026-11-04/v0.4.0-flash-verification/hardware-flash-verify.json)
+and [manifest](2026-11-04/v0.4.0-flash-verification/build-manifest.json).
+
+## Previous board-validated image
+
 [Glitter and faster link, 4 November 2026](2026-11-04/glitter-fps/RESULTS.md):
 firmware v0.3.0, glitter for all materials/patterns, and a 312500-baud FPGA link
 with an 18 FPS desktop target. The FPGA build fits 131/140 blocks and six BRAM
 slices; typical WNS is +15.059 ns, TNS 0. RTL simulation measures 54.03936 ms per
 serialized frame and six advancing frames at 18.182 FPS with ideal polling.
-These are simulation results. The current package is uploaded with all five flash
+These are simulation results. That package was uploaded with all five flash
 sections verified. All 24 presets pass colour/motion/Clear checks; geometric
 analysis of their captures confirms paired glitter. Hardware delivers 17.235 FPS
 at the 18 FPS target, and 7/5 fallbacks pass with no communication errors. The
@@ -15,7 +27,7 @@ real desktop check also passes. See the [physical report](2026-11-04/glitter-fps
 and [manifest](2026-11-04/glitter-fps/build-manifest.json) for
 matching source/image hashes and validation scope.
 
-## Previous board-validated image
+## Earlier board-validated image
 
 [Pistil checkpoint, 4 November 2026](2026-11-04/pistil/RESULTS.md): pattern 3,
 selected-colour shell and half-speed white glitter core. The FPGA build fits
@@ -38,7 +50,7 @@ and green/white Pistil, Clear, 7.035 FPS and no new communication errors. See it
 
 Each dated manifest/log applies to its own image. Current setup instructions and
 status are in the [README setup](../README.md#setup) and
-[handoff](../README.md#handoff). Build and validation commands are in
+[status](../README.md#status). Build and validation commands are in
 [Development](../docs/DEVELOPMENT.md).
 New build outputs go in ignored `build/`; useful checkpoint evidence belongs here.
 Full flash backups and machine-specific upload logs remain local.

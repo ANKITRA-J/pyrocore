@@ -1,0 +1,16 @@
+{
+  "target": "SLG47910V Rev BB",
+  "format": "MCU SPI",
+  "bytes": 46408,
+  "sha256": "cfd6c830befcae17a2a23d51869afc16d6371062ca27aa90469cfd3c6eb47b04",
+  "physical_board_tested": false,
+  "bram_power_down_bits": 0,
+  "sources": {
+    "fpga/rtl/pyrocore_top.v": "78dafd8dfb3d2c98263e7f7b2abc252eccdffd2efb4ee7e3705c664fdbaeac4f",
+    "fpga/rtl/pyrocore_core.v": "71aa8420cf2f2c352aaa4c4a3d39b8ccaaaef9a499b068325674bdff39b79fcb",
+    "fpga/rtl/particle_renderer.v": "171eeffa7e3d35ca08637f87418b3da2fa68c022bb4cdfc34242ef4e251830d0",
+    "fpga/rtl/frame_streamer.v": "bde2d55954ee1f2845f12544ea9cd5399a225b95b29a824d3a115f8753baa882",
+    "fpga/rtl/uart_rx.v": "11cba6a2eae94966f3f6ccba125a8addb6153ea93982482f09f029dc329e0cb3",
+    "fpga/rtl/uart_tx.v": "33fb3eec401a5be4c299d4cb1541af993d570276a2d05fe82c470b5cb0eb9575"
+  }
+}

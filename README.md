@@ -140,7 +140,7 @@ approximately 29.4 FPS on hardware with the 40 Hz render scheduler.
 ## Status
 
 Firmware v0.4.0 implements 30 FPS with 625000 baud FPGA UART (5 clocks/bit) and
-40 Hz render scheduler. Physical validation passed with 29.444 FPS measured performance.
+40 Hz render scheduler. Physical validation passed with 29.436 FPS measured performance.
 Desktop updated to support 30/18/7/5 FPS stream targets with improved Random Show timing.
 Zero communication errors during testing. Ready for demonstration.
 

@@ -24,11 +24,11 @@ Desktop display ← ESP32 ← FPGA frame serializer
 | FPGA | Renesas SLG47910V Rev BB |
 | Logic blocks | 131 / 140 CLBs |
 | Dedicated framebuffer BRAM | 6 / 8 slices, 24,576 / 32,768 bits |
-| CLB flip-flops | 316 |
+| CLB flip-flops | 319 |
 | IOB output flip-flops | 116 |
-| Raw placer LUT resources | 467, using the placer's 6-LUT accounting |
+| Raw placer LUT resources | 477, using the placer's 6-LUT accounting |
 | Core / oscillator clocks | 3.125 MHz / 50 MHz |
-| Typical post-route setup timing | WNS +15.059 ns; TNS 0 |
+| Typical post-route setup timing | WNS +15.344 ns; TNS 0 |
 
 The raw placer LUT count cannot be compared directly with the advertised 1,120
 LUT5 count. The CLB budget is the tighter immediate constraint: nine CLBs remain.
@@ -196,7 +196,7 @@ The FPGA link uses 625000 baud with 8N1 framing, exactly 5 cycles per bit at the
 preserved 3.125 MHz core clock. Its wire-only ceiling is about 40.5 complete
 packets per second. Memory-fetch and UART-handshake pauses, followed by bridge
 and USB work, reduce that rate. The desktop requests 30 FPS with 18/7/5 FPS fallbacks;
-firmware starts at 5 FPS. Physical hardware measures 29.428 FPS at the 30 FPS target 
+firmware starts at 5 FPS. Physical hardware measures 29.436 FPS at the 30 FPS target 
 (98.1% efficiency). The 40 Hz render scheduler and safe buffer ownership remain 
 unchanged. RTL simulation measures 29.319 ms per serialized frame, including those
 memory/handshake pauses, for a 34.107 FPS ceiling before bridge and USB work.
@@ -209,6 +209,6 @@ at 625000 baud.
 See [Protocol](PROTOCOL.md) for byte layouts and commands,
 [README setup](../README.md#setup) for installation and use, and
 [Development](DEVELOPMENT.md) for rebuild commands and validation reports.
-The [README handoff](../README.md#handoff) records the current state and next step.
+The [README status](../README.md#status) records the current state and next step.
 The desktop displays the frames produced by this FPGA pipeline. It does not
 generate a local fireworks animation.

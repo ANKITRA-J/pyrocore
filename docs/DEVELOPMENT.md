@@ -1,9 +1,8 @@
 # Develop PyroCore
 
 Start with [README setup](../README.md#setup) for a normal board installation.
-This guide is the index for changing the source. Follow [AGENTS.md](../AGENTS.md),
-preserve source credits, and read the [README handoff](../README.md#handoff) before
-continuing someone else's work.
+This guide is the index for changing the source. Preserve source credits and read
+the [README status](../README.md#status) before continuing someone else's work.
 
 | Guide | Use it for |
 |---|---|
@@ -78,7 +77,7 @@ reads the generated partition table and packages LittleFS. Add `--port YOUR_PORT
 only when an upload is intended. This replaces the application and filesystem;
 close serial clients first. Build output and its manifest are in `build/firmware/`.
 A new FPGA image does not necessarily require changing the ESP32 application source.
-For the current v0.3.0 release, deploy the matching application and FPGA image
+For the current v0.4.0 release, deploy the matching application and FPGA image
 together; its faster board link is incompatible with the previous pair.
 
 The helper preserves your normal Arduino CLI configuration and detects its data
@@ -152,13 +151,14 @@ This general board checker launches green Ring; it does not select Pistil. For a
 current acceptance run, check glitter with each material/pattern, including
 paired head/trail flicker and advancing motion. Launch Sodium/Pistil, confirm
 moving yellow and white groups, repeat with Barium for green/white, then Clear.
-Measure the 18 FPS target and both 7/5 FPS fallbacks with error counters; lower
-targets reduce request load, not the board link speed. The current v0.3.0 package
-is flashed with all five sections verified. Board and real desktop checks pass,
-with 17.235 FPS measured at the 18 FPS target. All 24 material/pattern combinations
-passed colour, motion, paired-glitter and Clear checks; 7/5 FPS fallbacks also
-passed with no communication errors. See the
-[current results](../reports/2026-11-04/glitter-fps/RESULTS.md) for the capture scope.
+Measure the 30 FPS target and both 7/5 FPS fallbacks with error counters; lower
+targets reduce request load, not the board link speed. The v0.4.0 package is
+flashed with all five sections verified: Launch, motion, Clear and 29.436 FPS at
+the 30 FPS target with no communication errors. See the
+[current results](../reports/2026-11-04/v0.4.0-flash-verification/RESULTS.md).
+The earlier v0.3.0 package passed all 24 material/pattern combinations with
+17.235 FPS at the 18 FPS target; see the
+[glitter report](../reports/2026-11-04/glitter-fps/RESULTS.md) for that scope.
 The [earlier Pistil run](../reports/2026-11-04/pistil/RESULTS.md#physical-board-acceptance)
 records the preceding image's frame data, spans, streaming and error counters.
 Simulation, successful compilation, uploading and physical functional acceptance
@@ -168,6 +168,6 @@ are separate results. Do not claim one from another.
 
 Update the included binary only after its build succeeds. Keep a current manifest
 and measured reports together, state which image was physically checked, and update
-the [README handoff](../README.md#handoff) with the current state and remaining
+the [README status](../README.md#status) with the current state and remaining
 limitations. Keep historical reports labelled as history. Use useful commits;
 routine unchanged checks need not be repeated.
