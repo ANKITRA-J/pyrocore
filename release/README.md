@@ -19,8 +19,9 @@ records the version, target board, bitstream hash and the verified hardware run.
 
 ## Flash
 
-For a first-time machine, `./setup.sh` creates the environment, installs
-esptool and flashes in one step. To flash an existing checkout:
+For a first-time machine, `./setup.sh` creates the environment, installs the
+desktop and flashing dependencies, and flashes in one step. To flash an existing
+checkout:
 
 From the repository root, with the board on native USB:
 
@@ -34,6 +35,15 @@ picker and `--list-ports` shows the detected devices. Typical names are
 `/dev/cu.usbmodem…` on macOS, `/dev/ttyACM…` on Linux and `COM…` on Windows.
 Use `--dry-run` to verify the checksums and print the esptool command without
 flashing.
+
+Then start the desktop app:
+
+```sh
+.venv/bin/python desktop/app.py
+```
+
+`./setup.sh` installs the desktop dependencies too; running the flasher directly
+assumes they are already installed.
 
 The helper uses esptool from the active Python environment, `PATH`, or the
 Arduino ESP32 core if one is installed. If none is present:

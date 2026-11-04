@@ -29,61 +29,76 @@ wiring is required, and the included FPGA image needs no FPGA compiler.
 Current board and desktop checks used macOS; Windows/Linux host workflows have
 not had the same physical-board validation.
 
+Both quick starts install the desktop app, flash the prebuilt v0.4.0 release and
+launch the app. The prebuilt release needs no Arduino toolchain.
+
 ### Quick start (macOS/Linux)
 
 ```sh
 git clone https://github.com/ANKITRA-J/pyrocore.git
 cd pyrocore
 ./setup.sh
+.venv/bin/python desktop/app.py
 ```
 
 `setup.sh` creates `.venv`, installs the desktop and flashing dependencies,
-detects the board's port (asking if several exist), and flashes the prebuilt
-release. Start the app afterwards with `.venv/bin/python desktop/app.py`.
+detects the board's port (asking if several exist), and flashes the release.
+The last command opens the app; continue with
+[Connect and launch](#connect-and-launch).
 
-Use `./setup.sh --no-flash` to set up only, or `./setup.sh --flash-only` to skip
-the desktop dependencies. Windows users follow the manual steps below.
+### Quick start (Windows PowerShell)
 
-### Install the desktop app
-
-macOS or Linux:
-
-```sh
-git clone https://github.com/ANKITRA-J/pyrocore.git
-cd pyrocore
-python3 -m venv .venv
-.venv/bin/python -m pip install -r desktop/requirements.txt
-```
-
-<details>
-<summary>Windows PowerShell</summary>
-
-Using an installed Python 3.13, or another supported version:
+Run these from the folder where you want the repository:
 
 ```powershell
 git clone https://github.com/ANKITRA-J/pyrocore.git
 cd pyrocore
 py -3.13 -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r desktop/requirements.txt
+.\.venv\Scripts\python.exe -m pip install -r desktop\requirements.txt
+.\.venv\Scripts\python.exe -m pip install -r tools\requirements-flash.txt
+.\.venv\Scripts\python.exe tools\flash_release.py
+.\.venv\Scripts\python.exe desktop\app.py
 ```
 
-</details>
+Replace `py -3.13` with the Python you have installed (for example `py -3.12`
+or `python`); `py -0p` lists what the launcher can find. Use Python 3.9 to 3.13.
+No environment activation is needed; each command calls the virtual
+environment's interpreter directly. The flasher detects the `COM` port
+automatically. If `git` or `python` is not recognized, install Git for Windows
+or reinstall Python with "Add python.exe to PATH" selected.
+
+### Manual setup
+
+`./setup.sh` is a convenience wrapper around these steps. Use them if you prefer
+to run each part yourself or if `setup.sh` is unavailable.
+
+#### Install the desktop app
+
+macOS or Linux:
+
+```sh
+python3 -m venv .venv
+.venv/bin/python -m pip install -r desktop/requirements.txt
+```
+
+Windows PowerShell:
+
+```powershell
+py -3.13 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r desktop\requirements.txt
+```
 
 No environment activation is required. On Windows, replace `.venv/bin/python`
 in the remaining commands with `.\.venv\Scripts\python.exe`.
 
-### Load the board package
-
-Connect the board to its **native ESP32 USB** port and find its serial port.
-Typical ports are `/dev/cu.usbmodem…` on macOS, `/dev/ttyACM…` on Linux and
-`COM…` on Windows. Close PyroCore and other serial clients. Replace `YOUR_PORT`
-below.
-
-#### Option A — prebuilt release (recommended, no Arduino toolchain)
+#### Flash the prebuilt release (recommended)
 
 `release/v0.4.0/` contains the application, bootloader, partition table and
-FPGA filesystem, already built and checksummed. This path needs Python and
-esptool only — not the ESP32 Arduino core.
+FPGA filesystem, already built and checksummed. This path needs esptool, not the
+ESP32 Arduino core.
+
+Connect the board to its **native ESP32 USB** port and close PyroCore and any
+other serial clients. Then run from the repository root:
 
 ```sh
 .venv/bin/python -m pip install -r tools/requirements-flash.txt
@@ -99,7 +114,7 @@ flash hashes; the upload takes about 15 seconds. This replaces the existing
 application and filesystem. See
 [the release notes](release/v0.4.0/FLASHING.md) for the raw esptool equivalent.
 
-#### Option B — build from source with Arduino
+#### Build from source with Arduino
 
 Install [Arduino CLI](https://docs.arduino.cc/arduino-cli/installation) and make
 `arduino-cli` available in your terminal. Install the pinned dependencies:
@@ -123,6 +138,22 @@ The helper selects the board's USB CDC and 8 MB flash settings automatically.
 The FPGA is configured at boot; this workflow does not program OTP.
 Without `--port`, the helper only builds. Arduino IDE's ordinary Upload button
 does not install the FPGA image into LittleFS, so use the complete helper package.
+
+<details>
+<summary>Flash without installing the desktop app</summary>
+
+On a headless machine, install only the flashing dependency and run the flasher:
+
+```sh
+.venv/bin/python -m pip install -r tools/requirements-flash.txt
+.venv/bin/python tools/flash_release.py
+```
+
+With `setup.sh`, `./setup.sh --flash-only` does the same. `./setup.sh --no-flash`
+prepares the environment without touching the board. These paths flash the board
+but do not give you the desktop app.
+
+</details>
 
 ### Connect and launch
 

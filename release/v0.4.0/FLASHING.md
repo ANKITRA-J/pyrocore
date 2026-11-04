@@ -13,9 +13,10 @@ cd pyrocore
 ./setup.sh
 ```
 
-`setup.sh` creates the environment, installs esptool and flashes. If the repo is
-already set up, run the flasher directly from the repository root, with the
-board connected to its **native ESP32 USB** port:
+`setup.sh` creates the environment, installs the desktop and flashing
+dependencies, and flashes. If the repo is already set up, run the flasher
+directly from the repository root, with the board connected to its **native
+ESP32 USB** port:
 
 ```sh
 .venv/bin/python tools/flash_release.py
