@@ -196,7 +196,9 @@ complete packets per second before additional delays. A higher display rate
 requires a measured faster transport implementation. Increasing the FPGA clock
 alone does not change that UART limit.
 
-See PROTOCOL.md for byte layouts and commands, SETUP.md for build/run instructions,
-and HANDOFF.md for the current image, matching reports and measured board results.
+See [Protocol](PROTOCOL.md) for byte layouts and commands,
+[README setup](../README.md#setup) for installation and use, and
+[Development](DEVELOPMENT.md) for rebuild commands and validation reports.
+The [README handoff](../README.md#handoff) records the current state and next step.
 The desktop displays the frames produced by this FPGA pipeline. It does not
 generate a local fireworks animation.

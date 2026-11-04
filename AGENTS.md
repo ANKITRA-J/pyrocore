@@ -1,10 +1,12 @@
 # PyroCore working instructions
 
-Read README.md, docs/HANDOFF.md and docs/PROTOCOL.md first. Work only in this
-standalone repository. The parent directory belongs to a different project.
+Read README.md (including its Handoff section) and docs/PROTOCOL.md first.
+Work only in this standalone repository. The parent directory belongs to a
+different project.
 
-Keep changes in useful commits. Update docs/HANDOFF.md with what works, exact
-commands, remaining limitations and the next concrete step before handing off.
+Keep changes in useful commits. Update the brief Handoff section in README.md
+with what works, validation, remaining limitations and the next concrete step
+before handing off. Keep exact commands in README.md or docs/DEVELOPMENT.md.
 Record physical-board validation honestly; simulation and compilation are not
 hardware tests. Keep routine checks proportionate and keep making useful code.
 

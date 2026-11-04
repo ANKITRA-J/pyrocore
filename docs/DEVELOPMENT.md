@@ -1,8 +1,16 @@
 # Develop PyroCore
 
-Start with [SETUP.md](SETUP.md) for a normal board installation. This guide is for
-changing the source. Follow [AGENTS.md](../AGENTS.md), preserve source credits, and
-read [HANDOFF.md](HANDOFF.md) before continuing someone else's work.
+Start with [README setup](../README.md#setup) for a normal board installation.
+This guide is the index for changing the source. Follow [AGENTS.md](../AGENTS.md),
+preserve source credits, and read the [README handoff](../README.md#handoff) before
+continuing someone else's work.
+
+| Guide | Use it for |
+|---|---|
+| [Architecture](ARCHITECTURE.md) | Physics, patterns, glitter and framebuffer design |
+| [Protocol](PROTOCOL.md) | USB commands, UART framing and pixel format |
+| [Implementation reports](../reports/README.md) | Image/source hashes, measured fit and validation evidence |
+| [Credits](CREDITS.md) | Authorship, reused source and bundled notices |
 
 ## Repository layout
 
@@ -57,8 +65,8 @@ and archive resource/timing reports from that same successful run.
 
 ## Build the ESP32 package
 
-Use the dependency installation in SETUP.md. To compile and package the newly
-built FPGA image without accessing the board:
+Use the dependency installation in [README setup](../README.md#setup). To compile
+and package the newly built FPGA image without accessing the board:
 
 ```sh
 .venv/bin/python tools/build_firmware.py --bitstream build/fpga/FPGA_bitstream_MCU.bin
@@ -71,12 +79,32 @@ only when an upload is intended. This replaces the application and filesystem;
 close serial clients first. Build output and its manifest are in `build/firmware/`.
 A new FPGA image does not necessarily require changing the ESP32 application source.
 
+The helper preserves your normal Arduino CLI configuration and detects its data
+directory. Use `--arduino-cli PATH` for a CLI outside PATH, `--arduino-config FILE`
+for a separate CLI configuration, or `--esp32-tools PATH` / `--libraries PATH` for
+explicit tool/library locations. `--baud` changes upload speed; its default is 115200.
+
+## Using a different board
+
+The desktop and protocol can be reused. A different FPGA/board requires adapting
+and rebuilding the FPGA top level, clocks, memory primitives and pin mapping.
+An ESP32 bridge on another board also needs the configuration/UART pins and flash
+partitioning adjusted. Review `fpga/project/pins.csv`, `fpga/rtl/pyrocore_top.v`,
+`firmware/pyrocore/fpga_loader.cpp` and `firmware/pyrocore/pyrocore.ino`.
+Do not upload the Shrike-Fi binary unchanged to a different device.
+
 ## Run checks relevant to a change
 
 Host protocol, image header and frame statistics:
 
 ```sh
 .venv/bin/python -m unittest discover -s tests -v
+```
+
+For desktop layout changes, capture the disconnected window for inspection:
+
+```sh
+QT_QPA_PLATFORM=offscreen .venv/bin/python desktop/app.py --screenshot build/desktop.png
 ```
 
 RTL renderer and complete UART/framebuffer simulation, with Verilator 5 and a C++ compiler:
@@ -124,5 +152,6 @@ are separate results. Do not claim one from another.
 
 Update the included binary only after its build succeeds. Keep a current manifest
 and measured reports together, state which image was physically checked, and update
-HANDOFF.md with the current state and remaining limitations. Keep historical reports
-labelled as history. Use useful commits; routine unchanged checks need not be repeated.
+the [README handoff](../README.md#handoff) with the current state and remaining
+limitations. Keep historical reports labelled as history. Use useful commits;
+routine unchanged checks need not be repeated.

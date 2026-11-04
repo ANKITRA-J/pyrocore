@@ -21,7 +21,9 @@ and green/white Pistil, Clear, 7.035 FPS and no new communication errors. See it
 - [Short-trail refinement](2026-11-03/refinement/RESULTS.md): the earlier image,
   physical head/trail motion and 7.027 FPS over 22 received frames.
 
-Each dated manifest/log applies to its own image. Current setup instructions are
-in [SETUP.md](../docs/SETUP.md), and status is in [HANDOFF.md](../docs/HANDOFF.md).
+Each dated manifest/log applies to its own image. Current setup instructions and
+status are in the [README setup](../README.md#setup) and
+[handoff](../README.md#handoff). Build and validation commands are in
+[Development](../docs/DEVELOPMENT.md).
 New build outputs go in ignored `build/`; useful checkpoint evidence belongs here.
 Full flash backups and machine-specific upload logs remain local.
