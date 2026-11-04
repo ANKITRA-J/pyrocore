@@ -174,9 +174,9 @@ endmodule
 
 // Board-independent engine: command decoder, renderer ownership and frame UART.
 module pyrocore_core #(
-    parameter CLKS_PER_BIT=10, // 3.125 MHz / 10 = 312500 baud, exact.
-    parameter FRAME_CYCLES=125000,
-    parameter COMMAND_TIMEOUT=312500
+    parameter CLKS_PER_BIT=5, // 3.125 MHz / 5 = 625000 baud, exact.
+    parameter FRAME_CYCLES=78125,
+    parameter COMMAND_TIMEOUT=625000
 )(
     input clk,input rst,input uart_rx_pin,output uart_tx_pin,
     output mem_we,output mem_wbank,output [11:0] mem_waddr,output [2:0] mem_wdata,
