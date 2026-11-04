@@ -81,10 +81,10 @@ class DesktopProtocolTests(unittest.TestCase):
                 encode_command(command, **fields)
 
     def test_stream_rate_range(self):
-        for fps in (1, 5, 7, 18):
+        for fps in (1, 5, 7, 18, 30):
             with self.subTest(fps=fps):
                 self.assertEqual(json.loads(encode_command('stream', enabled=True, fps=fps))['fps'], fps)
-        for fps in (0, 19, True, 18.0):
+        for fps in (0, 31, True, 18.0):
             with self.subTest(fps=fps), self.assertRaises(ProtocolError):
                 encode_command('stream', enabled=True, fps=fps)
 

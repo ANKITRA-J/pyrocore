@@ -1,7 +1,7 @@
 # PyroCore wire protocol v1
 
 Current firmware: **v0.4.0**. The wire format remains v1; the firmware version
-identifies the 30 FPS capability and faster 781250 baud FPGA link. Upgrade
+identifies the 30 FPS capability and faster 625000 baud FPGA link. Upgrade
 the ESP32 application and FPGA image together: the previous link rate is incompatible.
 
 ## Selections
@@ -85,7 +85,7 @@ Commands are two bytes: `[opcode, opcode XOR 0xFF]`.
 | `F0` | Request the front-buffer frame; ignored during an active transmission |
 
 Opcode values above are hexadecimal. Malformed pairs do not execute; a lone first
-byte expires after 100 ms. The complement is a lightweight command check.
+byte expires after 200 ms. The complement is a lightweight command check.
 
 To select Sodium, select Pistil and launch, send these hexadecimal byte pairs
 in order: `13 EC`, `23 DC`, `01 FE`. Request a subsequent frame with `F0 0F`.
