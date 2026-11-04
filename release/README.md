@@ -19,6 +19,9 @@ records the version, target board, bitstream hash and the verified hardware run.
 
 ## Flash
 
+For a first-time machine, `./setup.sh` creates the environment, installs
+esptool and flashes in one step. To flash an existing checkout:
+
 From the repository root, with the board on native USB:
 
 ```sh

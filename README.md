@@ -29,6 +29,21 @@ wiring is required, and the included FPGA image needs no FPGA compiler.
 Current board and desktop checks used macOS; Windows/Linux host workflows have
 not had the same physical-board validation.
 
+### Quick start (macOS/Linux)
+
+```sh
+git clone https://github.com/ANKITRA-J/pyrocore.git
+cd pyrocore
+./setup.sh
+```
+
+`setup.sh` creates `.venv`, installs the desktop and flashing dependencies,
+detects the board's port (asking if several exist), and flashes the prebuilt
+release. Start the app afterwards with `.venv/bin/python desktop/app.py`.
+
+Use `./setup.sh --no-flash` to set up only, or `./setup.sh --flash-only` to skip
+the desktop dependencies. Windows users follow the manual steps below.
+
 ### Install the desktop app
 
 macOS or Linux:

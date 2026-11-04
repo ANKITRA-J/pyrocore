@@ -5,8 +5,17 @@ Arduino ESP32 core or an FPGA compiler.
 
 ## One command
 
-From the repository root, with the board connected to its **native ESP32 USB**
-port:
+On a fresh machine:
+
+```sh
+git clone https://github.com/ANKITRA-J/pyrocore.git
+cd pyrocore
+./setup.sh
+```
+
+`setup.sh` creates the environment, installs esptool and flashes. If the repo is
+already set up, run the flasher directly from the repository root, with the
+board connected to its **native ESP32 USB** port:
 
 ```sh
 .venv/bin/python tools/flash_release.py
