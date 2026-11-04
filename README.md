@@ -143,7 +143,7 @@ Firmware v0.3.0 is flashed with all five sections verified; board and desktop ch
 All 24 material/pattern combinations passed colour, motion, paired glitter and Clear checks.
 The 18 FPS target measured 17.235 FPS; 7/5 fallbacks passed with zero communication errors.
 RTL/build checks pass at 131/140 blocks. The board is cleared at the 18 FPS target.
-Next: reopen the desktop for use; long-run reliability and full BRAM timing remain open.
+Verified release complete. Next: record the short animation video; long-run reliability and full BRAM timing remain open.
 
 For source changes, builds and technical references, see [Development](docs/DEVELOPMENT.md).
 Source attribution and bundled notices are listed in [Credits](docs/CREDITS.md).

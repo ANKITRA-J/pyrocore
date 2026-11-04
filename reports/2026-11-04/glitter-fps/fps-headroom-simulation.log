@@ -1,0 +1,7 @@
+Exploratory RTL simulation only: 3.125 MHz core,40 Hz renderer.
+Not integrated into released FPGA/firmware; no physical validation.
+PASS: CPB=4 target=30, 6 CRC-valid advancing frames; all4096 pixels match RAM
+MEASURE: CPB=4 stream_cycles=76173 transfer_ms=24.375360 serializer_ceiling_fps=41.025035 polling_fps=30.303030 (simulation only)
+PASS: CPB=5 target=30, 6 CRC-valid advancing frames; all4096 pixels match RAM
+MEASURE: CPB=5 stream_cycles=91623 transfer_ms=29.319360 serializer_ceiling_fps=34.107157 polling_fps=30.303030 (simulation only)
+PASS: CPB5 and CPB4 links meet30 target at40Hz render scheduler without repeated frame sequences or ownership violations; MCU/USB/hardware unmeasured

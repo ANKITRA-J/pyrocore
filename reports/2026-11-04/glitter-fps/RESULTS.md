@@ -135,3 +135,16 @@ QT_QPA_PLATFORM=offscreen .venv/bin/python build/glitter_fps_gui_check.py
 The scene is left cleared with streaming enabled at the 18 FPS target, and all
 test clients are closed. This is a short functional acceptance run; long-duration
 reliability and full external BRAM timing signoff remain open.
+
+## Optional 30 FPS follow-up
+
+The owner chose to finalize the physically verified release. Separate exploratory
+RTL tests show that 18 FPS is not an absolute hardware limit: at the same
+3.125 MHz core clock, a 40 Hz renderer with either 625000 or 781250 baud produced
+six advancing CRC-valid full frames at 30.303 FPS in ideal polling simulation.
+The corresponding frame serialization times are 29.31936 ms and 24.37536 ms.
+Both divisors also passed 3,240-byte nominal/±1% UART phase sweeps.
+The [feasibility log](fps-headroom-simulation.log) records the frame tests.
+Those candidate settings were not integrated into the release, routed or flashed;
+they require new hardware validation. The included image and firmware remain
+the physically checked v0.3.0 pair with an 18 FPS target and 17.235 FPS measured.

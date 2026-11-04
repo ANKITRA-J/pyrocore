@@ -3,9 +3,8 @@
 ## Project
 
 PyroCore is maintained by **Ankit Raj / [ANKITRA-J](https://github.com/ANKITRA-J)**,
-as recorded in the repository's Git history. Development and documentation were
-assisted by OpenAI Codex. Commit attribution remains under the existing project
-identity; source provenance is documented below.
+as recorded in the repository's Git history. Commit attribution remains under
+the existing project identity; source provenance is documented below.
 
 ## Reused source
 

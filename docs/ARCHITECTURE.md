@@ -204,6 +204,13 @@ The 25 Hz render scheduler and safe buffer ownership remain unchanged.
 RTL simulation measures 54.03936 ms per serialized frame, including those
 memory/handshake pauses, for an 18.505 FPS ceiling before bridge and USB work.
 
+The 18 FPS setting is a release limit, not an absolute hardware limit. Reaching
+30 distinct frames per second needs a faster FPGA UART and a render scheduler
+above the current 25 Hz. Separate feasibility simulations at 40 Hz passed six
+advancing CRC-valid frames at 30.303 FPS with either 625000 baud (5 clocks/bit)
+or 781250 baud (4 clocks/bit). These candidates need a new integrated build and
+physical validation; the released image remains the board-tested 17.235 FPS build.
+
 See [Protocol](PROTOCOL.md) for byte layouts and commands,
 [README setup](../README.md#setup) for installation and use, and
 [Development](DEVELOPMENT.md) for rebuild commands and validation reports.
