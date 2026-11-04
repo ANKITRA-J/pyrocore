@@ -153,9 +153,13 @@ current acceptance run, check glitter with each material/pattern, including
 paired head/trail flicker and advancing motion. Launch Sodium/Pistil, confirm
 moving yellow and white groups, repeat with Barium for green/white, then Clear.
 Measure the 18 FPS target and both 7/5 FPS fallbacks with error counters; lower
-targets reduce request load, not the board link speed. The current glitter/faster
-link has not been physically checked. The
-[earlier Pistil run](../reports/2026-11-04/pistil/RESULTS.md#physical-board-acceptance)
+targets reduce request load, not the board link speed. The current v0.3.0 package
+is flashed with all five sections verified. Board and real desktop checks pass,
+with 17.235 FPS measured at the 18 FPS target. All 24 material/pattern combinations
+passed colour, motion, paired-glitter and Clear checks; 7/5 FPS fallbacks also
+passed with no communication errors. See the
+[current results](../reports/2026-11-04/glitter-fps/RESULTS.md) for the capture scope.
+The [earlier Pistil run](../reports/2026-11-04/pistil/RESULTS.md#physical-board-acceptance)
 records the preceding image's frame data, spans, streaming and error counters.
 Simulation, successful compilation, uploading and physical functional acceptance
 are separate results. Do not claim one from another.

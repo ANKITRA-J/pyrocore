@@ -3,7 +3,7 @@
   "format": "MCU SPI",
   "bytes": 46408,
   "sha256": "b8832397d4080ff0ba1192ed063b89bac00845e4f6a501c85108e292cc326e18",
-  "physical_board_tested": false,
+  "physical_board_tested": true,
   "bram_power_down_bits": 0,
   "sources": {
     "fpga/rtl/pyrocore_top.v": "78dafd8dfb3d2c98263e7f7b2abc252eccdffd2efb4ee7e3705c664fdbaeac4f",
@@ -14,7 +14,7 @@
     "fpga/rtl/uart_tx.v": "33fb3eec401a5be4c299d4cb1541af993d570276a2d05fe82c470b5cb0eb9575"
   },
   "source_base_commit": "eb1364d67b263cd8fb2f73c45c56ecc8b20f25aa",
-  "source_checkpoint": "Source hashes define this glitter/faster-link implementation; no board upload.",
+  "source_checkpoint": "Source hashes define the glitter/faster-link implementation, uploaded and physically checked after explicit owner authorization.",
   "included_image": "firmware/pyrocore/data/fpga_bitstream.bin",
   "resources": {
     "logic_blocks": 131,
@@ -52,7 +52,7 @@
       "stream_ms": 138.08736,
       "simulated_polling_fps": 7.042254
     },
-    "measurement_scope": "production-clock RTL simulation; MCU execution, USB and physical wiring unmeasured"
+    "measurement_scope": "Serializer timing and simulated polling fields are production-clock RTL. Separately recorded physical_rates include actual bridge/USB overhead."
   },
   "firmware": {
     "version": "0.3.0",
@@ -60,7 +60,7 @@
     "ArduinoJson": "6.21.5",
     "application_flash_bytes": 359238,
     "global_ram_bytes": 26664,
-    "uploaded": false,
+    "uploaded": true,
     "images": {
       "pyrocore.ino.bin": {
         "bytes": 359392,
@@ -90,9 +90,9 @@
     "uart_receiver": "passed:3240 back-to-back bytes, nominal/plus-minus1percent peer baud at four asynchronous phases",
     "stream_rate": "passed: six advancing CRC-valid frames at each rate;all4096 pixels match RAM;18.182FPS versus7.042FPS simulated polling",
     "host": "18tests, native firmware frame parser and generated Pistil packet to desktop decoder passed",
-    "desktop": "offscreen18default/reconfirmation and7/5fallback commands passed with serial access blocked",
-    "firmware": "ESP32 application and matching LittleFS compiled; no upload",
-    "physical_board": "not performed; board remains on preceding physically checked Pistil0.2.0 image"
+    "desktop": "offscreen18default/reconfirmation and7/5fallback commands passed with serial access blocked; actual-board GUI received75frames, LIVE FPGA, mixed Pistil and Clear at about17FPS",
+    "firmware": "application/LittleFS built; existing reviewed five-section package uploaded; all five flash sections hash-verified",
+    "physical_board": "passed: all24 colours/motion/Clear; unique exact motion/velocity fits show1791 visible and619 hidden disjoint head/trail pairs;17.234708FPS at18target,7.046078 at7,5.001869 at5;zero rejected USB lines and CRC/header/timeout deltas"
   },
   "pistil_packet": {
     "file": "rtl-pistil-frame.bin",
@@ -102,5 +102,69 @@
     "yellow_shell_pixels": 2,
     "white_core_pixels": 3,
     "crc_validated": true
-  }
+  },
+  "source_implementation_commit": "d12163a",
+  "upload": {
+    "user_authorized": true,
+    "tool": "esptool 5.3.1",
+    "baud": 115200,
+    "application_and_filesystem": true,
+    "flash_sections_hash_verified": 5,
+    "otp_programmed": false,
+    "sections": [
+      {
+        "offset": "0x0",
+        "filename": "pyrocore.ino.bootloader.bin",
+        "bytes": 19968,
+        "sha256": "883bb1e4765f12902e56b4bb901d0504df2ea2396bba8d79a7b29ae87d4b3658"
+      },
+      {
+        "offset": "0x8000",
+        "filename": "pyrocore.ino.partitions.bin",
+        "bytes": 3072,
+        "sha256": "1d9cca96de0fe07ad7fc0648b9878ddecd9ce565e38b589ad20fea698ed4c80c"
+      },
+      {
+        "offset": "0xe000",
+        "filename": "boot_app0.bin",
+        "bytes": 8192,
+        "sha256": "f94c5d786a7a8fab06ac5d10e33bf37711a6697636dc037559ea19cc410a17f0"
+      },
+      {
+        "offset": "0x10000",
+        "filename": "pyrocore.ino.bin",
+        "bytes": 359392,
+        "sha256": "f1e0a6dd23a1f70629949a2639396bf14b8c72b3188ee807bbb42d3433a58ad1"
+      },
+      {
+        "offset": "0x670000",
+        "filename": "littlefs.bin",
+        "bytes": 1572864,
+        "sha256": "9926c1262bd141398825ccd060f6fe6b44be8cc9a50f314b31c99e0ca6aa0651"
+      }
+    ],
+    "packaging_note": "Flashed the existing reviewed files directly; application and LittleFS hashes are unchanged."
+  },
+  "physical_report": "hardware-physical.json",
+  "physical_raw_capture": "hardware-capture.json.gz",
+  "physical_rates": [
+    {
+      "target_fps": 18,
+      "measured_fps": 17.234708,
+      "sample_count": 174,
+      "observed_duration_s": 10.037884
+    },
+    {
+      "target_fps": 7,
+      "measured_fps": 7.046078,
+      "sample_count": 23,
+      "observed_duration_s": 3.122304
+    },
+    {
+      "target_fps": 5,
+      "measured_fps": 5.001869,
+      "sample_count": 16,
+      "observed_duration_s": 2.998879
+    }
+  ]
 }

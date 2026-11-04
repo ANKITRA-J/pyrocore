@@ -1,0 +1,3815 @@
+{
+  "started_utc": "2026-11-04T09:12:22.514277+00:00",
+  "firmware_required": "0.3.0",
+  "uploaded_by_this_script": false,
+  "status": "passed",
+  "physical_scope": "Board frame reception, all 24 preset colours/motion/occupancy, Clear, and 18/7/5 FPS measurements. Exact paired glitter needs RTL or separate geometric analysis.",
+  "raw_frame_format": "Original FPGA-provenance USB envelope; data is 1536-byte packed 3bpp payload in base64; no pixel re-encoding.",
+  "hello": {
+    "type": "hello",
+    "version": "0.3.0",
+    "board": "Shrike-Fi",
+    "fpga_loaded": true,
+    "fpga_verified": true,
+    "loader_message": "Image transferred; waiting for a valid FPGA frame",
+    "bitstream_bytes": 46408,
+    "streaming": true,
+    "fps_target": 18,
+    "material": 3,
+    "pattern": 3,
+    "frames": 1000,
+    "crc_errors": 0,
+    "header_errors": 0,
+    "timeouts": 0
+  },
+  "initial_drained_frames": 1,
+  "initial_clear": {
+    "status": "passed",
+    "black_frames": [
+      {
+        "seq": 16327,
+        "width": 64,
+        "height": 64,
+        "format": "indexed3-lsb",
+        "source": "fpga",
+        "crc_ok": true,
+        "data": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "elapsed_s": 0.0,
+        "lit_pixels": 0,
+        "colours": [],
+        "colour_counts": {
+          "0": 4096
+        },
+        "lit_positions": []
+      },
+      {
+        "seq": 16329,
+        "width": 64,
+        "height": 64,
+        "format": "indexed3-lsb",
+        "source": "fpga",
+        "crc_ok": true,
+        "data": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "elapsed_s": 0.0,
+        "lit_pixels": 0,
+        "colours": [],
+        "colour_counts": {
+          "0": 4096
+        },
+        "lit_positions": []
+      }
+    ],
+    "frames_observed": 2
+  },
+  "baseline_status": {
+    "type": "status",
+    "version": "0.3.0",
+    "board": "Shrike-Fi",
+    "fpga_loaded": true,
+    "fpga_verified": true,
+    "loader_message": "Image transferred; waiting for a valid FPGA frame",
+    "bitstream_bytes": 46408,
+    "streaming": false,
+    "fps_target": 18,
+    "material": 3,
+    "pattern": 3,
+    "frames": 1003,
+    "crc_errors": 0,
+    "header_errors": 0,
+    "timeouts": 0
+  },
+  "initial_ignored_usb_lines": 0,
+  "clear_after_presets": {
+    "status": "passed",
+    "black_frames": [
+      {
+        "seq": 16836,
+        "width": 64,
+        "height": 64,
+        "format": "indexed3-lsb",
+        "source": "fpga",
+        "crc_ok": true,
+        "data": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "elapsed_s": 0.0,
+        "lit_pixels": 0,
+        "colours": [],
+        "colour_counts": {
+          "0": 4096
+        },
+        "lit_positions": []
+      },
+      {
+        "seq": 16837,
+        "width": 64,
+        "height": 64,
+        "format": "indexed3-lsb",
+        "source": "fpga",
+        "crc_ok": true,
+        "data": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "elapsed_s": 0.0,
+        "lit_pixels": 0,
+        "colours": [],
+        "colour_counts": {
+          "0": 4096
+        },
+        "lit_positions": []
+      }
+    ],
+    "frames_observed": 3
+  },
+  "final_clear": {
+    "status": "passed",
+    "black_frames": [
+      {
+        "seq": 17249,
+        "width": 64,
+        "height": 64,
+        "format": "indexed3-lsb",
+        "source": "fpga",
+        "crc_ok": true,
+        "data": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "elapsed_s": 0.0,
+        "lit_pixels": 0,
+        "colours": [],
+        "colour_counts": {
+          "0": 4096
+        },
+        "lit_positions": []
+      },
+      {
+        "seq": 17251,
+        "width": 64,
+        "height": 64,
+        "format": "indexed3-lsb",
+        "source": "fpga",
+        "crc_ok": true,
+        "data": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "elapsed_s": 0.0,
+        "lit_pixels": 0,
+        "colours": [],
+        "colour_counts": {
+          "0": 4096
+        },
+        "lit_positions": []
+      }
+    ],
+    "frames_observed": 2
+  },
+  "final_status": {
+    "type": "status",
+    "version": "0.3.0",
+    "board": "Shrike-Fi",
+    "fpga_loaded": true,
+    "fpga_verified": true,
+    "loader_message": "Image transferred; waiting for a valid FPGA frame",
+    "bitstream_bytes": 46408,
+    "streaming": true,
+    "fps_target": 18,
+    "material": 5,
+    "pattern": 3,
+    "frames": 1692,
+    "crc_errors": 0,
+    "header_errors": 0,
+    "timeouts": 0
+  },
+  "left_scene": "cleared; streaming enabled at target 18 FPS",
+  "ignored_usb_lines": 0,
+  "ignored_usb_lines_since_baseline": 0,
+  "usb_rejections": [],
+  "error_counter_deltas": {
+    "crc_errors": 0,
+    "header_errors": 0,
+    "timeouts": 0
+  },
+  "finished_utc": "2026-11-04T09:13:10.487957+00:00",
+  "raw_capture": {
+    "file": "hardware-capture.json.gz",
+    "sha256": "bef6fd7be0f6687b05b900d78241f9a2edc713d40343acd8735cfeb6101658b9",
+    "compressed_sha256": "9f060a8d73227eec32cea3d4a52e5be18dcdbb6467d5a5289c0b462f401ebe07",
+    "description": "Complete original physical capture with all base64 FPGA frames; gzip-compressed JSON."
+  },
+  "presets": [
+    {
+      "material": 0,
+      "material_name": "Strontium \u00b7 red",
+      "pattern": 0,
+      "pattern_name": "Radial",
+      "sample_count": 16,
+      "nonempty_frames": 15,
+      "observed_colours": [
+        1
+      ],
+      "expected_colours": [
+        1
+      ],
+      "coordinate_union_count": 107,
+      "changing_lit_pixel_counts": true,
+      "distinct_occupancy_frames": 16,
+      "motion_evidence": "More than 16 distinct coordinates across frames exceeds a fixed eight-spark/two-point map.",
+      "status": "passed",
+      "clear_before_launch": {
+        "status": "passed",
+        "black_sequences": [
+          16330,
+          16331
+        ]
+      },
+      "frame_sequences": [
+        16332,
+        16333,
+        16334,
+        16335,
+        16336,
+        16337,
+        16338,
+        16340,
+        16341,
+        16342,
+        16343,
+        16344,
+        16345,
+        16346,
+        16347,
+        16348
+      ],
+      "pistil_span_frames": [],
+      "paired_glitter": {
+        "frames_checked": 16,
+        "motion_offset_candidates": [
+          0
+        ],
+        "motion_fit_count": 1,
+        "radial_initial_velocity_mask_candidates": [
+          46
+        ],
+        "status": "paired_glitter_observed",
+        "all_nonzero_pixels_match_fitted_motion": true,
+        "unique_motion_offset": true,
+        "unique_motion_and_velocity_fit": true,
+        "disjoint_visible_pairs": 80,
+        "disjoint_hidden_pairs": 25,
+        "particles_observed_both_visible_and_hidden": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    },
+    {
+      "material": 0,
+      "material_name": "Strontium \u00b7 red",
+      "pattern": 1,
+      "pattern_name": "Ring",
+      "sample_count": 16,
+      "nonempty_frames": 15,
+      "observed_colours": [
+        1
+      ],
+      "expected_colours": [
+        1
+      ],
+      "coordinate_union_count": 113,
+      "changing_lit_pixel_counts": true,
+      "distinct_occupancy_frames": 16,
+      "motion_evidence": "More than 16 distinct coordinates across frames exceeds a fixed eight-spark/two-point map.",
+      "status": "passed",
+      "clear_before_launch": {
+        "status": "passed",
+        "black_sequences": [
+          16350,
+          16351
+        ]
+      },
+      "frame_sequences": [
+        16352,
+        16353,
+        16354,
+        16355,
+        16356,
+        16358,
+        16359,
+        16360,
+        16361,
+        16362,
+        16363,
+        16364,
+        16365,
+        16366,
+        16367,
+        16368
+      ],
+      "pistil_span_frames": [],
+      "paired_glitter": {
+        "frames_checked": 16,
+        "motion_offset_candidates": [
+          0
+        ],
+        "motion_fit_count": 1,
+        "status": "paired_glitter_observed",
+        "all_nonzero_pixels_match_fitted_motion": true,
+        "unique_motion_offset": true,
+        "unique_motion_and_velocity_fit": true,
+        "disjoint_visible_pairs": 81,
+        "disjoint_hidden_pairs": 29,
+        "particles_observed_both_visible_and_hidden": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    },
+    {
+      "material": 0,
+      "material_name": "Strontium \u00b7 red",
+      "pattern": 2,
+      "pattern_name": "Willow",
+      "sample_count": 16,
+      "nonempty_frames": 15,
+      "observed_colours": [
+        1
+      ],
+      "expected_colours": [
+        1
+      ],
+      "coordinate_union_count": 92,
+      "changing_lit_pixel_counts": true,
+      "distinct_occupancy_frames": 16,
+      "motion_evidence": "More than 16 distinct coordinates across frames exceeds a fixed eight-spark/two-point map.",
+      "status": "passed",
+      "clear_before_launch": {
+        "status": "passed",
+        "black_sequences": [
+          16370,
+          16371
+        ]
+      },
+      "frame_sequences": [
+        16372,
+        16374,
+        16375,
+        16376,
+        16377,
+        16378,
+        16379,
+        16380,
+        16381,
+        16382,
+        16383,
+        16384,
+        16385,
+        16386,
+        16388,
+        16389
+      ],
+      "pistil_span_frames": [],
+      "paired_glitter": {
+        "frames_checked": 16,
+        "motion_offset_candidates": [
+          0
+        ],
+        "motion_fit_count": 1,
+        "status": "paired_glitter_observed",
+        "all_nonzero_pixels_match_fitted_motion": true,
+        "unique_motion_offset": true,
+        "unique_motion_and_velocity_fit": true,
+        "disjoint_visible_pairs": 58,
+        "disjoint_hidden_pairs": 26,
+        "particles_observed_both_visible_and_hidden": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    },
+    {
+      "material": 0,
+      "material_name": "Strontium \u00b7 red",
+      "pattern": 3,
+      "pattern_name": "Pistil",
+      "sample_count": 16,
+      "nonempty_frames": 15,
+      "observed_colours": [
+        1,
+        6
+      ],
+      "expected_colours": [
+        1,
+        6
+      ],
+      "coordinate_union_count": 106,
+      "changing_lit_pixel_counts": true,
+      "distinct_occupancy_frames": 16,
+      "motion_evidence": "More than 16 distinct coordinates across frames exceeds a fixed eight-spark/two-point map.",
+      "status": "passed",
+      "clear_before_launch": {
+        "status": "passed",
+        "black_sequences": [
+          16392,
+          16393
+        ]
+      },
+      "frame_sequences": [
+        16394,
+        16395,
+        16396,
+        16397,
+        16398,
+        16399,
+        16400,
+        16402,
+        16403,
+        16404,
+        16405,
+        16406,
+        16407,
+        16408,
+        16409,
+        16410
+      ],
+      "pistil_span_frames": [
+        {
+          "seq": 16395,
+          "shell": {
+            "count": 4,
+            "x_span": 4,
+            "y_span": 4
+          },
+          "white_core": {
+            "count": 3,
+            "x_span": 1,
+            "y_span": 1
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16396,
+          "shell": {
+            "count": 8,
+            "x_span": 8,
+            "y_span": 8
+          },
+          "white_core": {
+            "count": 4,
+            "x_span": 1,
+            "y_span": 3
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16397,
+          "shell": {
+            "count": 4,
+            "x_span": 6,
+            "y_span": 6
+          },
+          "white_core": {
+            "count": 6,
+            "x_span": 5,
+            "y_span": 5
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16398,
+          "shell": {
+            "count": 8,
+            "x_span": 16,
+            "y_span": 16
+          },
+          "white_core": {
+            "count": 3,
+            "x_span": 5,
+            "y_span": 6
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16399,
+          "shell": {
+            "count": 4,
+            "x_span": 10,
+            "y_span": 10
+          },
+          "white_core": {
+            "count": 6,
+            "x_span": 7,
+            "y_span": 8
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16400,
+          "shell": {
+            "count": 6,
+            "x_span": 24,
+            "y_span": 12
+          },
+          "white_core": {
+            "count": 4,
+            "x_span": 9,
+            "y_span": 9
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16402,
+          "shell": {
+            "count": 6,
+            "x_span": 16,
+            "y_span": 32
+          },
+          "white_core": {
+            "count": 6,
+            "x_span": 11,
+            "y_span": 12
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16403,
+          "shell": {
+            "count": 8,
+            "x_span": 36,
+            "y_span": 36
+          },
+          "white_core": {
+            "count": 8,
+            "x_span": 13,
+            "y_span": 13
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16404,
+          "shell": {
+            "count": 4,
+            "x_span": 0,
+            "y_span": 40
+          },
+          "white_core": {
+            "count": 3,
+            "x_span": 14,
+            "y_span": 14
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16405,
+          "shell": {
+            "count": 4,
+            "x_span": 22,
+            "y_span": 22
+          },
+          "white_core": {
+            "count": 4,
+            "x_span": 1,
+            "y_span": 16
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16406,
+          "shell": {
+            "count": 6,
+            "x_span": 24,
+            "y_span": 48
+          },
+          "white_core": {
+            "count": 5,
+            "x_span": 17,
+            "y_span": 17
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16407,
+          "shell": {
+            "count": 8,
+            "x_span": 52,
+            "y_span": 52
+          },
+          "white_core": {
+            "count": 2,
+            "x_span": 1,
+            "y_span": 0
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16408,
+          "shell": {
+            "count": 6,
+            "x_span": 28,
+            "y_span": 56
+          },
+          "white_core": {
+            "count": 6,
+            "x_span": 20,
+            "y_span": 20
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16409,
+          "shell": {
+            "count": 8,
+            "x_span": 60,
+            "y_span": 60
+          },
+          "white_core": {
+            "count": 4,
+            "x_span": 1,
+            "y_span": 21
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16410,
+          "shell": {
+            "count": 4,
+            "x_span": 32,
+            "y_span": 32
+          },
+          "white_core": {
+            "count": 4,
+            "x_span": 1,
+            "y_span": 23
+          },
+          "outer_span_larger": true
+        }
+      ],
+      "paired_glitter": {
+        "frames_checked": 16,
+        "motion_offset_candidates": [
+          0
+        ],
+        "motion_fit_count": 1,
+        "status": "paired_glitter_observed",
+        "all_nonzero_pixels_match_fitted_motion": true,
+        "unique_motion_offset": true,
+        "unique_motion_and_velocity_fit": true,
+        "disjoint_visible_pairs": 73,
+        "disjoint_hidden_pairs": 31,
+        "particles_observed_both_visible_and_hidden": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    },
+    {
+      "material": 1,
+      "material_name": "Barium \u00b7 green",
+      "pattern": 0,
+      "pattern_name": "Radial",
+      "sample_count": 16,
+      "nonempty_frames": 15,
+      "observed_colours": [
+        2
+      ],
+      "expected_colours": [
+        2
+      ],
+      "coordinate_union_count": 111,
+      "changing_lit_pixel_counts": true,
+      "distinct_occupancy_frames": 16,
+      "motion_evidence": "More than 16 distinct coordinates across frames exceeds a fixed eight-spark/two-point map.",
+      "status": "passed",
+      "clear_before_launch": {
+        "status": "passed",
+        "black_sequences": [
+          16412,
+          16414
+        ]
+      },
+      "frame_sequences": [
+        16415,
+        16416,
+        16417,
+        16418,
+        16419,
+        16420,
+        16421,
+        16422,
+        16423,
+        16424,
+        16426,
+        16427,
+        16428,
+        16429,
+        16430,
+        16431
+      ],
+      "pistil_span_frames": [],
+      "paired_glitter": {
+        "frames_checked": 16,
+        "motion_offset_candidates": [
+          0
+        ],
+        "motion_fit_count": 1,
+        "radial_initial_velocity_mask_candidates": [
+          134
+        ],
+        "status": "paired_glitter_observed",
+        "all_nonzero_pixels_match_fitted_motion": true,
+        "unique_motion_offset": true,
+        "unique_motion_and_velocity_fit": true,
+        "disjoint_visible_pairs": 81,
+        "disjoint_hidden_pairs": 26,
+        "particles_observed_both_visible_and_hidden": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    },
+    {
+      "material": 1,
+      "material_name": "Barium \u00b7 green",
+      "pattern": 1,
+      "pattern_name": "Ring",
+      "sample_count": 16,
+      "nonempty_frames": 15,
+      "observed_colours": [
+        2
+      ],
+      "expected_colours": [
+        2
+      ],
+      "coordinate_union_count": 120,
+      "changing_lit_pixel_counts": true,
+      "distinct_occupancy_frames": 16,
+      "motion_evidence": "More than 16 distinct coordinates across frames exceeds a fixed eight-spark/two-point map.",
+      "status": "passed",
+      "clear_before_launch": {
+        "status": "passed",
+        "black_sequences": [
+          16434,
+          16435
+        ]
+      },
+      "frame_sequences": [
+        16436,
+        16437,
+        16438,
+        16440,
+        16441,
+        16442,
+        16443,
+        16444,
+        16445,
+        16446,
+        16447,
+        16448,
+        16449,
+        16450,
+        16452,
+        16453
+      ],
+      "pistil_span_frames": [],
+      "paired_glitter": {
+        "frames_checked": 16,
+        "motion_offset_candidates": [
+          0
+        ],
+        "motion_fit_count": 1,
+        "status": "paired_glitter_observed",
+        "all_nonzero_pixels_match_fitted_motion": true,
+        "unique_motion_offset": true,
+        "unique_motion_and_velocity_fit": true,
+        "disjoint_visible_pairs": 86,
+        "disjoint_hidden_pairs": 21,
+        "particles_observed_both_visible_and_hidden": [
+          0,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    },
+    {
+      "material": 1,
+      "material_name": "Barium \u00b7 green",
+      "pattern": 2,
+      "pattern_name": "Willow",
+      "sample_count": 16,
+      "nonempty_frames": 15,
+      "observed_colours": [
+        2
+      ],
+      "expected_colours": [
+        2
+      ],
+      "coordinate_union_count": 86,
+      "changing_lit_pixel_counts": true,
+      "distinct_occupancy_frames": 16,
+      "motion_evidence": "More than 16 distinct coordinates across frames exceeds a fixed eight-spark/two-point map.",
+      "status": "passed",
+      "clear_before_launch": {
+        "status": "passed",
+        "black_sequences": [
+          16456,
+          16457
+        ]
+      },
+      "frame_sequences": [
+        16458,
+        16459,
+        16460,
+        16461,
+        16462,
+        16463,
+        16464,
+        16466,
+        16467,
+        16468,
+        16469,
+        16470,
+        16471,
+        16472,
+        16473,
+        16474
+      ],
+      "pistil_span_frames": [],
+      "paired_glitter": {
+        "frames_checked": 16,
+        "motion_offset_candidates": [
+          0
+        ],
+        "motion_fit_count": 1,
+        "status": "paired_glitter_observed",
+        "all_nonzero_pixels_match_fitted_motion": true,
+        "unique_motion_offset": true,
+        "unique_motion_and_velocity_fit": true,
+        "disjoint_visible_pairs": 55,
+        "disjoint_hidden_pairs": 23,
+        "particles_observed_both_visible_and_hidden": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    },
+    {
+      "material": 1,
+      "material_name": "Barium \u00b7 green",
+      "pattern": 3,
+      "pattern_name": "Pistil",
+      "sample_count": 16,
+      "nonempty_frames": 15,
+      "observed_colours": [
+        2,
+        6
+      ],
+      "expected_colours": [
+        2,
+        6
+      ],
+      "coordinate_union_count": 111,
+      "changing_lit_pixel_counts": true,
+      "distinct_occupancy_frames": 16,
+      "motion_evidence": "More than 16 distinct coordinates across frames exceeds a fixed eight-spark/two-point map.",
+      "status": "passed",
+      "clear_before_launch": {
+        "status": "passed",
+        "black_sequences": [
+          16476,
+          16478
+        ]
+      },
+      "frame_sequences": [
+        16479,
+        16480,
+        16481,
+        16482,
+        16483,
+        16484,
+        16485,
+        16486,
+        16487,
+        16488,
+        16489,
+        16490,
+        16492,
+        16493,
+        16494,
+        16495
+      ],
+      "pistil_span_frames": [
+        {
+          "seq": 16480,
+          "shell": {
+            "count": 2,
+            "x_span": 2,
+            "y_span": 2
+          },
+          "white_core": {
+            "count": 3,
+            "x_span": 1,
+            "y_span": 1
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16481,
+          "shell": {
+            "count": 6,
+            "x_span": 8,
+            "y_span": 4
+          },
+          "white_core": {
+            "count": 4,
+            "x_span": 1,
+            "y_span": 3
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16482,
+          "shell": {
+            "count": 8,
+            "x_span": 12,
+            "y_span": 12
+          },
+          "white_core": {
+            "count": 6,
+            "x_span": 5,
+            "y_span": 5
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16483,
+          "shell": {
+            "count": 6,
+            "x_span": 16,
+            "y_span": 8
+          },
+          "white_core": {
+            "count": 6,
+            "x_span": 5,
+            "y_span": 6
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16484,
+          "shell": {
+            "count": 2,
+            "x_span": 0,
+            "y_span": 2
+          },
+          "white_core": {
+            "count": 6,
+            "x_span": 7,
+            "y_span": 8
+          },
+          "outer_span_larger": false
+        },
+        {
+          "seq": 16485,
+          "shell": {
+            "count": 6,
+            "x_span": 12,
+            "y_span": 24
+          },
+          "white_core": {
+            "count": 6,
+            "x_span": 9,
+            "y_span": 9
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16486,
+          "shell": {
+            "count": 4,
+            "x_span": 14,
+            "y_span": 15
+          },
+          "white_core": {
+            "count": 4,
+            "x_span": 1,
+            "y_span": 10
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16487,
+          "shell": {
+            "count": 8,
+            "x_span": 32,
+            "y_span": 32
+          },
+          "white_core": {
+            "count": 6,
+            "x_span": 11,
+            "y_span": 12
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16488,
+          "shell": {
+            "count": 6,
+            "x_span": 36,
+            "y_span": 18
+          },
+          "white_core": {
+            "count": 6,
+            "x_span": 13,
+            "y_span": 13
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16489,
+          "shell": {
+            "count": 8,
+            "x_span": 40,
+            "y_span": 40
+          },
+          "white_core": {
+            "count": 5,
+            "x_span": 14,
+            "y_span": 14
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16490,
+          "shell": {
+            "count": 8,
+            "x_span": 44,
+            "y_span": 44
+          },
+          "white_core": {
+            "count": 6,
+            "x_span": 16,
+            "y_span": 16
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16492,
+          "shell": {
+            "count": 6,
+            "x_span": 26,
+            "y_span": 52
+          },
+          "white_core": {
+            "count": 7,
+            "x_span": 18,
+            "y_span": 18
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16493,
+          "shell": {
+            "count": 6,
+            "x_span": 28,
+            "y_span": 56
+          },
+          "white_core": {
+            "count": 8,
+            "x_span": 20,
+            "y_span": 20
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16494,
+          "shell": {
+            "count": 6,
+            "x_span": 30,
+            "y_span": 60
+          },
+          "white_core": {
+            "count": 6,
+            "x_span": 22,
+            "y_span": 21
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16495,
+          "shell": {
+            "count": 4,
+            "x_span": 32,
+            "y_span": 32
+          },
+          "white_core": {
+            "count": 4,
+            "x_span": 1,
+            "y_span": 23
+          },
+          "outer_span_larger": true
+        }
+      ],
+      "paired_glitter": {
+        "frames_checked": 16,
+        "motion_offset_candidates": [
+          0
+        ],
+        "motion_fit_count": 1,
+        "status": "paired_glitter_observed",
+        "all_nonzero_pixels_match_fitted_motion": true,
+        "unique_motion_offset": true,
+        "unique_motion_and_velocity_fit": true,
+        "disjoint_visible_pairs": 80,
+        "disjoint_hidden_pairs": 24,
+        "particles_observed_both_visible_and_hidden": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    },
+    {
+      "material": 2,
+      "material_name": "Copper \u00b7 blue",
+      "pattern": 0,
+      "pattern_name": "Radial",
+      "sample_count": 16,
+      "nonempty_frames": 15,
+      "observed_colours": [
+        3
+      ],
+      "expected_colours": [
+        3
+      ],
+      "coordinate_union_count": 103,
+      "changing_lit_pixel_counts": true,
+      "distinct_occupancy_frames": 16,
+      "motion_evidence": "More than 16 distinct coordinates across frames exceeds a fixed eight-spark/two-point map.",
+      "status": "passed",
+      "clear_before_launch": {
+        "status": "passed",
+        "black_sequences": [
+          16498,
+          16499
+        ]
+      },
+      "frame_sequences": [
+        16500,
+        16501,
+        16502,
+        16504,
+        16505,
+        16506,
+        16507,
+        16508,
+        16509,
+        16510,
+        16511,
+        16512,
+        16513,
+        16514,
+        16515,
+        16516
+      ],
+      "pistil_span_frames": [],
+      "paired_glitter": {
+        "frames_checked": 16,
+        "motion_offset_candidates": [
+          0
+        ],
+        "motion_fit_count": 1,
+        "radial_initial_velocity_mask_candidates": [
+          100
+        ],
+        "status": "paired_glitter_observed",
+        "all_nonzero_pixels_match_fitted_motion": true,
+        "unique_motion_offset": true,
+        "unique_motion_and_velocity_fit": true,
+        "disjoint_visible_pairs": 79,
+        "disjoint_hidden_pairs": 23,
+        "particles_observed_both_visible_and_hidden": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          6,
+          7
+        ]
+      }
+    },
+    {
+      "material": 2,
+      "material_name": "Copper \u00b7 blue",
+      "pattern": 1,
+      "pattern_name": "Ring",
+      "sample_count": 16,
+      "nonempty_frames": 15,
+      "observed_colours": [
+        3
+      ],
+      "expected_colours": [
+        3
+      ],
+      "coordinate_union_count": 120,
+      "changing_lit_pixel_counts": true,
+      "distinct_occupancy_frames": 16,
+      "motion_evidence": "More than 16 distinct coordinates across frames exceeds a fixed eight-spark/two-point map.",
+      "status": "passed",
+      "clear_before_launch": {
+        "status": "passed",
+        "black_sequences": [
+          16519,
+          16520
+        ]
+      },
+      "frame_sequences": [
+        16521,
+        16522,
+        16523,
+        16524,
+        16525,
+        16526,
+        16527,
+        16528,
+        16530,
+        16531,
+        16532,
+        16533,
+        16534,
+        16535,
+        16536,
+        16537
+      ],
+      "pistil_span_frames": [],
+      "paired_glitter": {
+        "frames_checked": 16,
+        "motion_offset_candidates": [
+          0
+        ],
+        "motion_fit_count": 1,
+        "status": "paired_glitter_observed",
+        "all_nonzero_pixels_match_fitted_motion": true,
+        "unique_motion_offset": true,
+        "unique_motion_and_velocity_fit": true,
+        "disjoint_visible_pairs": 89,
+        "disjoint_hidden_pairs": 21,
+        "particles_observed_both_visible_and_hidden": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    },
+    {
+      "material": 2,
+      "material_name": "Copper \u00b7 blue",
+      "pattern": 2,
+      "pattern_name": "Willow",
+      "sample_count": 16,
+      "nonempty_frames": 15,
+      "observed_colours": [
+        3
+      ],
+      "expected_colours": [
+        3
+      ],
+      "coordinate_union_count": 94,
+      "changing_lit_pixel_counts": true,
+      "distinct_occupancy_frames": 16,
+      "motion_evidence": "More than 16 distinct coordinates across frames exceeds a fixed eight-spark/two-point map.",
+      "status": "passed",
+      "clear_before_launch": {
+        "status": "passed",
+        "black_sequences": [
+          16540,
+          16541
+        ]
+      },
+      "frame_sequences": [
+        16542,
+        16544,
+        16545,
+        16546,
+        16547,
+        16548,
+        16549,
+        16550,
+        16551,
+        16552,
+        16553,
+        16554,
+        16556,
+        16557,
+        16558,
+        16559
+      ],
+      "pistil_span_frames": [],
+      "paired_glitter": {
+        "frames_checked": 16,
+        "motion_offset_candidates": [
+          0
+        ],
+        "motion_fit_count": 1,
+        "status": "paired_glitter_observed",
+        "all_nonzero_pixels_match_fitted_motion": true,
+        "unique_motion_offset": true,
+        "unique_motion_and_velocity_fit": true,
+        "disjoint_visible_pairs": 62,
+        "disjoint_hidden_pairs": 20,
+        "particles_observed_both_visible_and_hidden": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    },
+    {
+      "material": 2,
+      "material_name": "Copper \u00b7 blue",
+      "pattern": 3,
+      "pattern_name": "Pistil",
+      "sample_count": 16,
+      "nonempty_frames": 15,
+      "observed_colours": [
+        3,
+        6
+      ],
+      "expected_colours": [
+        3,
+        6
+      ],
+      "coordinate_union_count": 106,
+      "changing_lit_pixel_counts": true,
+      "distinct_occupancy_frames": 16,
+      "motion_evidence": "More than 16 distinct coordinates across frames exceeds a fixed eight-spark/two-point map.",
+      "status": "passed",
+      "clear_before_launch": {
+        "status": "passed",
+        "black_sequences": [
+          16562,
+          16563
+        ]
+      },
+      "frame_sequences": [
+        16564,
+        16565,
+        16566,
+        16567,
+        16568,
+        16569,
+        16570,
+        16571,
+        16572,
+        16573,
+        16574,
+        16575,
+        16576,
+        16577,
+        16578,
+        16579
+      ],
+      "pistil_span_frames": [
+        {
+          "seq": 16565,
+          "shell": {
+            "count": 1,
+            "x_span": 0,
+            "y_span": 0
+          },
+          "white_core": {
+            "count": 4,
+            "x_span": 1,
+            "y_span": 1
+          },
+          "outer_span_larger": false
+        },
+        {
+          "seq": 16566,
+          "shell": {
+            "count": 8,
+            "x_span": 8,
+            "y_span": 8
+          },
+          "white_core": {
+            "count": 4,
+            "x_span": 3,
+            "y_span": 1
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16567,
+          "shell": {
+            "count": 8,
+            "x_span": 12,
+            "y_span": 12
+          },
+          "white_core": {
+            "count": 6,
+            "x_span": 5,
+            "y_span": 5
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16568,
+          "shell": {
+            "count": 4,
+            "x_span": 8,
+            "y_span": 8
+          },
+          "white_core": {
+            "count": 6,
+            "x_span": 5,
+            "y_span": 6
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16569,
+          "shell": {
+            "count": 4,
+            "x_span": 10,
+            "y_span": 10
+          },
+          "white_core": {
+            "count": 8,
+            "x_span": 7,
+            "y_span": 8
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16570,
+          "shell": {
+            "count": 4,
+            "x_span": 24,
+            "y_span": 0
+          },
+          "white_core": {
+            "count": 6,
+            "x_span": 9,
+            "y_span": 9
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16571,
+          "shell": {
+            "count": 8,
+            "x_span": 28,
+            "y_span": 28
+          },
+          "white_core": {
+            "count": 6,
+            "x_span": 10,
+            "y_span": 10
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16572,
+          "shell": {
+            "count": 2,
+            "x_span": 0,
+            "y_span": 2
+          },
+          "white_core": {
+            "count": 8,
+            "x_span": 11,
+            "y_span": 12
+          },
+          "outer_span_larger": false
+        },
+        {
+          "seq": 16573,
+          "shell": {
+            "count": 6,
+            "x_span": 18,
+            "y_span": 36
+          },
+          "white_core": {
+            "count": 8,
+            "x_span": 13,
+            "y_span": 13
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16574,
+          "shell": {
+            "count": 4,
+            "x_span": 20,
+            "y_span": 20
+          },
+          "white_core": {
+            "count": 7,
+            "x_span": 14,
+            "y_span": 14
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16575,
+          "shell": {
+            "count": 6,
+            "x_span": 44,
+            "y_span": 23
+          },
+          "white_core": {
+            "count": 6,
+            "x_span": 16,
+            "y_span": 16
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16576,
+          "shell": {
+            "count": 4,
+            "x_span": 24,
+            "y_span": 24
+          },
+          "white_core": {
+            "count": 1,
+            "x_span": 0,
+            "y_span": 0
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16577,
+          "shell": {
+            "count": 6,
+            "x_span": 52,
+            "y_span": 26
+          },
+          "white_core": {
+            "count": 5,
+            "x_span": 18,
+            "y_span": 18
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16578,
+          "shell": {
+            "count": 6,
+            "x_span": 56,
+            "y_span": 29
+          },
+          "white_core": {
+            "count": 6,
+            "x_span": 20,
+            "y_span": 20
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16579,
+          "shell": {
+            "count": 8,
+            "x_span": 60,
+            "y_span": 60
+          },
+          "white_core": {
+            "count": 8,
+            "x_span": 22,
+            "y_span": 21
+          },
+          "outer_span_larger": true
+        }
+      ],
+      "paired_glitter": {
+        "frames_checked": 16,
+        "motion_offset_candidates": [
+          0
+        ],
+        "motion_fit_count": 1,
+        "status": "paired_glitter_observed",
+        "all_nonzero_pixels_match_fitted_motion": true,
+        "unique_motion_offset": true,
+        "unique_motion_and_velocity_fit": true,
+        "disjoint_visible_pairs": 79,
+        "disjoint_hidden_pairs": 27,
+        "particles_observed_both_visible_and_hidden": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    },
+    {
+      "material": 3,
+      "material_name": "Sodium \u00b7 yellow",
+      "pattern": 0,
+      "pattern_name": "Radial",
+      "sample_count": 16,
+      "nonempty_frames": 15,
+      "observed_colours": [
+        4
+      ],
+      "expected_colours": [
+        4
+      ],
+      "coordinate_union_count": 109,
+      "changing_lit_pixel_counts": true,
+      "distinct_occupancy_frames": 16,
+      "motion_evidence": "More than 16 distinct coordinates across frames exceeds a fixed eight-spark/two-point map.",
+      "status": "passed",
+      "clear_before_launch": {
+        "status": "passed",
+        "black_sequences": [
+          16582,
+          16583
+        ]
+      },
+      "frame_sequences": [
+        16584,
+        16585,
+        16586,
+        16587,
+        16588,
+        16589,
+        16590,
+        16591,
+        16592,
+        16593,
+        16595,
+        16596,
+        16597,
+        16598,
+        16599,
+        16600
+      ],
+      "pistil_span_frames": [],
+      "paired_glitter": {
+        "frames_checked": 16,
+        "motion_offset_candidates": [
+          0
+        ],
+        "motion_fit_count": 1,
+        "radial_initial_velocity_mask_candidates": [
+          44
+        ],
+        "status": "paired_glitter_observed",
+        "all_nonzero_pixels_match_fitted_motion": true,
+        "unique_motion_offset": true,
+        "unique_motion_and_velocity_fit": true,
+        "disjoint_visible_pairs": 81,
+        "disjoint_hidden_pairs": 23,
+        "particles_observed_both_visible_and_hidden": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    },
+    {
+      "material": 3,
+      "material_name": "Sodium \u00b7 yellow",
+      "pattern": 1,
+      "pattern_name": "Ring",
+      "sample_count": 16,
+      "nonempty_frames": 15,
+      "observed_colours": [
+        4
+      ],
+      "expected_colours": [
+        4
+      ],
+      "coordinate_union_count": 115,
+      "changing_lit_pixel_counts": true,
+      "distinct_occupancy_frames": 16,
+      "motion_evidence": "More than 16 distinct coordinates across frames exceeds a fixed eight-spark/two-point map.",
+      "status": "passed",
+      "clear_before_launch": {
+        "status": "passed",
+        "black_sequences": [
+          16603,
+          16604
+        ]
+      },
+      "frame_sequences": [
+        16605,
+        16607,
+        16608,
+        16609,
+        16610,
+        16611,
+        16612,
+        16613,
+        16614,
+        16615,
+        16616,
+        16617,
+        16618,
+        16619,
+        16620,
+        16621
+      ],
+      "pistil_span_frames": [],
+      "paired_glitter": {
+        "frames_checked": 16,
+        "motion_offset_candidates": [
+          0
+        ],
+        "motion_fit_count": 1,
+        "status": "paired_glitter_observed",
+        "all_nonzero_pixels_match_fitted_motion": true,
+        "unique_motion_offset": true,
+        "unique_motion_and_velocity_fit": true,
+        "disjoint_visible_pairs": 86,
+        "disjoint_hidden_pairs": 32,
+        "particles_observed_both_visible_and_hidden": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    },
+    {
+      "material": 3,
+      "material_name": "Sodium \u00b7 yellow",
+      "pattern": 2,
+      "pattern_name": "Willow",
+      "sample_count": 16,
+      "nonempty_frames": 15,
+      "observed_colours": [
+        4
+      ],
+      "expected_colours": [
+        4
+      ],
+      "coordinate_union_count": 88,
+      "changing_lit_pixel_counts": true,
+      "distinct_occupancy_frames": 16,
+      "motion_evidence": "More than 16 distinct coordinates across frames exceeds a fixed eight-spark/two-point map.",
+      "status": "passed",
+      "clear_before_launch": {
+        "status": "passed",
+        "black_sequences": [
+          16624,
+          16625
+        ]
+      },
+      "frame_sequences": [
+        16626,
+        16627,
+        16628,
+        16629,
+        16630,
+        16632,
+        16633,
+        16634,
+        16635,
+        16636,
+        16637,
+        16638,
+        16639,
+        16640,
+        16641,
+        16642
+      ],
+      "pistil_span_frames": [],
+      "paired_glitter": {
+        "frames_checked": 16,
+        "motion_offset_candidates": [
+          0
+        ],
+        "motion_fit_count": 1,
+        "status": "paired_glitter_observed",
+        "all_nonzero_pixels_match_fitted_motion": true,
+        "unique_motion_offset": true,
+        "unique_motion_and_velocity_fit": true,
+        "disjoint_visible_pairs": 57,
+        "disjoint_hidden_pairs": 23,
+        "particles_observed_both_visible_and_hidden": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    },
+    {
+      "material": 3,
+      "material_name": "Sodium \u00b7 yellow",
+      "pattern": 3,
+      "pattern_name": "Pistil",
+      "sample_count": 16,
+      "nonempty_frames": 15,
+      "observed_colours": [
+        4,
+        6
+      ],
+      "expected_colours": [
+        4,
+        6
+      ],
+      "coordinate_union_count": 105,
+      "changing_lit_pixel_counts": true,
+      "distinct_occupancy_frames": 16,
+      "motion_evidence": "More than 16 distinct coordinates across frames exceeds a fixed eight-spark/two-point map.",
+      "status": "passed",
+      "clear_before_launch": {
+        "status": "passed",
+        "black_sequences": [
+          16645,
+          16646
+        ]
+      },
+      "frame_sequences": [
+        16647,
+        16648,
+        16649,
+        16650,
+        16651,
+        16652,
+        16653,
+        16654,
+        16656,
+        16657,
+        16658,
+        16659,
+        16660,
+        16661,
+        16662,
+        16663
+      ],
+      "pistil_span_frames": [
+        {
+          "seq": 16648,
+          "shell": {
+            "count": 3,
+            "x_span": 4,
+            "y_span": 2
+          },
+          "white_core": {
+            "count": 4,
+            "x_span": 1,
+            "y_span": 1
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16649,
+          "shell": {
+            "count": 6,
+            "x_span": 8,
+            "y_span": 4
+          },
+          "white_core": {
+            "count": 6,
+            "x_span": 3,
+            "y_span": 3
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16650,
+          "shell": {
+            "count": 6,
+            "x_span": 12,
+            "y_span": 6
+          },
+          "white_core": {
+            "count": 6,
+            "x_span": 5,
+            "y_span": 5
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16651,
+          "shell": {
+            "count": 6,
+            "x_span": 8,
+            "y_span": 16
+          },
+          "white_core": {
+            "count": 3,
+            "x_span": 0,
+            "y_span": 6
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16652,
+          "shell": {
+            "count": 4,
+            "x_span": 0,
+            "y_span": 20
+          },
+          "white_core": {
+            "count": 6,
+            "x_span": 7,
+            "y_span": 8
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16653,
+          "shell": {
+            "count": 2,
+            "x_span": 2,
+            "y_span": 0
+          },
+          "white_core": {
+            "count": 4,
+            "x_span": 9,
+            "y_span": 0
+          },
+          "outer_span_larger": false
+        },
+        {
+          "seq": 16654,
+          "shell": {
+            "count": 2,
+            "x_span": 2,
+            "y_span": 1
+          },
+          "white_core": {
+            "count": 6,
+            "x_span": 10,
+            "y_span": 10
+          },
+          "outer_span_larger": false
+        },
+        {
+          "seq": 16656,
+          "shell": {
+            "count": 8,
+            "x_span": 36,
+            "y_span": 36
+          },
+          "white_core": {
+            "count": 8,
+            "x_span": 13,
+            "y_span": 13
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16657,
+          "shell": {
+            "count": 4,
+            "x_span": 40,
+            "y_span": 0
+          },
+          "white_core": {
+            "count": 5,
+            "x_span": 14,
+            "y_span": 14
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16658,
+          "shell": {
+            "count": 8,
+            "x_span": 44,
+            "y_span": 44
+          },
+          "white_core": {
+            "count": 4,
+            "x_span": 1,
+            "y_span": 16
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16659,
+          "shell": {
+            "count": 8,
+            "x_span": 48,
+            "y_span": 48
+          },
+          "white_core": {
+            "count": 5,
+            "x_span": 17,
+            "y_span": 17
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16660,
+          "shell": {
+            "count": 2,
+            "x_span": 2,
+            "y_span": 0
+          },
+          "white_core": {
+            "count": 2,
+            "x_span": 1,
+            "y_span": 0
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16661,
+          "shell": {
+            "count": 6,
+            "x_span": 28,
+            "y_span": 56
+          },
+          "white_core": {
+            "count": 8,
+            "x_span": 20,
+            "y_span": 20
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16662,
+          "shell": {
+            "count": 8,
+            "x_span": 60,
+            "y_span": 60
+          },
+          "white_core": {
+            "count": 8,
+            "x_span": 22,
+            "y_span": 21
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16663,
+          "shell": {
+            "count": 2,
+            "x_span": 2,
+            "y_span": 1
+          },
+          "white_core": {
+            "count": 7,
+            "x_span": 23,
+            "y_span": 23
+          },
+          "outer_span_larger": false
+        }
+      ],
+      "paired_glitter": {
+        "frames_checked": 16,
+        "motion_offset_candidates": [
+          0
+        ],
+        "motion_fit_count": 1,
+        "status": "paired_glitter_observed",
+        "all_nonzero_pixels_match_fitted_motion": true,
+        "unique_motion_offset": true,
+        "unique_motion_and_velocity_fit": true,
+        "disjoint_visible_pairs": 73,
+        "disjoint_hidden_pairs": 30,
+        "particles_observed_both_visible_and_hidden": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    },
+    {
+      "material": 4,
+      "material_name": "Aluminium \u00b7 white",
+      "pattern": 0,
+      "pattern_name": "Radial",
+      "sample_count": 16,
+      "nonempty_frames": 15,
+      "observed_colours": [
+        6
+      ],
+      "expected_colours": [
+        6
+      ],
+      "coordinate_union_count": 108,
+      "changing_lit_pixel_counts": true,
+      "distinct_occupancy_frames": 16,
+      "motion_evidence": "More than 16 distinct coordinates across frames exceeds a fixed eight-spark/two-point map.",
+      "status": "passed",
+      "clear_before_launch": {
+        "status": "passed",
+        "black_sequences": [
+          16666,
+          16667
+        ]
+      },
+      "frame_sequences": [
+        16668,
+        16670,
+        16671,
+        16672,
+        16673,
+        16674,
+        16675,
+        16676,
+        16677,
+        16678,
+        16679,
+        16680,
+        16682,
+        16683,
+        16684,
+        16685
+      ],
+      "pistil_span_frames": [],
+      "paired_glitter": {
+        "frames_checked": 16,
+        "motion_offset_candidates": [
+          0
+        ],
+        "motion_fit_count": 1,
+        "radial_initial_velocity_mask_candidates": [
+          46
+        ],
+        "status": "paired_glitter_observed",
+        "all_nonzero_pixels_match_fitted_motion": true,
+        "unique_motion_offset": true,
+        "unique_motion_and_velocity_fit": true,
+        "disjoint_visible_pairs": 82,
+        "disjoint_hidden_pairs": 27,
+        "particles_observed_both_visible_and_hidden": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    },
+    {
+      "material": 4,
+      "material_name": "Aluminium \u00b7 white",
+      "pattern": 1,
+      "pattern_name": "Ring",
+      "sample_count": 16,
+      "nonempty_frames": 15,
+      "observed_colours": [
+        6
+      ],
+      "expected_colours": [
+        6
+      ],
+      "coordinate_union_count": 109,
+      "changing_lit_pixel_counts": true,
+      "distinct_occupancy_frames": 16,
+      "motion_evidence": "More than 16 distinct coordinates across frames exceeds a fixed eight-spark/two-point map.",
+      "status": "passed",
+      "clear_before_launch": {
+        "status": "passed",
+        "black_sequences": [
+          16688,
+          16689
+        ]
+      },
+      "frame_sequences": [
+        16690,
+        16691,
+        16692,
+        16693,
+        16694,
+        16696,
+        16697,
+        16698,
+        16699,
+        16700,
+        16701,
+        16702,
+        16703,
+        16704,
+        16705,
+        16706
+      ],
+      "pistil_span_frames": [],
+      "paired_glitter": {
+        "frames_checked": 16,
+        "motion_offset_candidates": [
+          0
+        ],
+        "motion_fit_count": 1,
+        "status": "paired_glitter_observed",
+        "all_nonzero_pixels_match_fitted_motion": true,
+        "unique_motion_offset": true,
+        "unique_motion_and_velocity_fit": true,
+        "disjoint_visible_pairs": 80,
+        "disjoint_hidden_pairs": 30,
+        "particles_observed_both_visible_and_hidden": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    },
+    {
+      "material": 4,
+      "material_name": "Aluminium \u00b7 white",
+      "pattern": 2,
+      "pattern_name": "Willow",
+      "sample_count": 16,
+      "nonempty_frames": 15,
+      "observed_colours": [
+        6
+      ],
+      "expected_colours": [
+        6
+      ],
+      "coordinate_union_count": 95,
+      "changing_lit_pixel_counts": true,
+      "distinct_occupancy_frames": 16,
+      "motion_evidence": "More than 16 distinct coordinates across frames exceeds a fixed eight-spark/two-point map.",
+      "status": "passed",
+      "clear_before_launch": {
+        "status": "passed",
+        "black_sequences": [
+          16709,
+          16710
+        ]
+      },
+      "frame_sequences": [
+        16711,
+        16712,
+        16713,
+        16714,
+        16715,
+        16716,
+        16717,
+        16718,
+        16719,
+        16720,
+        16722,
+        16723,
+        16724,
+        16725,
+        16726,
+        16727
+      ],
+      "pistil_span_frames": [],
+      "paired_glitter": {
+        "frames_checked": 16,
+        "motion_offset_candidates": [
+          0
+        ],
+        "motion_fit_count": 1,
+        "status": "paired_glitter_observed",
+        "all_nonzero_pixels_match_fitted_motion": true,
+        "unique_motion_offset": true,
+        "unique_motion_and_velocity_fit": true,
+        "disjoint_visible_pairs": 64,
+        "disjoint_hidden_pairs": 14,
+        "particles_observed_both_visible_and_hidden": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      }
+    },
+    {
+      "material": 4,
+      "material_name": "Aluminium \u00b7 white",
+      "pattern": 3,
+      "pattern_name": "Pistil",
+      "sample_count": 16,
+      "nonempty_frames": 15,
+      "observed_colours": [
+        6
+      ],
+      "expected_colours": [
+        6
+      ],
+      "coordinate_union_count": 108,
+      "changing_lit_pixel_counts": true,
+      "distinct_occupancy_frames": 16,
+      "motion_evidence": "More than 16 distinct coordinates across frames exceeds a fixed eight-spark/two-point map.",
+      "status": "passed",
+      "clear_before_launch": {
+        "status": "passed",
+        "black_sequences": [
+          16730,
+          16731
+        ]
+      },
+      "frame_sequences": [
+        16732,
+        16734,
+        16735,
+        16736,
+        16737,
+        16738,
+        16739,
+        16740,
+        16741,
+        16742,
+        16743,
+        16744,
+        16746,
+        16747,
+        16748,
+        16749
+      ],
+      "pistil_span_frames": [],
+      "paired_glitter": {
+        "frames_checked": 16,
+        "motion_offset_candidates": [
+          0
+        ],
+        "motion_fit_count": 1,
+        "status": "paired_glitter_observed",
+        "all_nonzero_pixels_match_fitted_motion": true,
+        "unique_motion_offset": true,
+        "unique_motion_and_velocity_fit": true,
+        "disjoint_visible_pairs": 74,
+        "disjoint_hidden_pairs": 34,
+        "particles_observed_both_visible_and_hidden": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    },
+    {
+      "material": 5,
+      "material_name": "Titanium \u00b7 silver",
+      "pattern": 0,
+      "pattern_name": "Radial",
+      "sample_count": 16,
+      "nonempty_frames": 15,
+      "observed_colours": [
+        7
+      ],
+      "expected_colours": [
+        7
+      ],
+      "coordinate_union_count": 111,
+      "changing_lit_pixel_counts": true,
+      "distinct_occupancy_frames": 16,
+      "motion_evidence": "More than 16 distinct coordinates across frames exceeds a fixed eight-spark/two-point map.",
+      "status": "passed",
+      "clear_before_launch": {
+        "status": "passed",
+        "black_sequences": [
+          16752,
+          16753
+        ]
+      },
+      "frame_sequences": [
+        16754,
+        16755,
+        16756,
+        16757,
+        16758,
+        16760,
+        16761,
+        16762,
+        16763,
+        16764,
+        16765,
+        16766,
+        16767,
+        16768,
+        16769,
+        16770
+      ],
+      "pistil_span_frames": [],
+      "paired_glitter": {
+        "frames_checked": 16,
+        "motion_offset_candidates": [
+          0
+        ],
+        "motion_fit_count": 1,
+        "radial_initial_velocity_mask_candidates": [
+          100
+        ],
+        "status": "paired_glitter_observed",
+        "all_nonzero_pixels_match_fitted_motion": true,
+        "unique_motion_offset": true,
+        "unique_motion_and_velocity_fit": true,
+        "disjoint_visible_pairs": 80,
+        "disjoint_hidden_pairs": 22,
+        "particles_observed_both_visible_and_hidden": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    },
+    {
+      "material": 5,
+      "material_name": "Titanium \u00b7 silver",
+      "pattern": 1,
+      "pattern_name": "Ring",
+      "sample_count": 16,
+      "nonempty_frames": 15,
+      "observed_colours": [
+        7
+      ],
+      "expected_colours": [
+        7
+      ],
+      "coordinate_union_count": 112,
+      "changing_lit_pixel_counts": true,
+      "distinct_occupancy_frames": 16,
+      "motion_evidence": "More than 16 distinct coordinates across frames exceeds a fixed eight-spark/two-point map.",
+      "status": "passed",
+      "clear_before_launch": {
+        "status": "passed",
+        "black_sequences": [
+          16773,
+          16774
+        ]
+      },
+      "frame_sequences": [
+        16775,
+        16776,
+        16777,
+        16778,
+        16779,
+        16780,
+        16781,
+        16782,
+        16783,
+        16784,
+        16786,
+        16787,
+        16788,
+        16789,
+        16790,
+        16791
+      ],
+      "pistil_span_frames": [],
+      "paired_glitter": {
+        "frames_checked": 16,
+        "motion_offset_candidates": [
+          0
+        ],
+        "motion_fit_count": 1,
+        "status": "paired_glitter_observed",
+        "all_nonzero_pixels_match_fitted_motion": true,
+        "unique_motion_offset": true,
+        "unique_motion_and_velocity_fit": true,
+        "disjoint_visible_pairs": 77,
+        "disjoint_hidden_pairs": 33,
+        "particles_observed_both_visible_and_hidden": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    },
+    {
+      "material": 5,
+      "material_name": "Titanium \u00b7 silver",
+      "pattern": 2,
+      "pattern_name": "Willow",
+      "sample_count": 16,
+      "nonempty_frames": 15,
+      "observed_colours": [
+        7
+      ],
+      "expected_colours": [
+        7
+      ],
+      "coordinate_union_count": 86,
+      "changing_lit_pixel_counts": true,
+      "distinct_occupancy_frames": 16,
+      "motion_evidence": "More than 16 distinct coordinates across frames exceeds a fixed eight-spark/two-point map.",
+      "status": "passed",
+      "clear_before_launch": {
+        "status": "passed",
+        "black_sequences": [
+          16794,
+          16795
+        ]
+      },
+      "frame_sequences": [
+        16796,
+        16798,
+        16799,
+        16800,
+        16801,
+        16802,
+        16803,
+        16804,
+        16805,
+        16806,
+        16807,
+        16808,
+        16809,
+        16810,
+        16811,
+        16812
+      ],
+      "pistil_span_frames": [],
+      "paired_glitter": {
+        "frames_checked": 16,
+        "motion_offset_candidates": [
+          0
+        ],
+        "motion_fit_count": 1,
+        "status": "paired_glitter_observed",
+        "all_nonzero_pixels_match_fitted_motion": true,
+        "unique_motion_offset": true,
+        "unique_motion_and_velocity_fit": true,
+        "disjoint_visible_pairs": 62,
+        "disjoint_hidden_pairs": 24,
+        "particles_observed_both_visible_and_hidden": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          6,
+          7
+        ]
+      }
+    },
+    {
+      "material": 5,
+      "material_name": "Titanium \u00b7 silver",
+      "pattern": 3,
+      "pattern_name": "Pistil",
+      "sample_count": 16,
+      "nonempty_frames": 15,
+      "observed_colours": [
+        6,
+        7
+      ],
+      "expected_colours": [
+        6,
+        7
+      ],
+      "coordinate_union_count": 103,
+      "changing_lit_pixel_counts": true,
+      "distinct_occupancy_frames": 16,
+      "motion_evidence": "More than 16 distinct coordinates across frames exceeds a fixed eight-spark/two-point map.",
+      "status": "passed",
+      "clear_before_launch": {
+        "status": "passed",
+        "black_sequences": [
+          16815,
+          16816
+        ]
+      },
+      "frame_sequences": [
+        16817,
+        16818,
+        16819,
+        16820,
+        16821,
+        16823,
+        16824,
+        16825,
+        16826,
+        16827,
+        16828,
+        16829,
+        16830,
+        16831,
+        16832,
+        16833
+      ],
+      "pistil_span_frames": [
+        {
+          "seq": 16818,
+          "shell": {
+            "count": 4,
+            "x_span": 4,
+            "y_span": 4
+          },
+          "white_core": {
+            "count": 4,
+            "x_span": 1,
+            "y_span": 1
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16819,
+          "shell": {
+            "count": 4,
+            "x_span": 4,
+            "y_span": 4
+          },
+          "white_core": {
+            "count": 6,
+            "x_span": 3,
+            "y_span": 3
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16820,
+          "shell": {
+            "count": 8,
+            "x_span": 12,
+            "y_span": 12
+          },
+          "white_core": {
+            "count": 8,
+            "x_span": 5,
+            "y_span": 5
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16821,
+          "shell": {
+            "count": 4,
+            "x_span": 8,
+            "y_span": 8
+          },
+          "white_core": {
+            "count": 6,
+            "x_span": 5,
+            "y_span": 6
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16823,
+          "shell": {
+            "count": 6,
+            "x_span": 24,
+            "y_span": 12
+          },
+          "white_core": {
+            "count": 4,
+            "x_span": 9,
+            "y_span": 0
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16824,
+          "shell": {
+            "count": 4,
+            "x_span": 14,
+            "y_span": 15
+          },
+          "white_core": {
+            "count": 7,
+            "x_span": 10,
+            "y_span": 10
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16825,
+          "shell": {
+            "count": 4,
+            "x_span": 0,
+            "y_span": 32
+          },
+          "white_core": {
+            "count": 6,
+            "x_span": 11,
+            "y_span": 12
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16826,
+          "shell": {
+            "count": 4,
+            "x_span": 0,
+            "y_span": 36
+          },
+          "white_core": {
+            "count": 4,
+            "x_span": 13,
+            "y_span": 0
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16827,
+          "shell": {
+            "count": 6,
+            "x_span": 20,
+            "y_span": 40
+          },
+          "white_core": {
+            "count": 5,
+            "x_span": 14,
+            "y_span": 14
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16828,
+          "shell": {
+            "count": 2,
+            "x_span": 2,
+            "y_span": 1
+          },
+          "white_core": {
+            "count": 6,
+            "x_span": 16,
+            "y_span": 16
+          },
+          "outer_span_larger": false
+        },
+        {
+          "seq": 16829,
+          "shell": {
+            "count": 6,
+            "x_span": 48,
+            "y_span": 25
+          },
+          "white_core": {
+            "count": 5,
+            "x_span": 17,
+            "y_span": 17
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16830,
+          "shell": {
+            "count": 4,
+            "x_span": 26,
+            "y_span": 26
+          },
+          "white_core": {
+            "count": 7,
+            "x_span": 18,
+            "y_span": 18
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16831,
+          "shell": {
+            "count": 8,
+            "x_span": 56,
+            "y_span": 56
+          },
+          "white_core": {
+            "count": 8,
+            "x_span": 20,
+            "y_span": 20
+          },
+          "outer_span_larger": true
+        },
+        {
+          "seq": 16832,
+          "shell": {
+            "count": 8,
+            "x_span": 60,
+            "y_span": 60
+          },
+          "white_core": {
+            "count": 8,
+            "x_span": 22,
+            "y_span": 21
+          },
+          "outer_span_larger": true
+        }
+      ],
+      "paired_glitter": {
+        "frames_checked": 16,
+        "motion_offset_candidates": [
+          0
+        ],
+        "motion_fit_count": 1,
+        "status": "paired_glitter_observed",
+        "all_nonzero_pixels_match_fitted_motion": true,
+        "unique_motion_offset": true,
+        "unique_motion_and_velocity_fit": true,
+        "disjoint_visible_pairs": 72,
+        "disjoint_hidden_pairs": 31,
+        "particles_observed_both_visible_and_hidden": [
+          0,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    }
+  ],
+  "streaming": [
+    {
+      "target_fps": 18,
+      "requested_duration_s": 10,
+      "observed_duration_s": 10.037884,
+      "sample_count": 174,
+      "measured_fps": 17.234708,
+      "sequence_advances": 173,
+      "nonadvancing_or_reversed": 0,
+      "min_interarrival_s": 0.057122,
+      "max_interarrival_s": 0.059457,
+      "minimum_pass_fps": 16.2,
+      "status": "passed",
+      "arrivals": [
+        {
+          "seq": 16857,
+          "elapsed_s": 0.0
+        },
+        {
+          "seq": 16858,
+          "elapsed_s": 0.057976
+        },
+        {
+          "seq": 16859,
+          "elapsed_s": 0.11602
+        },
+        {
+          "seq": 16860,
+          "elapsed_s": 0.173925
+        },
+        {
+          "seq": 16861,
+          "elapsed_s": 0.232719
+        },
+        {
+          "seq": 16862,
+          "elapsed_s": 0.289841
+        },
+        {
+          "seq": 16863,
+          "elapsed_s": 0.348378
+        },
+        {
+          "seq": 16864,
+          "elapsed_s": 0.406361
+        },
+        {
+          "seq": 16865,
+          "elapsed_s": 0.464601
+        },
+        {
+          "seq": 16866,
+          "elapsed_s": 0.521942
+        },
+        {
+          "seq": 16867,
+          "elapsed_s": 0.581399
+        },
+        {
+          "seq": 16868,
+          "elapsed_s": 0.639805
+        },
+        {
+          "seq": 16870,
+          "elapsed_s": 0.697534
+        },
+        {
+          "seq": 16871,
+          "elapsed_s": 0.754971
+        },
+        {
+          "seq": 16872,
+          "elapsed_s": 0.812963
+        },
+        {
+          "seq": 16873,
+          "elapsed_s": 0.87085
+        },
+        {
+          "seq": 16874,
+          "elapsed_s": 0.929001
+        },
+        {
+          "seq": 16875,
+          "elapsed_s": 0.986945
+        },
+        {
+          "seq": 16876,
+          "elapsed_s": 1.044948
+        },
+        {
+          "seq": 16877,
+          "elapsed_s": 1.102814
+        },
+        {
+          "seq": 16878,
+          "elapsed_s": 1.160831
+        },
+        {
+          "seq": 16879,
+          "elapsed_s": 1.218877
+        },
+        {
+          "seq": 16880,
+          "elapsed_s": 1.276837
+        },
+        {
+          "seq": 16882,
+          "elapsed_s": 1.334869
+        },
+        {
+          "seq": 16883,
+          "elapsed_s": 1.392861
+        },
+        {
+          "seq": 16884,
+          "elapsed_s": 1.451012
+        },
+        {
+          "seq": 16885,
+          "elapsed_s": 1.508965
+        },
+        {
+          "seq": 16886,
+          "elapsed_s": 1.56681
+        },
+        {
+          "seq": 16887,
+          "elapsed_s": 1.624946
+        },
+        {
+          "seq": 16888,
+          "elapsed_s": 1.683091
+        },
+        {
+          "seq": 16889,
+          "elapsed_s": 1.741023
+        },
+        {
+          "seq": 16890,
+          "elapsed_s": 1.798935
+        },
+        {
+          "seq": 16891,
+          "elapsed_s": 1.857172
+        },
+        {
+          "seq": 16892,
+          "elapsed_s": 1.914908
+        },
+        {
+          "seq": 16894,
+          "elapsed_s": 1.972809
+        },
+        {
+          "seq": 16895,
+          "elapsed_s": 2.030989
+        },
+        {
+          "seq": 16896,
+          "elapsed_s": 2.089111
+        },
+        {
+          "seq": 16897,
+          "elapsed_s": 2.147106
+        },
+        {
+          "seq": 16898,
+          "elapsed_s": 2.205085
+        },
+        {
+          "seq": 16899,
+          "elapsed_s": 2.26317
+        },
+        {
+          "seq": 16900,
+          "elapsed_s": 2.321075
+        },
+        {
+          "seq": 16901,
+          "elapsed_s": 2.37913
+        },
+        {
+          "seq": 16902,
+          "elapsed_s": 2.437243
+        },
+        {
+          "seq": 16903,
+          "elapsed_s": 2.495093
+        },
+        {
+          "seq": 16904,
+          "elapsed_s": 2.553097
+        },
+        {
+          "seq": 16905,
+          "elapsed_s": 2.61091
+        },
+        {
+          "seq": 16906,
+          "elapsed_s": 2.66888
+        },
+        {
+          "seq": 16908,
+          "elapsed_s": 2.726934
+        },
+        {
+          "seq": 16909,
+          "elapsed_s": 2.785076
+        },
+        {
+          "seq": 16910,
+          "elapsed_s": 2.843049
+        },
+        {
+          "seq": 16911,
+          "elapsed_s": 2.900843
+        },
+        {
+          "seq": 16912,
+          "elapsed_s": 2.959058
+        },
+        {
+          "seq": 16913,
+          "elapsed_s": 3.017057
+        },
+        {
+          "seq": 16914,
+          "elapsed_s": 3.075091
+        },
+        {
+          "seq": 16915,
+          "elapsed_s": 3.133077
+        },
+        {
+          "seq": 16916,
+          "elapsed_s": 3.1909
+        },
+        {
+          "seq": 16917,
+          "elapsed_s": 3.24907
+        },
+        {
+          "seq": 16918,
+          "elapsed_s": 3.307106
+        },
+        {
+          "seq": 16920,
+          "elapsed_s": 3.364991
+        },
+        {
+          "seq": 16921,
+          "elapsed_s": 3.422884
+        },
+        {
+          "seq": 16922,
+          "elapsed_s": 3.481162
+        },
+        {
+          "seq": 16923,
+          "elapsed_s": 3.539853
+        },
+        {
+          "seq": 16924,
+          "elapsed_s": 3.597745
+        },
+        {
+          "seq": 16925,
+          "elapsed_s": 3.655781
+        },
+        {
+          "seq": 16926,
+          "elapsed_s": 3.714003
+        },
+        {
+          "seq": 16927,
+          "elapsed_s": 3.772112
+        },
+        {
+          "seq": 16928,
+          "elapsed_s": 3.830088
+        },
+        {
+          "seq": 16929,
+          "elapsed_s": 3.888007
+        },
+        {
+          "seq": 16930,
+          "elapsed_s": 3.946075
+        },
+        {
+          "seq": 16931,
+          "elapsed_s": 4.004087
+        },
+        {
+          "seq": 16932,
+          "elapsed_s": 4.061905
+        },
+        {
+          "seq": 16934,
+          "elapsed_s": 4.119938
+        },
+        {
+          "seq": 16935,
+          "elapsed_s": 4.177925
+        },
+        {
+          "seq": 16936,
+          "elapsed_s": 4.236069
+        },
+        {
+          "seq": 16937,
+          "elapsed_s": 4.294067
+        },
+        {
+          "seq": 16938,
+          "elapsed_s": 4.351967
+        },
+        {
+          "seq": 16939,
+          "elapsed_s": 4.409843
+        },
+        {
+          "seq": 16940,
+          "elapsed_s": 4.467949
+        },
+        {
+          "seq": 16941,
+          "elapsed_s": 4.525763
+        },
+        {
+          "seq": 16942,
+          "elapsed_s": 4.584027
+        },
+        {
+          "seq": 16943,
+          "elapsed_s": 4.642007
+        },
+        {
+          "seq": 16944,
+          "elapsed_s": 4.700051
+        },
+        {
+          "seq": 16946,
+          "elapsed_s": 4.758051
+        },
+        {
+          "seq": 16947,
+          "elapsed_s": 4.816026
+        },
+        {
+          "seq": 16948,
+          "elapsed_s": 4.873805
+        },
+        {
+          "seq": 16949,
+          "elapsed_s": 4.93173
+        },
+        {
+          "seq": 16950,
+          "elapsed_s": 4.989853
+        },
+        {
+          "seq": 16951,
+          "elapsed_s": 5.047941
+        },
+        {
+          "seq": 16952,
+          "elapsed_s": 5.105782
+        },
+        {
+          "seq": 16953,
+          "elapsed_s": 5.163841
+        },
+        {
+          "seq": 16954,
+          "elapsed_s": 5.221905
+        },
+        {
+          "seq": 16955,
+          "elapsed_s": 5.279737
+        },
+        {
+          "seq": 16956,
+          "elapsed_s": 5.33761
+        },
+        {
+          "seq": 16958,
+          "elapsed_s": 5.395786
+        },
+        {
+          "seq": 16959,
+          "elapsed_s": 5.453746
+        },
+        {
+          "seq": 16960,
+          "elapsed_s": 5.512497
+        },
+        {
+          "seq": 16961,
+          "elapsed_s": 5.570244
+        },
+        {
+          "seq": 16962,
+          "elapsed_s": 5.627893
+        },
+        {
+          "seq": 16963,
+          "elapsed_s": 5.6858
+        },
+        {
+          "seq": 16964,
+          "elapsed_s": 5.74376
+        },
+        {
+          "seq": 16965,
+          "elapsed_s": 5.801756
+        },
+        {
+          "seq": 16966,
+          "elapsed_s": 5.859863
+        },
+        {
+          "seq": 16967,
+          "elapsed_s": 5.91795
+        },
+        {
+          "seq": 16968,
+          "elapsed_s": 5.975792
+        },
+        {
+          "seq": 16969,
+          "elapsed_s": 6.033797
+        },
+        {
+          "seq": 16970,
+          "elapsed_s": 6.091857
+        },
+        {
+          "seq": 16972,
+          "elapsed_s": 6.149989
+        },
+        {
+          "seq": 16973,
+          "elapsed_s": 6.208032
+        },
+        {
+          "seq": 16974,
+          "elapsed_s": 6.265875
+        },
+        {
+          "seq": 16975,
+          "elapsed_s": 6.323725
+        },
+        {
+          "seq": 16976,
+          "elapsed_s": 6.381855
+        },
+        {
+          "seq": 16977,
+          "elapsed_s": 6.439788
+        },
+        {
+          "seq": 16978,
+          "elapsed_s": 6.497932
+        },
+        {
+          "seq": 16979,
+          "elapsed_s": 6.555976
+        },
+        {
+          "seq": 16980,
+          "elapsed_s": 6.613975
+        },
+        {
+          "seq": 16981,
+          "elapsed_s": 6.672038
+        },
+        {
+          "seq": 16982,
+          "elapsed_s": 6.730102
+        },
+        {
+          "seq": 16984,
+          "elapsed_s": 6.78776
+        },
+        {
+          "seq": 16985,
+          "elapsed_s": 6.84591
+        },
+        {
+          "seq": 16986,
+          "elapsed_s": 6.904681
+        },
+        {
+          "seq": 16987,
+          "elapsed_s": 6.96258
+        },
+        {
+          "seq": 16988,
+          "elapsed_s": 7.019958
+        },
+        {
+          "seq": 16989,
+          "elapsed_s": 7.078584
+        },
+        {
+          "seq": 16990,
+          "elapsed_s": 7.136208
+        },
+        {
+          "seq": 16991,
+          "elapsed_s": 7.194876
+        },
+        {
+          "seq": 16992,
+          "elapsed_s": 7.253846
+        },
+        {
+          "seq": 16993,
+          "elapsed_s": 7.311697
+        },
+        {
+          "seq": 16994,
+          "elapsed_s": 7.369693
+        },
+        {
+          "seq": 16995,
+          "elapsed_s": 7.427779
+        },
+        {
+          "seq": 16996,
+          "elapsed_s": 7.485644
+        },
+        {
+          "seq": 16998,
+          "elapsed_s": 7.544601
+        },
+        {
+          "seq": 16999,
+          "elapsed_s": 7.602407
+        },
+        {
+          "seq": 17000,
+          "elapsed_s": 7.660177
+        },
+        {
+          "seq": 17001,
+          "elapsed_s": 7.717627
+        },
+        {
+          "seq": 17002,
+          "elapsed_s": 7.776166
+        },
+        {
+          "seq": 17003,
+          "elapsed_s": 7.833582
+        },
+        {
+          "seq": 17004,
+          "elapsed_s": 7.891761
+        },
+        {
+          "seq": 17005,
+          "elapsed_s": 7.950014
+        },
+        {
+          "seq": 17006,
+          "elapsed_s": 8.007823
+        },
+        {
+          "seq": 17007,
+          "elapsed_s": 8.065643
+        },
+        {
+          "seq": 17008,
+          "elapsed_s": 8.123992
+        },
+        {
+          "seq": 17010,
+          "elapsed_s": 8.181803
+        },
+        {
+          "seq": 17011,
+          "elapsed_s": 8.239685
+        },
+        {
+          "seq": 17012,
+          "elapsed_s": 8.297649
+        },
+        {
+          "seq": 17013,
+          "elapsed_s": 8.355671
+        },
+        {
+          "seq": 17014,
+          "elapsed_s": 8.414742
+        },
+        {
+          "seq": 17015,
+          "elapsed_s": 8.472588
+        },
+        {
+          "seq": 17016,
+          "elapsed_s": 8.530372
+        },
+        {
+          "seq": 17017,
+          "elapsed_s": 8.587578
+        },
+        {
+          "seq": 17018,
+          "elapsed_s": 8.645548
+        },
+        {
+          "seq": 17019,
+          "elapsed_s": 8.70358
+        },
+        {
+          "seq": 17020,
+          "elapsed_s": 8.761865
+        },
+        {
+          "seq": 17021,
+          "elapsed_s": 8.819886
+        },
+        {
+          "seq": 17022,
+          "elapsed_s": 8.877969
+        },
+        {
+          "seq": 17023,
+          "elapsed_s": 8.93575
+        },
+        {
+          "seq": 17024,
+          "elapsed_s": 8.993793
+        },
+        {
+          "seq": 17025,
+          "elapsed_s": 9.051916
+        },
+        {
+          "seq": 17026,
+          "elapsed_s": 9.109747
+        },
+        {
+          "seq": 17027,
+          "elapsed_s": 9.167859
+        },
+        {
+          "seq": 17028,
+          "elapsed_s": 9.225755
+        },
+        {
+          "seq": 17029,
+          "elapsed_s": 9.283909
+        },
+        {
+          "seq": 17030,
+          "elapsed_s": 9.341919
+        },
+        {
+          "seq": 17031,
+          "elapsed_s": 9.399896
+        },
+        {
+          "seq": 17032,
+          "elapsed_s": 9.457874
+        },
+        {
+          "seq": 17033,
+          "elapsed_s": 9.515744
+        },
+        {
+          "seq": 17035,
+          "elapsed_s": 9.573801
+        },
+        {
+          "seq": 17036,
+          "elapsed_s": 9.631892
+        },
+        {
+          "seq": 17037,
+          "elapsed_s": 9.689759
+        },
+        {
+          "seq": 17038,
+          "elapsed_s": 9.747875
+        },
+        {
+          "seq": 17039,
+          "elapsed_s": 9.805876
+        },
+        {
+          "seq": 17040,
+          "elapsed_s": 9.863931
+        },
+        {
+          "seq": 17041,
+          "elapsed_s": 9.921968
+        },
+        {
+          "seq": 17042,
+          "elapsed_s": 9.979946
+        },
+        {
+          "seq": 17043,
+          "elapsed_s": 10.037884
+        }
+      ]
+    },
+    {
+      "target_fps": 7,
+      "requested_duration_s": 3,
+      "observed_duration_s": 3.122304,
+      "sample_count": 23,
+      "measured_fps": 7.046078,
+      "sequence_advances": 22,
+      "nonadvancing_or_reversed": 0,
+      "min_interarrival_s": 0.140164,
+      "max_interarrival_s": 0.142913,
+      "minimum_pass_fps": 6.3,
+      "status": "passed",
+      "arrivals": [
+        {
+          "seq": 17064,
+          "elapsed_s": 0.0
+        },
+        {
+          "seq": 17067,
+          "elapsed_s": 0.140164
+        },
+        {
+          "seq": 17070,
+          "elapsed_s": 0.282783
+        },
+        {
+          "seq": 17074,
+          "elapsed_s": 0.424152
+        },
+        {
+          "seq": 17077,
+          "elapsed_s": 0.566051
+        },
+        {
+          "seq": 17081,
+          "elapsed_s": 0.708008
+        },
+        {
+          "seq": 17084,
+          "elapsed_s": 0.85015
+        },
+        {
+          "seq": 17087,
+          "elapsed_s": 0.993062
+        },
+        {
+          "seq": 17090,
+          "elapsed_s": 1.134098
+        },
+        {
+          "seq": 17093,
+          "elapsed_s": 1.276303
+        },
+        {
+          "seq": 17096,
+          "elapsed_s": 1.418254
+        },
+        {
+          "seq": 17099,
+          "elapsed_s": 1.560785
+        },
+        {
+          "seq": 17103,
+          "elapsed_s": 1.702171
+        },
+        {
+          "seq": 17106,
+          "elapsed_s": 1.844225
+        },
+        {
+          "seq": 17109,
+          "elapsed_s": 1.986258
+        },
+        {
+          "seq": 17112,
+          "elapsed_s": 2.128317
+        },
+        {
+          "seq": 17115,
+          "elapsed_s": 2.270242
+        },
+        {
+          "seq": 17118,
+          "elapsed_s": 2.412173
+        },
+        {
+          "seq": 17121,
+          "elapsed_s": 2.554318
+        },
+        {
+          "seq": 17125,
+          "elapsed_s": 2.696271
+        },
+        {
+          "seq": 17128,
+          "elapsed_s": 2.838361
+        },
+        {
+          "seq": 17131,
+          "elapsed_s": 2.980355
+        },
+        {
+          "seq": 17134,
+          "elapsed_s": 3.122304
+        }
+      ]
+    },
+    {
+      "target_fps": 5,
+      "requested_duration_s": 3,
+      "observed_duration_s": 2.998879,
+      "sample_count": 16,
+      "measured_fps": 5.001869,
+      "sequence_advances": 15,
+      "nonadvancing_or_reversed": 0,
+      "min_interarrival_s": 0.198444,
+      "max_interarrival_s": 0.200623,
+      "minimum_pass_fps": 4.5,
+      "status": "passed",
+      "arrivals": [
+        {
+          "seq": 17154,
+          "elapsed_s": 0.0
+        },
+        {
+          "seq": 17158,
+          "elapsed_s": 0.198444
+        },
+        {
+          "seq": 17163,
+          "elapsed_s": 0.398394
+        },
+        {
+          "seq": 17168,
+          "elapsed_s": 0.598421
+        },
+        {
+          "seq": 17173,
+          "elapsed_s": 0.79834
+        },
+        {
+          "seq": 17178,
+          "elapsed_s": 0.998539
+        },
+        {
+          "seq": 17183,
+          "elapsed_s": 1.198575
+        },
+        {
+          "seq": 17188,
+          "elapsed_s": 1.39859
+        },
+        {
+          "seq": 17193,
+          "elapsed_s": 1.598733
+        },
+        {
+          "seq": 17198,
+          "elapsed_s": 1.799287
+        },
+        {
+          "seq": 17203,
+          "elapsed_s": 1.99905
+        },
+        {
+          "seq": 17208,
+          "elapsed_s": 2.198396
+        },
+        {
+          "seq": 17213,
+          "elapsed_s": 2.39853
+        },
+        {
+          "seq": 17218,
+          "elapsed_s": 2.598181
+        },
+        {
+          "seq": 17223,
+          "elapsed_s": 2.798256
+        },
+        {
+          "seq": 17228,
+          "elapsed_s": 2.998879
+        }
+      ]
+    }
+  ],
+  "paired_glitter_analysis": {
+    "method": "Fit exact fixed-point motion against received pixel coordinates and sequence deltas. Enumerate 64 possible fixed initial horizontal velocity records for Radial. Classify only distinct, in-bounds head/trail coordinates disjoint from all other sparks; intersect classifications across every valid motion/velocity fit.",
+    "limitations": "Offline interpretation of the supplied board capture, not another board measurement. Overlapping or coincident points are excluded; visibility states are inferred from kinematics, while simulation independently proves the gate implementation. The Radial fit permits every combination of its six per-spoke velocity increments rather than assuming unknown launch LFSR state.",
+    "status_counts": {
+      "paired_glitter_observed": 24
+    },
+    "deterministic_presets_all_show_paired_glitter": true,
+    "all_presets_show_paired_glitter": true,
+    "source_capture_sha256": "bef6fd7be0f6687b05b900d78241f9a2edc713d40343acd8735cfeb6101658b9",
+    "visible_pairs": 1791,
+    "hidden_pairs": 619,
+    "unique_motion_and_velocity_fits": 24
+  },
+  "physical_desktop": {
+    "status": "passed",
+    "physical_board": true,
+    "capture_saved": true,
+    "captured_frame_seq": 9703,
+    "captured_lit_pixels": 14,
+    "fps_at_capture": 16.666666666666668,
+    "display_status": "LIVE FPGA",
+    "frames_received": 75,
+    "final_stream_fps": 17.333333333333332,
+    "clear_received": true,
+    "verified_firmware": "0.3.0",
+    "source": "actual FPGA frames"
+  },
+  "exploratory_run_note": "An earlier exploratory capture was not marked passed because one USB line was discarded without recording its phase. This recorded rerun instruments attachment and acceptance separately: zero discarded lines in either phase. Board error counters stayed zero in both runs."
+}

@@ -1,0 +1,7 @@
+Owner authorized upload. Existing reviewed application/LittleFS package used.
+0x0 pyrocore.ino.bootloader.bin 19968 bytes SHA256 883bb1e4765f12902e56b4bb901d0504df2ea2396bba8d79a7b29ae87d4b3658
+0x8000 pyrocore.ino.partitions.bin 3072 bytes SHA256 1d9cca96de0fe07ad7fc0648b9878ddecd9ce565e38b589ad20fea698ed4c80c
+0xe000 boot_app0.bin 8192 bytes SHA256 f94c5d786a7a8fab06ac5d10e33bf37711a6697636dc037559ea19cc410a17f0
+0x10000 pyrocore.ino.bin 359392 bytes SHA256 f1e0a6dd23a1f70629949a2639396bf14b8c72b3188ee807bbb42d3433a58ad1
+0x670000 littlefs.bin 1572864 bytes SHA256 9926c1262bd141398825ccd060f6fe6b44be8cc9a50f314b31c99e0ca6aa0651
+Hash of data verified: all5 sections. Normal ESP32 reset after upload. OTP not programmed.

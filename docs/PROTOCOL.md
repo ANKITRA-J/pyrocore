@@ -36,9 +36,10 @@ CDC with a 115200 baud selection; the separate FPGA UART is the throughput limit
 `set` changes the selection; `launch` applies the selection and starts a burst.
 Omitted material/pattern values retain the current selection. `frame` requests one
 complete frame. Firmware starts at 5 FPS; the desktop selects an 18 FPS target by
-default, with 7 FPS and 5 FPS fallbacks. These are request targets, not a claim of
-measured board throughput. Lower targets reduce request load; they do not change
-the FPGA UART baud rate. The launch example above selects Sodium Pistil.
+default, with 7 FPS and 5 FPS fallbacks. These are request targets; short physical
+checks deliver about 17 FPS at the 18 FPS target. Lower targets reduce request
+load; they do not change the FPGA UART baud rate. The launch example above
+selects Sodium Pistil.
 
 `set`, `launch`, `clear` and `stream` return `ack` or `error`. Hello/status return
 their named status objects; a manual frame request returns a frame or an error.
@@ -118,9 +119,10 @@ The 600 ms timeout exceeds the 49.44 ms wire-only frame time and the additional
 memory-fetch/UART-handshake pauses.
 
 The wire-only full-frame ceiling is `312500 / 10 / 1545 ≈ 20.23 FPS`. Memory reads,
-UART handshakes, firmware and USB processing reduce achievable throughput. The
-18 FPS target has not yet been physically checked; changing the USB baud selector
-does not change this FPGA link rate.
+UART handshakes, firmware and USB processing reduce achievable throughput.
+Short physical checks measure about 17 FPS at the 18 FPS target; see the
+[board results](../reports/2026-11-04/glitter-fps/RESULTS.md). Changing the USB baud
+selector does not change this FPGA link rate.
 
 At the production clock, RTL simulation measures 168,873 cycles (54.03936 ms)
 per serialized frame, a ceiling of 18.505 FPS before bridge/USB work. The polling

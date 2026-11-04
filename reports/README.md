@@ -7,9 +7,13 @@ firmware v0.3.0, glitter for all materials/patterns, and a 312500-baud FPGA link
 with an 18 FPS desktop target. The FPGA build fits 131/140 blocks and six BRAM
 slices; typical WNS is +15.059 ns, TNS 0. RTL simulation measures 54.03936 ms per
 serialized frame and six advancing frames at 18.182 FPS with ideal polling.
-These are simulation results; the current package has not been uploaded or
-physically checked. See the [manifest](2026-11-04/glitter-fps/build-manifest.json)
-for matching source/image hashes and validation scope.
+These are simulation results. The current package is uploaded with all five flash
+sections verified. All 24 presets pass colour/motion/Clear checks; geometric
+analysis of their captures confirms paired glitter. Hardware delivers 17.235 FPS
+at the 18 FPS target, and 7/5 fallbacks pass with no communication errors. The
+real desktop check also passes. See the [physical report](2026-11-04/glitter-fps/hardware-physical.json)
+and [manifest](2026-11-04/glitter-fps/build-manifest.json) for
+matching source/image hashes and validation scope.
 
 ## Previous board-validated image
 

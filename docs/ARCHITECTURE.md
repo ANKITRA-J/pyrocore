@@ -198,7 +198,7 @@ The FPGA link uses 312500 baud with 8N1 framing, exactly 10 cycles per bit at th
 preserved 3.125 MHz core clock. Its wire-only ceiling is about 20.23 complete
 packets per second. Memory-fetch and UART-handshake pauses, followed by bridge
 and USB work, reduce that rate. The desktop requests 18 FPS with 7/5 FPS fallbacks;
-firmware starts at 5 FPS. These targets still need physical-board measurement.
+firmware starts at 5 FPS. Short physical checks measure about 17 FPS at the 18 FPS target.
 Choosing a fallback reduces request frequency without changing the UART rate.
 The 25 Hz render scheduler and safe buffer ownership remain unchanged.
 RTL simulation measures 54.03936 ms per serialized frame, including those

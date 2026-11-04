@@ -16,7 +16,7 @@ FPGA frames after connecting.*
 - Radial, Ring, Willow and dual-colour Pistil patterns; six material presets.
 - Two 64 × 64 × 3-bit framebuffers in dedicated FPGA BRAM.
 - Launch, Clear and Random Show controls, with validated frame reception.
-- An 18 FPS desktop stream target, with 7 FPS and 5 FPS fallbacks.
+- An 18 FPS desktop target, measuring about 17 FPS on hardware, with 7/5 FPS fallbacks.
 
 The included design targets **SLG47910V Rev BB + ESP32-S3 with 8 MB flash** on
 Shrike-Fi. Other boards need a port; the included binary is device- and board-specific.
@@ -26,9 +26,8 @@ Shrike-Fi. Other boards need a port; the included binary is device- and board-sp
 You need the matching Shrike-Fi board, a USB data cable, Git and Python **3.9–3.13**.
 Connect to the board's **native ESP32 USB** port. No external display or extra
 wiring is required, and the included FPGA image needs no FPGA compiler.
-Earlier physical checks used macOS. The current glitter and faster stream need a
-fresh board check; Windows/Linux host workflows have not had the same physical
-validation.
+Current board and desktop checks used macOS; Windows/Linux host workflows have
+not had the same physical-board validation.
 
 ### Install the desktop app
 
@@ -116,9 +115,9 @@ For later updates, run `git pull --ff-only`, close the old app and reopen it.
 This release changes board communication, so upgrading from v0.2.0 or earlier
 requires uploading the matching **v0.3.0 application and FPGA image together**
 using [the helper above](#load-the-board-package). Updating only the desktop app
-does not enable the new glitter or faster board link. The 18 FPS target awaits
-physical measurement; faster frame delivery also advances the burst more quickly
-in real time, with the same motion and lifetime calculations.
+does not enable the new glitter or faster board link. Current hardware checks
+deliver about 17 FPS at the 18 FPS target. Faster frame delivery also advances
+the burst more quickly in real time, with the same motion and lifetime calculations.
 
 <details>
 <summary>Troubleshooting</summary>
@@ -140,11 +139,11 @@ in real time, with the same motion and lifetime calculations.
 
 ## Handoff
 
-Firmware v0.3.0 / protocol v1 adds glitter everywhere and an 18 FPS target;
-RTL, host/UI checks and FPGA/firmware builds pass at 131/140 blocks ([results](reports/2026-11-04/glitter-fps/RESULTS.md)).
-The new package is not flashed or physically tested; the board still has the
-previous image. Next: upload the complete package when requested, then measure
-FPS and glitter on the board. Long-run reliability and full BRAM timing remain open.
+Firmware v0.3.0 is flashed with all five sections verified; board and desktop checks pass ([results](reports/2026-11-04/glitter-fps/RESULTS.md)).
+All 24 material/pattern combinations passed colour, motion, paired glitter and Clear checks.
+The 18 FPS target measured 17.235 FPS; 7/5 fallbacks passed with zero communication errors.
+RTL/build checks pass at 131/140 blocks. The board is cleared at the 18 FPS target.
+Next: reopen the desktop for use; long-run reliability and full BRAM timing remain open.
 
 For source changes, builds and technical references, see [Development](docs/DEVELOPMENT.md).
 Source attribution and bundled notices are listed in [Credits](docs/CREDITS.md).
