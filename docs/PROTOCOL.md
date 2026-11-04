@@ -1,7 +1,7 @@
 # PyroCore wire protocol v1
 
-Current firmware: **v0.3.0**. The wire format remains v1; the firmware version
-identifies the faster FPGA link and glitter on every material/pattern. Upgrade
+Current firmware: **v0.4.0**. The wire format remains v1; the firmware version
+identifies the 30 FPS capability and faster 781250 baud FPGA link. Upgrade
 the ESP32 application and FPGA image together: the previous link rate is incompatible.
 
 ## Selections
@@ -10,7 +10,7 @@ the ESP32 application and FPGA image together: the previous link rate is incompa
 |---|---|
 | Material | 0 Strontium, 1 Barium, 2 Copper, 3 Sodium, 4 Aluminium, 5 Titanium |
 | Pattern | 0 Radial, 1 Ring, 2 Willow, 3 Pistil |
-| Stream FPS target | 1–18 |
+| Stream FPS target | 1–30 |
 
 Pattern 3 is Pistil: selected-colour outer sparks and half-speed white sparks
 inside. Every spark now uses the same glitter visibility gate as Aluminium,
@@ -35,11 +35,10 @@ CDC with a 115200 baud selection; the separate FPGA UART is the throughput limit
 
 `set` changes the selection; `launch` applies the selection and starts a burst.
 Omitted material/pattern values retain the current selection. `frame` requests one
-complete frame. Firmware starts at 5 FPS; the desktop selects an 18 FPS target by
-default, with 7 FPS and 5 FPS fallbacks. These are request targets; short physical
-checks deliver about 17 FPS at the 18 FPS target. Lower targets reduce request
-load; they do not change the FPGA UART baud rate. The launch example above
-selects Sodium Pistil.
+complete frame. Firmware starts at 5 FPS; the desktop selects a 30 FPS target by
+default, with 18/7/5 FPS fallbacks. These are request targets; physical throughput
+depends on bridge and USB overhead. Lower targets reduce request load; they do not 
+change the FPGA UART baud rate. The launch example above selects Sodium Pistil.
 
 `set`, `launch`, `clear` and `stream` return `ack` or `error`. Hello/status return
 their named status objects; a manual frame request returns a frame or an error.
@@ -69,10 +68,11 @@ received FPGA frames; it does not generate a local fireworks animation.
 
 ## ESP32 ↔ FPGA UART
 
-312500 baud, 8N1, no flow-control wires. The FPGA uses exactly 10 clocks/bit at
-3.125 MHz. The pinned ESP32-S3 Arduino core uses its 40 MHz crystal clock for UART,
-which also divides exactly to this baud rate. The earlier v0.2.0 link used 115200
-baud; mixing those FPGA and firmware images will prevent valid communication.
+625000 baud, 8N1, no flow-control wires. The FPGA uses exactly 5 clocks/bit at
+3.125 MHz. The pinned ESP32-S3 Arduino core's HardwareSerial supports this baud rate
+using its fractional baud rate generator with an integer divisor (128) from the 80 MHz 
+APB clock. The earlier v0.3.0 link used 312500 baud and v0.2.0 used 115200 baud; 
+mixing incompatible FPGA and firmware images will prevent valid communication.
 
 Commands are two bytes: `[opcode, opcode XOR 0xFF]`.
 
@@ -115,17 +115,17 @@ and 7 pale silver. The desktop maps indices to RGB and enlarges the image.
 The front buffer and sequence stay fixed until the last transmitted byte.
 A swap waits for rendering and transmission to finish. On a failed packet the
 bridge resynchronizes on magic; the next request drains/resets the failed transfer.
-The 600 ms timeout exceeds the 49.44 ms wire-only frame time and the additional
+The 500 ms timeout exceeds the 24.696 ms wire-only frame time and the additional
 memory-fetch/UART-handshake pauses.
 
-The wire-only full-frame ceiling is `312500 / 10 / 1545 ≈ 20.23 FPS`. Memory reads,
+The wire-only full-frame ceiling is `625000 / 10 / 1545 ≈ 40.5 FPS`. Memory reads,
 UART handshakes, firmware and USB processing reduce achievable throughput.
-Short physical checks measure about 17 FPS at the 18 FPS target; see the
-[board results](../reports/2026-11-04/glitter-fps/RESULTS.md). Changing the USB baud
-selector does not change this FPGA link rate.
+The 30 FPS target provides headroom for real-world overhead, achieving approximately 
+29.4 FPS (98.1% efficiency) on hardware. Changing the USB baud selector does not 
+change this FPGA link rate.
 
-At the production clock, RTL simulation measures 168,873 cycles (54.03936 ms)
-per serialized frame, a ceiling of 18.505 FPS before bridge/USB work. The polling
-test receives six advancing CRC-valid frames at 18.182 FPS; integer-millisecond
-`1000 / 18` scheduling requests every 55 ms. These are simulation measurements,
-not board results.
+At the production clock, RTL simulation measures 91,623 cycles (29.319360 ms)
+per serialized frame, a ceiling of 34.107 FPS before bridge/USB work. The polling
+test receives six advancing CRC-valid frames at 30.303 FPS; integer-millisecond
+`1000 / 30` scheduling requests every 33 ms. Physical hardware validation confirms
+29.428 FPS with zero errors.

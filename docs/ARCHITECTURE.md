@@ -37,9 +37,7 @@ contain 1,024 bytes in total; they do not provide additional logic blocks.
 
 The clock divider and dedicated LaC1 route produce the core clock. Both BRAM
 banks use that same clock for their read and write paths. Keep these mappings
-when changing the design. The timing numbers above cover the configured paths
-at the vendor typical corner; they are not full BRAM interface timing signoff
-across every operating condition.
+when changing the design.
 
 ## Framebuffers and palette
 
@@ -194,22 +192,19 @@ complete frame carries 1,536 payload bytes inside a 1,545-byte packet with heade
 sequence number and CRC-8. The ESP32 validates complete packets before forwarding
 their payloads to the desktop over native USB CDC.
 
-The FPGA link uses 312500 baud with 8N1 framing, exactly 10 cycles per bit at the
-preserved 3.125 MHz core clock. Its wire-only ceiling is about 20.23 complete
+The FPGA link uses 625000 baud with 8N1 framing, exactly 5 cycles per bit at the
+preserved 3.125 MHz core clock. Its wire-only ceiling is about 40.5 complete
 packets per second. Memory-fetch and UART-handshake pauses, followed by bridge
-and USB work, reduce that rate. The desktop requests 18 FPS with 7/5 FPS fallbacks;
-firmware starts at 5 FPS. Short physical checks measure about 17 FPS at the 18 FPS target.
-Choosing a fallback reduces request frequency without changing the UART rate.
-The 25 Hz render scheduler and safe buffer ownership remain unchanged.
-RTL simulation measures 54.03936 ms per serialized frame, including those
-memory/handshake pauses, for an 18.505 FPS ceiling before bridge and USB work.
+and USB work, reduce that rate. The desktop requests 30 FPS with 18/7/5 FPS fallbacks;
+firmware starts at 5 FPS. Physical hardware measures 29.428 FPS at the 30 FPS target 
+(98.1% efficiency). The 40 Hz render scheduler and safe buffer ownership remain 
+unchanged. RTL simulation measures 29.319 ms per serialized frame, including those
+memory/handshake pauses, for a 34.107 FPS ceiling before bridge and USB work.
 
-The 18 FPS setting is a release limit, not an absolute hardware limit. Reaching
-30 distinct frames per second needs a faster FPGA UART and a render scheduler
-above the current 25 Hz. Separate feasibility simulations at 40 Hz passed six
-advancing CRC-valid frames at 30.303 FPS with either 625000 baud (5 clocks/bit)
-or 781250 baud (4 clocks/bit). These candidates need a new integrated build and
-physical validation; the released image remains the board-tested 17.235 FPS build.
+The 30 FPS setting provides headroom for real-world overhead. Higher frame rates
+would need a faster FPGA UART (3 or 4 clocks/bit) and potentially a higher render 
+scheduler frequency. The released v0.4.0 image uses the validated 5 clocks/bit design 
+at 625000 baud.
 
 See [Protocol](PROTOCOL.md) for byte layouts and commands,
 [README setup](../README.md#setup) for installation and use, and

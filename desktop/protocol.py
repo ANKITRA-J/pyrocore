@@ -7,10 +7,16 @@ WIDTH = HEIGHT = 64
 PIXEL_COUNT = WIDTH * HEIGHT
 PAYLOAD_BYTES = PIXEL_COUNT * 3 // 8
 MAX_LINE_BYTES = 8192
-MAX_STREAM_FPS = 18
+MAX_STREAM_FPS = 30
 PALETTE = (
-    (0, 0, 0), (255, 78, 100), (70, 230, 148), (87, 145, 255),
-    (255, 215, 91), (255, 145, 67), (255, 255, 245), (181, 217, 235),
+    (0, 0, 0),           # 0: Black background
+    (255, 78, 100),      # 1: Red (bright)
+    (70, 230, 148),      # 2: Green (bright)
+    (87, 145, 255),      # 3: Blue (bright)
+    (255, 215, 91),      # 4: Yellow (bright)
+    (255, 145, 67),      # 5: Orange (fade from red/yellow)
+    (255, 255, 245),     # 6: White (bright)
+    (181, 217, 235),     # 7: Pale silver (fade from all colors)
 )
 MATERIALS = ('Strontium · red', 'Barium · green', 'Copper · blue',
              'Sodium · yellow', 'Aluminium · white', 'Titanium · silver')

@@ -279,7 +279,8 @@ class MainWindow(QMainWindow):
         conn_layout.addWidget(self.status_label)
         conn_layout.addWidget(label('Stream rate', 'muted'))
         self.stream_rate = QComboBox()
-        self.stream_rate.addItem(f'{MAX_STREAM_FPS} FPS · faster', MAX_STREAM_FPS)
+        self.stream_rate.addItem(f'{MAX_STREAM_FPS} FPS · fastest', MAX_STREAM_FPS)
+        self.stream_rate.addItem('18 FPS · fast', 18)
         self.stream_rate.addItem('7 FPS · fallback', 7)
         self.stream_rate.addItem('5 FPS · steady', 5)
         self.stream_rate.setMinimumHeight(42)
@@ -417,7 +418,8 @@ class MainWindow(QMainWindow):
         self.material.setCurrentIndex(self.rng.randrange(6))
         pattern = self.rng.randrange(len(PATTERNS))
         self.pattern.setCurrentIndex(pattern)
-        interval = 6000 if pattern == 2 else 1700
+        # Willow gets slightly longer interval since particles fall through frame
+        interval = 2500 if pattern == 2 else 1700
         self.random_timer.setInterval(interval)
         self.launch()
 

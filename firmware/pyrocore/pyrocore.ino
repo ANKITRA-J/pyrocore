@@ -4,10 +4,10 @@
 #include "frame_parser.h"
 
 namespace {
-constexpr char Version[] = "0.3.0";
-constexpr uint32_t FrameTimeoutMs = 600;
-constexpr uint8_t MaxStreamFPS = 18;
-constexpr uint32_t FPGABaud = 312500;  // Ten core clocks per bit at 3.125 MHz.
+constexpr char Version[] = "0.4.0";
+constexpr uint32_t FrameTimeoutMs = 500;
+constexpr uint8_t MaxStreamFPS = 30;
+constexpr uint32_t FPGABaud = 625000;  // Five core clocks per bit at 3.125 MHz.
 HardwareSerial FPGA(2);
 FrameParser parser;
 FPGALoadResult loadResult = {false, 0, "Not initialized"};
@@ -92,7 +92,7 @@ void handleCommand() {
   if (!strcmp(cmd, "stream")) {
     if (!doc["enabled"].is<bool>()) { error("stream requires enabled true or false"); return; }
     if (doc.containsKey("fps") && (!doc["fps"].is<int>() || doc["fps"].as<int>() < 1 || doc["fps"].as<int>() > MaxStreamFPS)) {
-      error("fps must be an integer from 1 through 18"); return;
+      error("fps must be an integer from 1 through 30"); return;
     }
     streaming = doc["enabled"].as<bool>();
     if (doc.containsKey("fps")) targetFPS = doc["fps"].as<uint8_t>();
