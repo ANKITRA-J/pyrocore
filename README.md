@@ -7,10 +7,9 @@ displays the result.
 
 Get the verified board images from the [v0.4.0 release](https://github.com/ANKITRA-J/pyrocore/releases/tag/v0.4.0).
 
-![PyroCore desktop waiting for a board connection](docs/images/desktop.png)
+https://github.com/user-attachments/assets/5d95ee55-6c60-4a1f-b832-4f7dfd9f5758
 
-*The desktop app waiting for a board connection. Fireworks appear from received
-FPGA frames after connecting.*
+*PyroCore running on Shrike-Fi, with FPGA frames shown in the desktop app.*
 
 ## What it does
 
