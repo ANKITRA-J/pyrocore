@@ -1,0 +1,19 @@
+{
+  "version": "0.4.0",
+  "target": "Shrike-Fi: SLG47910V Rev BB + ESP32-S3, 8 MB flash",
+  "fqbn": "esp32:esp32:esp32s3:CDCOnBoot=cdc,FlashSize=8M,PartitionScheme=default_8MB",
+  "bitstream_sha256": "cfd6c830befcae17a2a23d51869afc16d6371062ca27aa90469cfd3c6eb47b04",
+  "bitstream_bytes": 46408,
+  "filesystem_offset": "0x670000",
+  "filesystem_size": "0x180000",
+  "build_source_commit": "1672e139ef103fc638a0f09eb044ab0d53f64be2",
+  "verified_on_hardware": "2026-11-04",
+  "hardware_result": {
+    "measured_fps": 29.449,
+    "frames": 294,
+    "crc_errors": 0,
+    "header_errors": 0,
+    "timeouts": 0
+  },
+  "notes": "Prebuilt snapshot. Flash with tools/flash_release.py. Not for other board revisions."
+}

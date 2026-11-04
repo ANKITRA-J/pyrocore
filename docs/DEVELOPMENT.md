@@ -85,6 +85,16 @@ directory. Use `--arduino-cli PATH` for a CLI outside PATH, `--arduino-config FI
 for a separate CLI configuration, or `--esp32-tools PATH` / `--libraries PATH` for
 explicit tool/library locations. `--baud` changes upload speed; its default is 115200.
 
+### Publish a prebuilt release
+
+`release/vX.Y.Z/` holds the five flashable outputs plus `SHA256SUMS`, so users
+can flash without the Arduino toolchain. Regenerate it from a successful build
+with the commands in [release/README.md](../release/README.md). The release
+snapshot must match `firmware/pyrocore/data/fpga_bitstream.bin`; bump the folder
+name when the firmware or image changes. `tests/test_release_artifacts.py`
+verifies the checksums, and `tools/flash_release.py --dry-run` prints the exact
+esptool command before touching a board.
+
 ## Using a different board
 
 The desktop and protocol can be reused. A different FPGA/board requires adapting

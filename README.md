@@ -59,8 +59,32 @@ in the remaining commands with `.\.venv\Scripts\python.exe`.
 
 ### Load the board package
 
-For the first installation, install [Arduino CLI](https://docs.arduino.cc/arduino-cli/installation)
-and make `arduino-cli` available in your terminal. Install the pinned dependencies:
+Connect the board to its **native ESP32 USB** port and find its serial port.
+Typical ports are `/dev/cu.usbmodem…` on macOS, `/dev/ttyACM…` on Linux and
+`COM…` on Windows. Close PyroCore and other serial clients. Replace `YOUR_PORT`
+below.
+
+#### Option A — prebuilt release (recommended, no Arduino toolchain)
+
+`release/v0.4.0/` contains the application, bootloader, partition table and
+FPGA filesystem, already built and checksummed. This path needs Python and
+esptool only — not the ESP32 Arduino core.
+
+```sh
+.venv/bin/python -m pip install -r tools/requirements-flash.txt
+.venv/bin/python tools/flash_release.py --port YOUR_PORT
+```
+
+If Arduino's ESP32 core is already installed, the helper finds its bundled
+esptool and the first line is unnecessary. It verifies `SHA256SUMS`, writes all
+five sections and checks the flash hashes; the upload takes about 15 seconds.
+This replaces the existing application and filesystem. See
+[the release notes](release/v0.4.0/FLASHING.md) for the raw esptool equivalent.
+
+#### Option B — build from source with Arduino
+
+Install [Arduino CLI](https://docs.arduino.cc/arduino-cli/installation) and make
+`arduino-cli` available in your terminal. Install the pinned dependencies:
 
 ```sh
 arduino-cli core update-index --additional-urls https://espressif.github.io/arduino-esp32/package_esp32_index.json
@@ -69,14 +93,7 @@ arduino-cli lib update-index
 arduino-cli lib install ArduinoJson@6.21.5
 ```
 
-Connect native USB and find the board's port:
-
-```sh
-arduino-cli board list
-```
-
-Typical ports are `/dev/cu.usbmodem…` on macOS, `/dev/ttyACM…` on Linux and `COM…`
-on Windows. Close PyroCore and other serial clients. Replace `YOUR_PORT` below:
+Then upload the application and FPGA image together:
 
 ```sh
 .venv/bin/python tools/build_firmware.py --bitstream firmware/pyrocore/data/fpga_bitstream.bin --port YOUR_PORT
