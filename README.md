@@ -1,6 +1,6 @@
 # PyroCore
 
-A small fixed-function GPU for the **Vicharak Shrike-Fi** that simulates fireworks.
+A small fixed-function Graphic engine for the **Vicharak Shrike-Fi** that simulates fireworks.
 The FPGA calculates particle motion and renders a 64 × 64 image in eight colours.
 The ESP32 carries commands and frames; the desktop app provides controls and
 displays the result.
