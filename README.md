@@ -9,11 +9,9 @@ Get the verified board images from the [v0.4.0 release](https://github.com/ANKIT
 
 ## Board demo
 
-https://github.com/user-attachments/assets/5d95ee55-6c60-4a1f-b832-4f7dfd9f5758
+![PyroCore running on Shrike-Fi](docs/images/demo.gif)
 
 *PyroCore running on Shrike-Fi, with FPGA frames shown in the desktop app.*
-
-[Watch the full 32-second video](https://github.com/user-attachments/assets/5d95ee55-6c60-4a1f-b832-4f7dfd9f5758).
 
 ## What it does
 
