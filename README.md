@@ -1,25 +1,32 @@
 # PyroCore
 
-A small fixed-function Graphic engine for the **Vicharak Shrike-Fi** that simulates fireworks.
-The FPGA calculates particle motion and renders a 64 × 64 image in eight colours.
-The ESP32 carries commands and frames; the desktop app provides controls and
-displays the result.
+An FPGA graphics accelerator for firework effects on the **Vicharak Shrike-Fi**.
+The FPGA calculates particle motion and draws a 64 × 64 image using an eight-colour
+palette, including black. The ESP32 passes commands and frames between the FPGA
+and desktop app, which provides the controls and displays the result.
 
 Get the verified board images from the [v0.4.0 release](https://github.com/ANKITRA-J/pyrocore/releases/tag/v0.4.0).
+
+## Board demo
 
 https://github.com/user-attachments/assets/5d95ee55-6c60-4a1f-b832-4f7dfd9f5758
 
 *PyroCore running on Shrike-Fi, with FPGA frames shown in the desktop app.*
 
+[Watch the full 32-second video](https://github.com/user-attachments/assets/5d95ee55-6c60-4a1f-b832-4f7dfd9f5758).
+
 ## What it does
 
-- A fixed-function GPU in FPGA fabric: particle simulation and rendering run in hardware.
-- Eight particles with fixed-point motion, gravity, lifetime and short trails.
+- Up to eight particles per burst, with fixed-point motion, gravity, lifetime and short trails.
 - Glitter on every material and pattern, with each spark retaining its colour.
 - Radial, Ring, Willow and dual-colour Pistil patterns; six material presets.
-- Two 64 × 64 × 3-bit framebuffers in dedicated FPGA BRAM.
-- Launch, Clear and Random Show controls, with validated frame reception.
-- A 30 FPS desktop target with 18/7/5 FPS fallbacks for flexibility.
+- Two 64 × 64 × 3-bit framebuffers in dedicated FPGA memory; each frame has 1,536 bytes of pixel data.
+- Launch and Clear commands, plus a desktop Random Show that launches successive bursts.
+- CRC-8 checks on received FPGA frames.
+- About 29.4 FPS on the board at the 30 FPS setting, with 18, 7 and 5 FPS options.
+
+The drawing logic is fixed to these firework effects. Adding other drawing
+operations requires changes to the FPGA design.
 
 The included design targets **SLG47910V Rev BB + ESP32-S3 with 8 MB flash** on
 Shrike-Fi. Other boards need a port; the included binary is device- and board-specific.
@@ -113,7 +120,7 @@ prints a numbered list and asks which one to use; `--port NAME` skips the picker
 and `--list-ports` shows what it detected. If Arduino's ESP32 core is already
 installed, the helper finds its bundled esptool and the first line is
 unnecessary. It verifies `SHA256SUMS`, writes all five sections and checks the
-flash hashes; the upload takes about 15 seconds. This replaces the existing
+flash hashes; upload time depends on the USB connection. This replaces the existing
 application and filesystem. See
 [the release notes](release/v0.4.0/FLASHING.md) for the raw esptool equivalent.
 
@@ -145,16 +152,18 @@ does not install the FPGA image into LittleFS, so use the complete helper packag
 <details>
 <summary>Flash without installing the desktop app</summary>
 
-On a headless machine, install only the flashing dependency and run the flasher:
+On a headless machine, create the environment, install the flashing dependencies
+and run the flasher:
 
 ```sh
+python3 -m venv .venv
 .venv/bin/python -m pip install -r tools/requirements-flash.txt
 .venv/bin/python tools/flash_release.py
 ```
 
-With `setup.sh`, `./setup.sh --flash-only` does the same. `./setup.sh --no-flash`
-prepares the environment without touching the board. These paths flash the board
-but do not give you the desktop app.
+With `setup.sh`, `./setup.sh --flash-only` does the same: it flashes the board
+without installing the desktop app. To install the app and flashing dependencies
+without flashing the board, use `./setup.sh --no-flash`.
 
 </details>
 
@@ -176,17 +185,16 @@ Run from the repository root:
 The app displays received FPGA frames. Idle black frames with a healthy FPS are
 normal; stale or disconnected streams retain the last image with an explicit
 status. Every spark glitters, including its trail; motion continues while a spark
-is hidden. Willow gets a slightly longer Random Show interval for its falling arc. 
-Choose a non-white material to see Pistil's white-core contrast. Scroll the sidebar 
-in a short window. On macOS, `Launch PyroCore.command` is also available after 
+is hidden. Willow gets a slightly longer Random Show interval for its falling arc.
+Choose a non-white material to see Pistil's white-core contrast. Scroll the sidebar
+in a short window. On macOS, `Launch PyroCore.command` is also available after
 installing the app.
 
 For later updates, run `git pull --ff-only`, close the old app and reopen it.
-This release (v0.4.0) changes board communication to 30 FPS with 625000 baud FPGA link, 
-so upgrading from v0.3.0 or earlier requires uploading the matching **v0.4.0 application 
-and FPGA image together** using [the helper above](#flash-the-prebuilt-release-recommended). Updating
-only the desktop app does not enable the faster board link. The 30 FPS target achieves 
-approximately 29.4 FPS on hardware with the 40 Hz render scheduler.
+Version 0.4.0 uses a 625,000-baud link between the ESP32 and FPGA to support the
+30 FPS stream target. When upgrading from v0.3.0 or earlier, upload the matching
+**v0.4.0 application and FPGA image together** using
+[the helper above](#flash-the-prebuilt-release-recommended), then reopen the app.
 
 <details>
 <summary>Troubleshooting</summary>
@@ -194,12 +202,12 @@ approximately 29.4 FPS on hardware with the 40 Hz render scheduler.
 | Symptom | Check |
 |---|---|
 | No board port | Use a data cable and native USB, then refresh. On Linux, check serial-port permissions. |
-| Port busy or upload fails | Close other serial clients and recheck the port/cable. Upload baud defaults to 115200. |
+| Port busy or upload fails | Close other serial clients and recheck the port/cable. Try `--baud 115200` with the flasher if needed. |
 | FPGA image unavailable or no valid frames | Use the matching board and complete helper package, including LittleFS; check the status/error text. |
 | Black image with healthy FPS | Press Launch; particles expire and Clear deliberately produces black frames. |
 | No Pistil option | Update the repository and restart the app. |
 | Pattern 3 rejected or incorrect | Upload the matching v0.4.0 application and FPGA image together. |
-| Stream rate unstable | Select 7 FPS or 5 FPS and check the status/error counters. |
+| Stream rate unstable | Try 18, 7 or 5 FPS and check the status/error counters. |
 | Pistil has no colour contrast | Choose a non-white material; Aluminium makes both groups white. |
 | Controls below the window | Scroll the sidebar or enlarge the window. |
 | Dependency installation fails | Use Python 3.9–3.13 and install into `.venv`. |
@@ -208,10 +216,9 @@ approximately 29.4 FPS on hardware with the 40 Hz render scheduler.
 
 ## Status
 
-Firmware v0.4.0 implements 30 FPS with 625000 baud FPGA UART (5 clocks/bit) and
-40 Hz render scheduler. Physical validation passed with 29.436 FPS measured performance.
-Desktop updated to support 30/18/7/5 FPS stream targets with improved Random Show timing.
-Zero communication errors during testing. Ready for demonstration.
+The v0.4.0 release was tested on the board at **29.436 FPS** with no CRC errors,
+header errors or frame timeouts during the recorded run. The FPGA uses a 40 Hz
+render scheduler; the desktop's 30 FPS setting is the requested stream rate.
 
 For source changes, builds and technical references, see [Development](docs/DEVELOPMENT.md).
 Source attribution and bundled notices are listed in [Credits](docs/CREDITS.md).

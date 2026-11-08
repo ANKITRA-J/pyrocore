@@ -1,9 +1,13 @@
 # PyroCore architecture
 
-PyroCore is a fixed-function GPU that simulates fireworks, implemented on the
+PyroCore is a graphics accelerator for firework effects, implemented on the
 Shrike-Fi FPGA. The FPGA updates particle motion, draws pixels into its own
 memory and sends completed frames to the ESP32. The desktop supplies controls,
 decodes the palette indices and enlarges the 64 × 64 image.
+
+The drawing logic is fixed to the firework effects. Commands select a material
+and pattern, launch a burst, clear the scene or request a frame. Adding other
+drawing operations requires changes to the FPGA design.
 
 ```text
 Desktop controls → ESP32 → FPGA command decoder
